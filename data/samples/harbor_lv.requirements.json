@@ -1,0 +1,175 @@
+{
+  "equipment_type": "lv_switchgear",
+  "requirements": [
+    {
+      "id": "R1",
+      "section": "B",
+      "parameter": "voltage_kv",
+      "source_quote": "System voltage shall be 480 V",
+      "value_number": 480,
+      "unit": "V",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R2",
+      "section": "B",
+      "parameter": "frequency_hz",
+      "source_quote": "three phase, 60 Hz",
+      "value_number": 60,
+      "unit": "Hz",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R3",
+      "section": "B",
+      "parameter": "bus_current_a",
+      "source_quote": "4,000 A continuous",
+      "value_number": 4000,
+      "unit": "A",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R4",
+      "section": "B",
+      "parameter": "bus_material",
+      "source_quote": "tin-plated copper",
+      "value_number": null,
+      "unit": "",
+      "value_text": "tin-plated copper",
+      "mandatory": true
+    },
+    {
+      "id": "R5",
+      "section": "B",
+      "parameter": "short_circuit_ka",
+      "source_quote": "Short-circuit rating must be 85 kA",
+      "value_number": 85,
+      "unit": "kA",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "B",
+      "parameter": "control_voltage_vdc",
+      "source_quote": "Control voltage must be 125 VDC",
+      "value_number": 125,
+      "unit": "VDC",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R7",
+      "section": "C",
+      "parameter": "standards",
+      "source_quote": "listed to UL 1558",
+      "value_number": null,
+      "unit": "",
+      "value_text": "UL 1558",
+      "mandatory": true
+    },
+    {
+      "id": "R8",
+      "section": "C",
+      "parameter": "standards",
+      "source_quote": "comply with IEEE C37.20.1",
+      "value_number": null,
+      "unit": "",
+      "value_text": "IEEE C37.20.1",
+      "mandatory": true
+    },
+    {
+      "id": "R9",
+      "section": "C",
+      "parameter": "breaker_type",
+      "source_quote": "shall be air type",
+      "value_number": null,
+      "unit": "",
+      "value_text": "air",
+      "mandatory": true
+    },
+    {
+      "id": "R10",
+      "section": "C",
+      "parameter": "features",
+      "source_quote": "drawout breakers",
+      "value_number": null,
+      "unit": "",
+      "value_text": "drawout breakers",
+      "mandatory": true
+    },
+    {
+      "id": "R11",
+      "section": "C",
+      "parameter": "features",
+      "source_quote": "Zone selective interlocking shall be provided",
+      "value_number": null,
+      "unit": "",
+      "value_text": "zone selective interlocking",
+      "mandatory": true
+    },
+    {
+      "id": "R12",
+      "section": "C",
+      "parameter": "features",
+      "source_quote": "arc flash maintenance mode shall be provided",
+      "value_number": null,
+      "unit": "",
+      "value_text": "arc flash maintenance mode",
+      "mandatory": true
+    },
+    {
+      "id": "R13",
+      "section": "C",
+      "parameter": "enclosure",
+      "source_quote": "enclosure shall be NEMA 1",
+      "value_number": null,
+      "unit": "",
+      "value_text": "NEMA 1",
+      "mandatory": true
+    },
+    {
+      "id": "R14",
+      "section": "C",
+      "parameter": "cable_entry",
+      "source_quote": "Bottom cable entry is required",
+      "value_number": null,
+      "unit": "",
+      "value_text": "bottom",
+      "mandatory": true
+    },
+    {
+      "id": "R15",
+      "section": "D",
+      "parameter": "max_ambient_c",
+      "source_quote": "Maximum ambient temperature: 40 C",
+      "value_number": 40,
+      "unit": "C",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R16",
+      "section": "D",
+      "parameter": "max_altitude_m",
+      "source_quote": "Site altitude: 250 m",
+      "value_number": 250,
+      "unit": "m",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R17",
+      "section": "D",
+      "parameter": "lead_time_weeks",
+      "source_quote": "ship within 34 weeks",
+      "value_number": 34,
+      "unit": "weeks",
+      "value_text": null,
+      "mandatory": true
+    }
+  ]
+}

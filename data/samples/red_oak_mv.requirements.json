@@ -1,0 +1,185 @@
+{
+  "equipment_type": "mv_switchgear",
+  "requirements": [
+    {
+      "id": "R1",
+      "section": "2.1",
+      "parameter": "voltage_kv",
+      "source_quote": "rated 15 kV maximum",
+      "value_number": 15,
+      "unit": "kV",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R2",
+      "section": "2.1",
+      "parameter": "bil_kv",
+      "source_quote": "BIL of 95 kV",
+      "value_number": 95,
+      "unit": "kV",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R3",
+      "section": "2.1",
+      "parameter": "bus_current_a",
+      "source_quote": "rated 3000 A continuous",
+      "value_number": 3000,
+      "unit": "A",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R4",
+      "section": "2.1",
+      "parameter": "short_circuit_ka",
+      "source_quote": "40 kA symmetrical",
+      "value_number": 40,
+      "unit": "kA",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R5",
+      "section": "2.1",
+      "parameter": "frequency_hz",
+      "source_quote": "frequency is 60 Hz",
+      "value_number": 60,
+      "unit": "Hz",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "2.1",
+      "parameter": "control_voltage_vdc",
+      "source_quote": "control power shall be 125 VDC",
+      "value_number": 125,
+      "unit": "VDC",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R7",
+      "section": "2.2",
+      "parameter": "standards",
+      "source_quote": "built to IEEE C37.20.2",
+      "value_number": null,
+      "unit": "",
+      "value_text": "IEEE C37.20.2",
+      "mandatory": true
+    },
+    {
+      "id": "R8",
+      "section": "2.2",
+      "parameter": "enclosure",
+      "source_quote": "enclosure shall be NEMA 1",
+      "value_number": null,
+      "unit": "",
+      "value_text": "NEMA 1",
+      "mandatory": true
+    },
+    {
+      "id": "R9",
+      "section": "2.2",
+      "parameter": "arc_resistance",
+      "source_quote": "accessibility Type 2B",
+      "value_number": null,
+      "unit": "",
+      "value_text": "Type 2B",
+      "mandatory": true
+    },
+    {
+      "id": "R10",
+      "section": "2.2",
+      "parameter": "standards",
+      "source_quote": "tested to IEEE C37.20.7",
+      "value_number": null,
+      "unit": "",
+      "value_text": "IEEE C37.20.7",
+      "mandatory": true
+    },
+    {
+      "id": "R11",
+      "section": "2.2",
+      "parameter": "breaker_type",
+      "source_quote": "Circuit breakers shall be vacuum type",
+      "value_number": null,
+      "unit": "",
+      "value_text": "vacuum",
+      "mandatory": true
+    },
+    {
+      "id": "R12",
+      "section": "2.2",
+      "parameter": "features",
+      "source_quote": "Remote racking is required",
+      "value_number": null,
+      "unit": "",
+      "value_text": "remote racking",
+      "mandatory": true
+    },
+    {
+      "id": "R13",
+      "section": "2.2",
+      "parameter": "features",
+      "source_quote": "shall be seismic certified",
+      "value_number": null,
+      "unit": "",
+      "value_text": "seismic certified",
+      "mandatory": true
+    },
+    {
+      "id": "R14",
+      "section": "2.2",
+      "parameter": "features",
+      "source_quote": "Infrared windows are preferred",
+      "value_number": null,
+      "unit": "",
+      "value_text": "infrared windows",
+      "mandatory": false
+    },
+    {
+      "id": "R15",
+      "section": "3.1",
+      "parameter": "max_ambient_c",
+      "source_quote": "ambient temperature of 40 C",
+      "value_number": 40,
+      "unit": "C",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R16",
+      "section": "3.1",
+      "parameter": "max_altitude_m",
+      "source_quote": "altitude is 300 m",
+      "value_number": 300,
+      "unit": "m",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R17",
+      "section": "4.1",
+      "parameter": "lead_time_weeks",
+      "source_quote": "within 56 weeks",
+      "value_number": 56,
+      "unit": "weeks",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R18",
+      "section": "4.1",
+      "parameter": "other",
+      "source_quote": "Owner shall witness factory acceptance testing",
+      "value_number": null,
+      "unit": "",
+      "value_text": "Witnessed factory testing",
+      "mandatory": true
+    }
+  ]
+}

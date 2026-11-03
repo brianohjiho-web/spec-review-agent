@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" width="860" height="400" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#475569"/></marker>
+  </defs>
+  <rect width="860" height="400" fill="#ffffff"/>
+  <g font-size="15" text-anchor="middle" fill="#0f172a">
+    <rect x="30" y="150" width="140" height="80" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="100" y="186" font-weight="700">Spec PDF</text>
+    <text x="100" y="208" font-size="13">Text is pulled out</text>
+
+    <rect x="240" y="130" width="170" height="120" rx="8" fill="#dbeafe" stroke="#2563eb"/>
+    <text x="325" y="175" font-weight="700">Claude agent</text>
+    <text x="325" y="198" font-size="13">Reads the spec</text>
+    <text x="325" y="218" font-size="13">Calls the tools</text>
+
+    <rect x="490" y="50" width="170" height="80" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="575" y="86" font-weight="700">Product catalog</text>
+    <text x="575" y="108" font-size="13">Made-up sample data</text>
+
+    <rect x="490" y="250" width="170" height="100" rx="8" fill="#dcfce7" stroke="#16a34a"/>
+    <text x="575" y="284" font-weight="700">Python checks</text>
+    <text x="575" y="306" font-size="13">Decide pass or fail</text>
+    <text x="575" y="326" font-size="13">Verify source quotes</text>
+
+    <rect x="710" y="150" width="125" height="80" rx="8" fill="#fef3c7" stroke="#d97706"/>
+    <text x="772" y="186" font-weight="700">Engineer</text>
+    <text x="772" y="208" font-size="13">Makes the call</text>
+  </g>
+  <g fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)">
+    <path d="M170 190 H238"/>
+    <path d="M410 165 L488 105"/>
+    <path d="M410 215 L488 285"/>
+    <path d="M660 300 C700 300 740 280 765 232"/>
+  </g>
+  <text x="680" y="310" font-size="12" fill="#334155">Results</text>
+  <text x="430" y="32" font-size="19" font-weight="700" text-anchor="middle" fill="#0f172a">How SpecCheck AI works</text>
+  <text x="430" y="382" font-size="13" text-anchor="middle" fill="#334155">Claude reads and explains. Python decides. A person approves.</text>
+</svg>

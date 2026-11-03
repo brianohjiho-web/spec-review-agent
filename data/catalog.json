@@ -1,0 +1,350 @@
+{
+  "note": "Made-up products for a portfolio demo. These are not real ratings from any manufacturer.",
+  "products": [
+    {
+      "id": "MVX-15-1200",
+      "name": "MVX 15 kV Metal-Clad, 1200 A",
+      "equipment_type": "mv_switchgear",
+      "frequency_hz": [
+        60
+      ],
+      "breaker_type": [
+        "vacuum"
+      ],
+      "bus_material": [
+        "copper",
+        "silver-plated copper"
+      ],
+      "cable_entry": [
+        "top",
+        "bottom"
+      ],
+      "voltage_kv": 15,
+      "bil_kv": 95,
+      "bus_current_a": 1200,
+      "short_circuit_ka": 25,
+      "control_voltage_vdc": [
+        125
+      ],
+      "enclosure": [
+        "NEMA 1"
+      ],
+      "arc_resistance": [],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "standards": [
+        "IEEE C37.20.2"
+      ],
+      "features": [
+        "drawout breakers"
+      ],
+      "lead_time_weeks": 30
+    },
+    {
+      "id": "MVX-15-2000",
+      "name": "MVX 15 kV Metal-Clad, 2000 A",
+      "equipment_type": "mv_switchgear",
+      "frequency_hz": [
+        60
+      ],
+      "breaker_type": [
+        "vacuum"
+      ],
+      "bus_material": [
+        "copper",
+        "silver-plated copper"
+      ],
+      "cable_entry": [
+        "top",
+        "bottom"
+      ],
+      "voltage_kv": 15,
+      "bil_kv": 95,
+      "bus_current_a": 2000,
+      "short_circuit_ka": 40,
+      "control_voltage_vdc": [
+        48,
+        125,
+        250
+      ],
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": [],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "standards": [
+        "IEEE C37.20.2"
+      ],
+      "features": [
+        "drawout breakers",
+        "remote racking"
+      ],
+      "lead_time_weeks": 38
+    },
+    {
+      "id": "MVA-15-3000",
+      "name": "MVA 15 kV Arc-Resistant, 3000 A",
+      "equipment_type": "mv_switchgear",
+      "frequency_hz": [
+        60
+      ],
+      "breaker_type": [
+        "vacuum"
+      ],
+      "bus_material": [
+        "copper",
+        "silver-plated copper"
+      ],
+      "cable_entry": [
+        "top",
+        "bottom"
+      ],
+      "voltage_kv": 15,
+      "bil_kv": 95,
+      "bus_current_a": 3000,
+      "short_circuit_ka": 40,
+      "control_voltage_vdc": [
+        125,
+        250
+      ],
+      "enclosure": [
+        "NEMA 1"
+      ],
+      "arc_resistance": [
+        "Type 2",
+        "Type 2B"
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "standards": [
+        "IEEE C37.20.2",
+        "IEEE C37.20.7"
+      ],
+      "features": [
+        "drawout breakers",
+        "remote racking",
+        "seismic certified"
+      ],
+      "lead_time_weeks": 52
+    },
+    {
+      "id": "MVA-15-4000",
+      "name": "MVA 15 kV Arc-Resistant, 4000 A",
+      "equipment_type": "mv_switchgear",
+      "frequency_hz": [
+        60
+      ],
+      "breaker_type": [
+        "vacuum"
+      ],
+      "bus_material": [
+        "copper",
+        "silver-plated copper"
+      ],
+      "cable_entry": [
+        "top",
+        "bottom"
+      ],
+      "voltage_kv": 15,
+      "bil_kv": 95,
+      "bus_current_a": 4000,
+      "short_circuit_ka": 50,
+      "control_voltage_vdc": [
+        125,
+        250
+      ],
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": [
+        "Type 2",
+        "Type 2B"
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "standards": [
+        "IEEE C37.20.2",
+        "IEEE C37.20.7"
+      ],
+      "features": [
+        "drawout breakers",
+        "remote racking",
+        "seismic certified",
+        "infrared windows"
+      ],
+      "lead_time_weeks": 60
+    },
+    {
+      "id": "MVX-27-2000",
+      "name": "MVX 27 kV Metal-Clad, 2000 A",
+      "equipment_type": "mv_switchgear",
+      "frequency_hz": [
+        60
+      ],
+      "breaker_type": [
+        "vacuum"
+      ],
+      "bus_material": [
+        "copper",
+        "silver-plated copper"
+      ],
+      "cable_entry": [
+        "top",
+        "bottom"
+      ],
+      "voltage_kv": 27,
+      "bil_kv": 125,
+      "bus_current_a": 2000,
+      "short_circuit_ka": 25,
+      "control_voltage_vdc": [
+        125
+      ],
+      "enclosure": [
+        "NEMA 1"
+      ],
+      "arc_resistance": [],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "standards": [
+        "IEEE C37.20.2"
+      ],
+      "features": [
+        "drawout breakers"
+      ],
+      "lead_time_weeks": 44
+    },
+    {
+      "id": "MVA-38-3000",
+      "name": "MVA 38 kV Arc-Resistant, 3000 A",
+      "equipment_type": "mv_switchgear",
+      "frequency_hz": [
+        60
+      ],
+      "breaker_type": [
+        "vacuum"
+      ],
+      "bus_material": [
+        "copper",
+        "silver-plated copper"
+      ],
+      "cable_entry": [
+        "top",
+        "bottom"
+      ],
+      "voltage_kv": 38,
+      "bil_kv": 150,
+      "bus_current_a": 3000,
+      "short_circuit_ka": 40,
+      "control_voltage_vdc": [
+        125
+      ],
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": [
+        "Type 2"
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "standards": [
+        "IEEE C37.20.2",
+        "IEEE C37.20.7"
+      ],
+      "features": [
+        "drawout breakers",
+        "remote racking"
+      ],
+      "lead_time_weeks": 58
+    },
+    {
+      "id": "LVS-508-3200",
+      "name": "LVS 508 V Switchgear, 3200 A",
+      "equipment_type": "lv_switchgear",
+      "bil_kv": null,
+      "frequency_hz": [
+        60
+      ],
+      "breaker_type": [
+        "air"
+      ],
+      "bus_material": [
+        "copper",
+        "tin-plated copper"
+      ],
+      "cable_entry": [
+        "top",
+        "bottom"
+      ],
+      "voltage_kv": 0.508,
+      "bus_current_a": 3200,
+      "short_circuit_ka": 65,
+      "control_voltage_vdc": [
+        48,
+        125
+      ],
+      "enclosure": [
+        "NEMA 1"
+      ],
+      "arc_resistance": [],
+      "max_ambient_c": 40,
+      "max_altitude_m": 2000,
+      "standards": [
+        "IEEE C37.20.1",
+        "UL 1558"
+      ],
+      "features": [
+        "drawout breakers",
+        "zone selective interlocking"
+      ],
+      "lead_time_weeks": 24
+    },
+    {
+      "id": "LVS-508-5000",
+      "name": "LVS 508 V Switchgear, 5000 A",
+      "equipment_type": "lv_switchgear",
+      "bil_kv": null,
+      "frequency_hz": [
+        60
+      ],
+      "breaker_type": [
+        "air"
+      ],
+      "bus_material": [
+        "copper",
+        "tin-plated copper"
+      ],
+      "cable_entry": [
+        "top",
+        "bottom"
+      ],
+      "voltage_kv": 0.508,
+      "bus_current_a": 5000,
+      "short_circuit_ka": 100,
+      "control_voltage_vdc": [
+        48,
+        125
+      ],
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": [],
+      "max_ambient_c": 40,
+      "max_altitude_m": 2000,
+      "standards": [
+        "IEEE C37.20.1",
+        "UL 1558"
+      ],
+      "features": [
+        "drawout breakers",
+        "zone selective interlocking",
+        "arc flash maintenance mode"
+      ],
+      "lead_time_weeks": 32
+    }
+  ]
+}

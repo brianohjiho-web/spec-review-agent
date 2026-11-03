@@ -1,0 +1,9 @@
+{
+  "recommended": null,
+  "top_ranked": "MVA-38-3000",
+  "top_ranked_fails": [
+    "arc_resistance",
+    "max_altitude_m",
+    "max_ambient_c"
+  ]
+}

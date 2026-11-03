@@ -1,0 +1,125 @@
+{
+  "equipment_type": "mv_switchgear",
+  "requirements": [
+    {
+      "id": "R1",
+      "section": "2",
+      "parameter": "voltage_kv",
+      "source_quote": "Rated maximum voltage shall be 38 kV",
+      "value_number": 38,
+      "unit": "kV",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R2",
+      "section": "2",
+      "parameter": "bil_kv",
+      "source_quote": "BIL of 150 kV",
+      "value_number": 150,
+      "unit": "kV",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R3",
+      "section": "2",
+      "parameter": "bus_current_a",
+      "source_quote": "Main bus shall be 3000 A",
+      "value_number": 3000,
+      "unit": "A",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R4",
+      "section": "2",
+      "parameter": "short_circuit_ka",
+      "source_quote": "short-circuit rating shall be 40 kA",
+      "value_number": 40,
+      "unit": "kA",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R5",
+      "section": "2",
+      "parameter": "control_voltage_vdc",
+      "source_quote": "Control power shall be 125 VDC",
+      "value_number": 125,
+      "unit": "VDC",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "2",
+      "parameter": "frequency_hz",
+      "source_quote": "at 60 Hz",
+      "value_number": 60,
+      "unit": "Hz",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R7",
+      "section": "3",
+      "parameter": "enclosure",
+      "source_quote": "enclosure shall be NEMA 3R",
+      "value_number": null,
+      "unit": "",
+      "value_text": "NEMA 3R",
+      "mandatory": true
+    },
+    {
+      "id": "R8",
+      "section": "3",
+      "parameter": "arc_resistance",
+      "source_quote": "accessibility Type 2B",
+      "value_number": null,
+      "unit": "",
+      "value_text": "Type 2B",
+      "mandatory": true
+    },
+    {
+      "id": "R9",
+      "section": "3",
+      "parameter": "features",
+      "source_quote": "Remote racking shall be provided",
+      "value_number": null,
+      "unit": "",
+      "value_text": "remote racking",
+      "mandatory": true
+    },
+    {
+      "id": "R10",
+      "section": "4",
+      "parameter": "max_altitude_m",
+      "source_quote": "6,500 ft elevation",
+      "value_number": 6500,
+      "unit": "ft",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R11",
+      "section": "4",
+      "parameter": "max_ambient_c",
+      "source_quote": "rated for 113 F ambient",
+      "value_number": 113,
+      "unit": "F",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R12",
+      "section": "4",
+      "parameter": "lead_time_weeks",
+      "source_quote": "within 64 weeks",
+      "value_number": 64,
+      "unit": "weeks",
+      "value_text": null,
+      "mandatory": true
+    }
+  ]
+}
