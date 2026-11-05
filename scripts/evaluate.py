@@ -7,7 +7,6 @@ Live mode:   python scripts/evaluate.py --live
 """
 import argparse
 import json
-import os
 import sys
 from pathlib import Path
 
@@ -22,6 +21,7 @@ from speccheck.checks import to_catalog_unit
 from speccheck.models import SpecRequirements
 from speccheck.pdf import read_pdf
 from speccheck.review import build_review
+from speccheck.settings import has_api_key
 
 SAMPLES = ROOT / "data" / "samples"
 
@@ -63,7 +63,7 @@ def main():
     parser.add_argument("--live", action="store_true", help="Use Claude. This uses API credits.")
     args = parser.parse_args()
     load_dotenv(ROOT / ".env")
-    if args.live and not os.getenv("ANTHROPIC_API_KEY"):
+    if args.live and not has_api_key():
         sys.exit("Add your ANTHROPIC_API_KEY to the .env file first.")
 
     catalog = load_catalog()
