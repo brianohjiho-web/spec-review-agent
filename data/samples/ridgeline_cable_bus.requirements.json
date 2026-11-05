@@ -1,0 +1,145 @@
+{
+  "equipment_type": "cable_bus",
+  "requirements": [
+    {
+      "id": "R1",
+      "section": "2",
+      "parameter": "voltage_kv",
+      "source_quote": "rated 15 kV maximum",
+      "value_number": 15,
+      "unit": "kV",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R2",
+      "section": "2",
+      "parameter": "bil_kv",
+      "source_quote": "BIL of 95 kV",
+      "value_number": 95,
+      "unit": "kV",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R3",
+      "section": "2",
+      "parameter": "bus_current_a",
+      "source_quote": "Continuous current shall be 3000 A",
+      "value_number": 3000,
+      "unit": "A",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R4",
+      "section": "2",
+      "parameter": "short_circuit_ka",
+      "source_quote": "50 kA symmetrical",
+      "value_number": 50,
+      "unit": "kA",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R5",
+      "section": "2",
+      "parameter": "momentary_ka",
+      "source_quote": "momentary rating of 130 kA peak",
+      "value_number": 130,
+      "unit": "kA",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "2",
+      "parameter": "frequency_hz",
+      "source_quote": "frequency is 60 Hz",
+      "value_number": 60,
+      "unit": "Hz",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R7",
+      "section": "3",
+      "parameter": "bus_material",
+      "source_quote": "Conductors shall be copper",
+      "value_number": null,
+      "unit": "",
+      "value_text": "copper",
+      "mandatory": true
+    },
+    {
+      "id": "R8",
+      "section": "3",
+      "parameter": "insulation",
+      "source_quote": "EPR insulation",
+      "value_number": null,
+      "unit": "",
+      "value_text": "EPR",
+      "mandatory": true
+    },
+    {
+      "id": "R9",
+      "section": "3",
+      "parameter": "enclosure_material",
+      "source_quote": "enclosure shall be aluminum",
+      "value_number": null,
+      "unit": "",
+      "value_text": "aluminum",
+      "mandatory": true
+    },
+    {
+      "id": "R10",
+      "section": "3",
+      "parameter": "features",
+      "source_quote": "ventilated enclosure",
+      "value_number": null,
+      "unit": "",
+      "value_text": "ventilated enclosure",
+      "mandatory": true
+    },
+    {
+      "id": "R11",
+      "section": "3",
+      "parameter": "location",
+      "source_quote": "location is outdoor",
+      "value_number": null,
+      "unit": "",
+      "value_text": "outdoor",
+      "mandatory": true
+    },
+    {
+      "id": "R12",
+      "section": "3",
+      "parameter": "enclosure",
+      "source_quote": "enclosure shall be NEMA 3R",
+      "value_number": null,
+      "unit": "",
+      "value_text": "NEMA 3R",
+      "mandatory": true
+    },
+    {
+      "id": "R13",
+      "section": "3",
+      "parameter": "standards",
+      "source_quote": "comply with IEEE C37.23",
+      "value_number": null,
+      "unit": "",
+      "value_text": "IEEE C37.23",
+      "mandatory": true
+    },
+    {
+      "id": "R14",
+      "section": "4",
+      "parameter": "lead_time_weeks",
+      "source_quote": "within 28 weeks",
+      "value_number": 28,
+      "unit": "weeks",
+      "value_text": null,
+      "mandatory": true
+    }
+  ]
+}

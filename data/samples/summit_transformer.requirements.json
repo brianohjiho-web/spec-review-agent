@@ -1,0 +1,115 @@
+{
+  "equipment_type": "transformer",
+  "requirements": [
+    {
+      "id": "R1",
+      "section": "B",
+      "parameter": "power_kva",
+      "source_quote": "rated 30 MVA",
+      "value_number": 30,
+      "unit": "MVA",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R2",
+      "section": "B",
+      "parameter": "voltage_kv",
+      "source_quote": "Primary voltage shall be 34.5 kV",
+      "value_number": 34.5,
+      "unit": "kV",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R3",
+      "section": "B",
+      "parameter": "bil_kv",
+      "source_quote": "BIL of 150 kV",
+      "value_number": 150,
+      "unit": "kV",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R4",
+      "section": "B",
+      "parameter": "secondary_voltage_kv",
+      "source_quote": "Secondary voltage shall be 13.8 kV",
+      "value_number": 13.8,
+      "unit": "kV",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R5",
+      "section": "B",
+      "parameter": "impedance_pct",
+      "source_quote": "Impedance shall be 8%",
+      "value_number": 8,
+      "unit": "%",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "B",
+      "parameter": "frequency_hz",
+      "source_quote": "frequency is 60 Hz",
+      "value_number": 60,
+      "unit": "Hz",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R7",
+      "section": "C",
+      "parameter": "cooling",
+      "source_quote": "Cooling shall be ONAN",
+      "value_number": null,
+      "unit": "",
+      "value_text": "ONAN",
+      "mandatory": true
+    },
+    {
+      "id": "R8",
+      "section": "C",
+      "parameter": "insulating_fluid",
+      "source_quote": "natural ester",
+      "value_number": null,
+      "unit": "",
+      "value_text": "natural ester",
+      "mandatory": true
+    },
+    {
+      "id": "R9",
+      "section": "C",
+      "parameter": "location",
+      "source_quote": "location is outdoor",
+      "value_number": null,
+      "unit": "",
+      "value_text": "outdoor",
+      "mandatory": true
+    },
+    {
+      "id": "R10",
+      "section": "C",
+      "parameter": "standards",
+      "source_quote": "comply with IEEE C57.12.00",
+      "value_number": null,
+      "unit": "",
+      "value_text": "IEEE C57.12.00",
+      "mandatory": true
+    },
+    {
+      "id": "R11",
+      "section": "D",
+      "parameter": "lead_time_weeks",
+      "source_quote": "within 80 weeks",
+      "value_number": 80,
+      "unit": "weeks",
+      "value_text": null,
+      "mandatory": true
+    }
+  ]
+}

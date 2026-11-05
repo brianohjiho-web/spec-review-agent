@@ -1,0 +1,7 @@
+{
+  "recommended": null,
+  "top_ranked": "NSB-15-5000",
+  "top_ranked_fails": [
+    "bus_current_a"
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "equipment_type": "iso_phase_bus",
+  "requirements": [
+    {
+      "id": "R1",
+      "section": "B",
+      "parameter": "voltage_kv",
+      "source_quote": "rated 15.5 kV maximum",
+      "value_number": 15.5,
+      "unit": "kV",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R2",
+      "section": "B",
+      "parameter": "bil_kv",
+      "source_quote": "BIL of 110 kV",
+      "value_number": 110,
+      "unit": "kV",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R3",
+      "section": "B",
+      "parameter": "bus_current_a",
+      "source_quote": "Continuous current shall be 12,000 A",
+      "value_number": 12000,
+      "unit": "A",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R4",
+      "section": "B",
+      "parameter": "cooling",
+      "source_quote": "self-cooled",
+      "value_number": null,
+      "unit": "",
+      "value_text": "self-cooled",
+      "mandatory": true
+    },
+    {
+      "id": "R5",
+      "section": "B",
+      "parameter": "momentary_ka",
+      "source_quote": "momentary rating shall be 350 kA",
+      "value_number": 350,
+      "unit": "kA",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "B",
+      "parameter": "frequency_hz",
+      "source_quote": "frequency is 60 Hz",
+      "value_number": 60,
+      "unit": "Hz",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R7",
+      "section": "C",
+      "parameter": "bus_material",
+      "source_quote": "Conductors shall be aluminum",
+      "value_number": null,
+      "unit": "",
+      "value_text": "aluminum",
+      "mandatory": true
+    },
+    {
+      "id": "R8",
+      "section": "C",
+      "parameter": "enclosure_material",
+      "source_quote": "the enclosure shall be aluminum",
+      "value_number": null,
+      "unit": "",
+      "value_text": "aluminum",
+      "mandatory": true
+    },
+    {
+      "id": "R9",
+      "section": "C",
+      "parameter": "location",
+      "source_quote": "The bus runs outdoor",
+      "value_number": null,
+      "unit": "",
+      "value_text": "outdoor",
+      "mandatory": true
+    },
+    {
+      "id": "R10",
+      "section": "C",
+      "parameter": "features",
+      "source_quote": "Seal-off bushings are required",
+      "value_number": null,
+      "unit": "",
+      "value_text": "seal-off bushings",
+      "mandatory": true
+    },
+    {
+      "id": "R11",
+      "section": "C",
+      "parameter": "features",
+      "source_quote": "Expansion joints shall be provided",
+      "value_number": null,
+      "unit": "",
+      "value_text": "expansion joints",
+      "mandatory": true
+    },
+    {
+      "id": "R12",
+      "section": "C",
+      "parameter": "features",
+      "source_quote": "Dry air pressurization is preferred",
+      "value_number": null,
+      "unit": "",
+      "value_text": "dry air pressurization",
+      "mandatory": false
+    },
+    {
+      "id": "R13",
+      "section": "C",
+      "parameter": "standards",
+      "source_quote": "comply with IEEE C37.23",
+      "value_number": null,
+      "unit": "",
+      "value_text": "IEEE C37.23",
+      "mandatory": true
+    },
+    {
+      "id": "R14",
+      "section": "D",
+      "parameter": "lead_time_weeks",
+      "source_quote": "within 44 weeks",
+      "value_number": 44,
+      "unit": "weeks",
+      "value_text": null,
+      "mandatory": true
+    }
+  ]
+}

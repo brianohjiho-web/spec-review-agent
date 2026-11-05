@@ -1,0 +1,115 @@
+{
+  "equipment_type": "utility_service",
+  "requirements": [
+    {
+      "id": "R1",
+      "section": "2",
+      "parameter": "voltage_kv",
+      "source_quote": "rated 15 kV maximum",
+      "value_number": 15,
+      "unit": "kV",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R2",
+      "section": "2",
+      "parameter": "bil_kv",
+      "source_quote": "BIL of 95 kV",
+      "value_number": 95,
+      "unit": "kV",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R3",
+      "section": "2",
+      "parameter": "bus_current_a",
+      "source_quote": "Continuous current shall be 1200 A",
+      "value_number": 1200,
+      "unit": "A",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R4",
+      "section": "2",
+      "parameter": "short_circuit_ka",
+      "source_quote": "Short-circuit rating shall be 25 kA",
+      "value_number": 25,
+      "unit": "kA",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R5",
+      "section": "2",
+      "parameter": "frequency_hz",
+      "source_quote": "frequency is 60 Hz",
+      "value_number": 60,
+      "unit": "Hz",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "3",
+      "parameter": "enclosure",
+      "source_quote": "enclosure shall be NEMA 3R",
+      "value_number": null,
+      "unit": "",
+      "value_text": "NEMA 3R",
+      "mandatory": true
+    },
+    {
+      "id": "R7",
+      "section": "3",
+      "parameter": "location",
+      "source_quote": "location is outdoor",
+      "value_number": null,
+      "unit": "",
+      "value_text": "outdoor",
+      "mandatory": true
+    },
+    {
+      "id": "R8",
+      "section": "3",
+      "parameter": "features",
+      "source_quote": "revenue metering",
+      "value_number": null,
+      "unit": "",
+      "value_text": "revenue metering",
+      "mandatory": true
+    },
+    {
+      "id": "R9",
+      "section": "3",
+      "parameter": "features",
+      "source_quote": "utility disconnect",
+      "value_number": null,
+      "unit": "",
+      "value_text": "utility disconnect",
+      "mandatory": true
+    },
+    {
+      "id": "R10",
+      "section": "3",
+      "parameter": "standards",
+      "source_quote": "comply with IEEE C37.20.3",
+      "value_number": null,
+      "unit": "",
+      "value_text": "IEEE C37.20.3",
+      "mandatory": true
+    },
+    {
+      "id": "R11",
+      "section": "4",
+      "parameter": "lead_time_weeks",
+      "source_quote": "within 26 weeks",
+      "value_number": 26,
+      "unit": "weeks",
+      "value_text": null,
+      "mandatory": true
+    }
+  ]
+}

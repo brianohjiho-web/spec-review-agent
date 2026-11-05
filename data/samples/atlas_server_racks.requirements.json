@@ -1,0 +1,85 @@
+{
+  "equipment_type": "server_rack",
+  "requirements": [
+    {
+      "id": "R1",
+      "section": "2",
+      "parameter": "rack_units",
+      "source_quote": "48U high",
+      "value_number": 48,
+      "unit": "U",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R2",
+      "section": "2",
+      "parameter": "rack_width_mm",
+      "source_quote": "600 mm wide",
+      "value_number": 600,
+      "unit": "mm",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R3",
+      "section": "2",
+      "parameter": "rack_power_kw",
+      "source_quote": "support 100 kW",
+      "value_number": 100,
+      "unit": "kW",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R4",
+      "section": "2",
+      "parameter": "static_load_kg",
+      "source_quote": "Static load shall be 3,300 lb",
+      "value_number": 3300,
+      "unit": "lb",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R5",
+      "section": "2",
+      "parameter": "cooling",
+      "source_quote": "direct-to-chip",
+      "value_number": null,
+      "unit": "",
+      "value_text": "direct-to-chip",
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "2",
+      "parameter": "standards",
+      "source_quote": "comply with EIA-310",
+      "value_number": null,
+      "unit": "",
+      "value_text": "EIA-310",
+      "mandatory": true
+    },
+    {
+      "id": "R7",
+      "section": "2",
+      "parameter": "features",
+      "source_quote": "seismic certified",
+      "value_number": null,
+      "unit": "",
+      "value_text": "seismic certified",
+      "mandatory": true
+    },
+    {
+      "id": "R8",
+      "section": "3",
+      "parameter": "lead_time_weeks",
+      "source_quote": "within 16 weeks",
+      "value_number": 16,
+      "unit": "weeks",
+      "value_text": null,
+      "mandatory": true
+    }
+  ]
+}

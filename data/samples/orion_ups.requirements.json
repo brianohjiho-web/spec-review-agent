@@ -1,0 +1,115 @@
+{
+  "equipment_type": "ups",
+  "requirements": [
+    {
+      "id": "R1",
+      "section": "2",
+      "parameter": "power_kw",
+      "source_quote": "rated 1.5 MW",
+      "value_number": 1.5,
+      "unit": "MW",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R2",
+      "section": "2",
+      "parameter": "voltage_kv",
+      "source_quote": "at 480 V",
+      "value_number": 480,
+      "unit": "V",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R3",
+      "section": "2",
+      "parameter": "frequency_hz",
+      "source_quote": "60 Hz",
+      "value_number": 60,
+      "unit": "Hz",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R4",
+      "section": "2",
+      "parameter": "runtime_min",
+      "source_quote": "10 minutes at full load",
+      "value_number": 10,
+      "unit": "minutes",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R5",
+      "section": "2",
+      "parameter": "efficiency_pct",
+      "source_quote": "Efficiency shall be 97%",
+      "value_number": 97,
+      "unit": "%",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "3",
+      "parameter": "battery_type",
+      "source_quote": "lithium-ion",
+      "value_number": null,
+      "unit": "",
+      "value_text": "lithium-ion",
+      "mandatory": true
+    },
+    {
+      "id": "R7",
+      "section": "3",
+      "parameter": "features",
+      "source_quote": "maintenance bypass is required",
+      "value_number": null,
+      "unit": "",
+      "value_text": "maintenance bypass",
+      "mandatory": true
+    },
+    {
+      "id": "R8",
+      "section": "3",
+      "parameter": "features",
+      "source_quote": "Hot-swappable modules are preferred",
+      "value_number": null,
+      "unit": "",
+      "value_text": "hot-swappable modules",
+      "mandatory": false
+    },
+    {
+      "id": "R9",
+      "section": "3",
+      "parameter": "standards",
+      "source_quote": "comply with UL 1778",
+      "value_number": null,
+      "unit": "",
+      "value_text": "UL 1778",
+      "mandatory": true
+    },
+    {
+      "id": "R10",
+      "section": "3",
+      "parameter": "location",
+      "source_quote": "location is indoor",
+      "value_number": null,
+      "unit": "",
+      "value_text": "indoor",
+      "mandatory": true
+    },
+    {
+      "id": "R11",
+      "section": "4",
+      "parameter": "lead_time_weeks",
+      "source_quote": "within 32 weeks",
+      "value_number": 32,
+      "unit": "weeks",
+      "value_text": null,
+      "mandatory": true
+    }
+  ]
+}
