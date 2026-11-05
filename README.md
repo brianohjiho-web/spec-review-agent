@@ -36,12 +36,13 @@ I split the work so each part does what it is best at:
 - **Quotes are checked.** If a quote is not in the spec, or the value is not in the quote, the item goes to Review.
 - **Unknown items are not guessed.** Unknown units, unknown values, and items outside the rules go to Review.
 - **Spec text is treated as data.** The prompt tells Claude not to follow instructions found inside a spec.
-- **Must-have items come first.** A product is recommended only when every must-have passes; a failed or unresolved must-have blocks the recommendation.
-- **MCP checks verify quotes.** The checker compares each requirement quote with the supplied spec text before returning a pass or fail.
+- **Must-have items come first.** A product with a failed must-have item is never recommended.
 
 ## Run it
 
 You need Python 3.11 or newer.
+
+On Windows, you can double-click `run_windows.bat` to set up and start the app. Or use these commands:
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/spec-review-agent.git
@@ -54,17 +55,23 @@ streamlit run app.py
 
 Demo mode works without an API key. It uses requirements I labeled by hand, so it shows the Python checks and the interface without calling Claude.
 
-To review your own PDF with Claude, copy `.env.example` to `.env` and add your [Claude API key](https://platform.claude.com/). This uses API credits, and the PDF text is sent to the Claude API.
+To review your own PDF with Claude, copy `.env.example` to `.env` and add your [Claude API key](https://platform.claude.com/). Keep this file private. It is listed in `.gitignore`, so Git leaves it out. Reviews use API credits, and the PDF text is sent to the Claude API.
 
 ## Website
 
-`website/index.html` is a product page with the sample results built in. Open it in a browser to see it. It does not need Python or an API key. It uses a JavaScript copy of the checks, and it does not call Claude outside of Claude's artifact viewer.
+`docs/index.html` is a product page with the sample results built in. It works with GitHub Pages and needs no Python or API key. It shows sample results only. Live Claude reviews use the Python app.
+
+To publish it, go to **Settings > Pages** in GitHub, choose **Deploy from a branch**, then select **main** and **/docs**.
+
+## Public demo
+
+The app can run on Streamlit Community Cloud. Add `ANTHROPIC_API_KEY` as a secret there. Visitors would use your API credits, so set a spending limit and add `APP_PASSWORD` and `DAILY_REVIEW_LIMIT` as secrets too.
 
 ## Test it
 
 ```bash
 pytest                          # Tests that need no API key
-python scripts/evaluate.py      # Checks the Python rules on 3 sample specs
+python scripts/evaluate.py      # Checks the Python rules on 10 sample specs
 python scripts/evaluate.py --live   # Scores Claude on the sample specs (uses API credits)
 ```
 
@@ -72,7 +79,7 @@ The tests cover the checks, the source quote guardrail, the agent's tool loop, t
 
 | Measure | Result |
 |---|---|
-| Recommendations correct with hand-labeled requirements | 3 of 3 |
+| Recommendations correct with hand-labeled requirements | 10 of 10 |
 | Claude's extraction accuracy | Not measured yet |
 
 The sample specs are short and clean. Real specs are harder, so these results do not predict real-world accuracy.
@@ -96,20 +103,26 @@ The sample specs are short and clean. Real specs are harder, so these results do
 
 ```text
 app.py                  Web app
+run_windows.bat         One-click start for Windows
+upload_to_github.bat    One-click GitHub upload for Windows
 mcp_server.py           MCP server
 speccheck/agent.py      Claude agent and tools
 speccheck/checks.py     Pass or fail rules and quote checks
 speccheck/review.py     Ranking and CSV export
+speccheck/settings.py   API key check and demo limits
+speccheck/theme.py      Page design
 speccheck/pdf.py        PDF reading
+docs/index.html         GitHub Pages site
 data/catalog.json       Made-up product catalog
 data/samples/           Made-up specs and labels
+data/test_specs/        Harder made-up specs to try with Claude
 scripts/evaluate.py     Scoring
 tests/                  Automated tests
 ```
 
 ## Limits
 
-- It covers low-voltage and medium-voltage switchgear only.
+- It covers utility service sections, transformers, cable bus, isolated phase bus, non-segregated bus, switchgear, UPS systems, and server racks only.
 - It reads PDF text, so scanned PDFs do not work yet.
 - It does not read drawings or images.
 - It does not apply altitude or temperature derating. It only compares values to the catalog limits.
@@ -120,7 +133,7 @@ tests/                  Automated tests
 - Run live scoring on more realistic public specs.
 - Add OCR for scanned PDFs.
 - Let an engineer edit results in the app.
-- Add more equipment types, such as transformers and UPS systems.
+- Add more equipment types, such as generators and segregated bus.
 
 ## Built with
 

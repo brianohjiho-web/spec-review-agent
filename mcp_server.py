@@ -19,12 +19,12 @@ def search_catalog(equipment_type: str) -> list[dict]:
 
 
 @server.tool()
-def check_requirements(product_id: str, requirements: list[Requirement], spec_text: str) -> dict:
-    """Check a product against requirements and verify their quotes against the spec text."""
+def check_requirements(product_id: str, requirements: list[Requirement]) -> dict:
+    """Check a product against a list of requirements."""
     product = find_product(CATALOG, product_id)
     if product is None:
         raise ValueError(f"Unknown product: {product_id}")
-    check = check_product(requirements, product, spec_text)
+    check = check_product(requirements, product)
     return {
         "product_id": product_id,
         "mandatory_fails": check.mandatory_fails,
