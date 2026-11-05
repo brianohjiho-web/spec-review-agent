@@ -38,7 +38,12 @@
       "features": [
         "drawout breakers"
       ],
-      "lead_time_weeks": 30
+      "lead_time_weeks": 30,
+      "momentary_ka": null,
+      "insulation": null,
+      "enclosure_material": null,
+      "cooling": null,
+      "location": null
     },
     {
       "id": "MVX-15-2000",
@@ -81,7 +86,12 @@
         "drawout breakers",
         "remote racking"
       ],
-      "lead_time_weeks": 38
+      "lead_time_weeks": 38,
+      "momentary_ka": null,
+      "insulation": null,
+      "enclosure_material": null,
+      "cooling": null,
+      "location": null
     },
     {
       "id": "MVA-15-3000",
@@ -127,7 +137,12 @@
         "remote racking",
         "seismic certified"
       ],
-      "lead_time_weeks": 52
+      "lead_time_weeks": 52,
+      "momentary_ka": null,
+      "insulation": null,
+      "enclosure_material": null,
+      "cooling": null,
+      "location": null
     },
     {
       "id": "MVA-15-4000",
@@ -175,7 +190,12 @@
         "seismic certified",
         "infrared windows"
       ],
-      "lead_time_weeks": 60
+      "lead_time_weeks": 60,
+      "momentary_ka": null,
+      "insulation": null,
+      "enclosure_material": null,
+      "cooling": null,
+      "location": null
     },
     {
       "id": "MVX-27-2000",
@@ -214,7 +234,12 @@
       "features": [
         "drawout breakers"
       ],
-      "lead_time_weeks": 44
+      "lead_time_weeks": 44,
+      "momentary_ka": null,
+      "insulation": null,
+      "enclosure_material": null,
+      "cooling": null,
+      "location": null
     },
     {
       "id": "MVA-38-3000",
@@ -258,7 +283,12 @@
         "drawout breakers",
         "remote racking"
       ],
-      "lead_time_weeks": 58
+      "lead_time_weeks": 58,
+      "momentary_ka": null,
+      "insulation": null,
+      "enclosure_material": null,
+      "cooling": null,
+      "location": null
     },
     {
       "id": "LVS-508-3200",
@@ -300,7 +330,12 @@
         "drawout breakers",
         "zone selective interlocking"
       ],
-      "lead_time_weeks": 24
+      "lead_time_weeks": 24,
+      "momentary_ka": null,
+      "insulation": null,
+      "enclosure_material": null,
+      "cooling": null,
+      "location": null
     },
     {
       "id": "LVS-508-5000",
@@ -344,7 +379,854 @@
         "zone selective interlocking",
         "arc flash maintenance mode"
       ],
+      "lead_time_weeks": 32,
+      "momentary_ka": null,
+      "insulation": null,
+      "enclosure_material": null,
+      "cooling": null,
+      "location": null
+    },
+    {
+      "id": "CBL-15-2000",
+      "name": "CBL 15 kV Cable Bus, 2000 A",
+      "equipment_type": "cable_bus",
+      "voltage_kv": 15,
+      "bil_kv": 95,
+      "bus_current_a": 2000,
+      "short_circuit_ka": 40,
+      "momentary_ka": 104,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "copper"
+      ],
+      "cable_entry": null,
+      "insulation": [
+        "EPR"
+      ],
+      "enclosure_material": [
+        "aluminum"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "ventilated enclosure"
+      ],
+      "lead_time_weeks": 20
+    },
+    {
+      "id": "CBL-15-4000",
+      "name": "CBL 15 kV Cable Bus, 4000 A",
+      "equipment_type": "cable_bus",
+      "voltage_kv": 15,
+      "bil_kv": 95,
+      "bus_current_a": 4000,
+      "short_circuit_ka": 63,
+      "momentary_ka": 164,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "copper"
+      ],
+      "cable_entry": null,
+      "insulation": [
+        "EPR",
+        "XLPE"
+      ],
+      "enclosure_material": [
+        "aluminum"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "ventilated enclosure",
+        "expansion joints"
+      ],
+      "lead_time_weeks": 26
+    },
+    {
+      "id": "CBL-38-3000",
+      "name": "CBL 38 kV Cable Bus, 3000 A",
+      "equipment_type": "cable_bus",
+      "voltage_kv": 38,
+      "bil_kv": 150,
+      "bus_current_a": 3000,
+      "short_circuit_ka": 40,
+      "momentary_ka": 104,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "copper"
+      ],
+      "cable_entry": null,
+      "insulation": [
+        "EPR"
+      ],
+      "enclosure_material": [
+        "aluminum"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "ventilated enclosure"
+      ],
+      "lead_time_weeks": 30
+    },
+    {
+      "id": "IPB-15-8000",
+      "name": "IPB 15.5 kV Iso Phase Bus, 8000 A",
+      "equipment_type": "iso_phase_bus",
+      "voltage_kv": 15.5,
+      "bil_kv": 110,
+      "bus_current_a": 8000,
+      "short_circuit_ka": 105,
+      "momentary_ka": 275,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "aluminum"
+      ],
+      "cable_entry": null,
+      "insulation": null,
+      "enclosure_material": [
+        "aluminum"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "seal-off bushings"
+      ],
+      "lead_time_weeks": 36
+    },
+    {
+      "id": "IPB-15-12000",
+      "name": "IPB 15.5 kV Iso Phase Bus, 12000 A",
+      "equipment_type": "iso_phase_bus",
+      "voltage_kv": 15.5,
+      "bil_kv": 110,
+      "bus_current_a": 12000,
+      "short_circuit_ka": 150,
+      "momentary_ka": 400,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "aluminum"
+      ],
+      "cable_entry": null,
+      "insulation": null,
+      "enclosure_material": [
+        "aluminum"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "seal-off bushings",
+        "expansion joints"
+      ],
+      "lead_time_weeks": 40
+    },
+    {
+      "id": "IPB-27-20000",
+      "name": "IPB 27 kV Iso Phase Bus, 20000 A",
+      "equipment_type": "iso_phase_bus",
+      "voltage_kv": 27,
+      "bil_kv": 150,
+      "bus_current_a": 20000,
+      "short_circuit_ka": 185,
+      "momentary_ka": 500,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "aluminum"
+      ],
+      "cable_entry": null,
+      "insulation": null,
+      "enclosure_material": [
+        "aluminum"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "seal-off bushings",
+        "expansion joints",
+        "dry air pressurization"
+      ],
+      "lead_time_weeks": 54
+    },
+    {
+      "id": "IPB-27-30000",
+      "name": "IPB 27 kV Iso Phase Bus, 30000 A",
+      "equipment_type": "iso_phase_bus",
+      "voltage_kv": 27,
+      "bil_kv": 150,
+      "bus_current_a": 30000,
+      "short_circuit_ka": 220,
+      "momentary_ka": 600,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "aluminum"
+      ],
+      "cable_entry": null,
+      "insulation": null,
+      "enclosure_material": [
+        "aluminum"
+      ],
+      "cooling": [
+        "forced-air"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "seal-off bushings",
+        "expansion joints",
+        "dry air pressurization"
+      ],
+      "lead_time_weeks": 62
+    },
+    {
+      "id": "NSB-5-3000",
+      "name": "NSB 5 kV Non-Seg Bus, 3000 A",
+      "equipment_type": "non_seg_bus",
+      "voltage_kv": 4.76,
+      "bil_kv": 60,
+      "bus_current_a": 3000,
+      "short_circuit_ka": 63,
+      "momentary_ka": 164,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "copper",
+        "tin-plated copper"
+      ],
+      "cable_entry": null,
+      "insulation": null,
+      "enclosure_material": [
+        "aluminum",
+        "steel"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "space heaters",
+        "flexible connections"
+      ],
+      "lead_time_weeks": 18
+    },
+    {
+      "id": "NSB-15-3000",
+      "name": "NSB 15 kV Non-Seg Bus, 3000 A",
+      "equipment_type": "non_seg_bus",
+      "voltage_kv": 15,
+      "bil_kv": 95,
+      "bus_current_a": 3000,
+      "short_circuit_ka": 40,
+      "momentary_ka": 104,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "copper",
+        "tin-plated copper"
+      ],
+      "cable_entry": null,
+      "insulation": null,
+      "enclosure_material": [
+        "aluminum",
+        "steel"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "space heaters",
+        "flexible connections"
+      ],
+      "lead_time_weeks": 22
+    },
+    {
+      "id": "NSB-15-5000",
+      "name": "NSB 15 kV Non-Seg Bus, 5000 A",
+      "equipment_type": "non_seg_bus",
+      "voltage_kv": 15,
+      "bil_kv": 95,
+      "bus_current_a": 5000,
+      "short_circuit_ka": 63,
+      "momentary_ka": 164,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "copper",
+        "tin-plated copper"
+      ],
+      "cable_entry": null,
+      "insulation": null,
+      "enclosure_material": [
+        "aluminum",
+        "steel"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "space heaters",
+        "flexible connections"
+      ],
+      "lead_time_weeks": 28
+    },
+    {
+      "id": "NSB-27-3000",
+      "name": "NSB 27 kV Non-Seg Bus, 3000 A",
+      "equipment_type": "non_seg_bus",
+      "voltage_kv": 27,
+      "bil_kv": 125,
+      "bus_current_a": 3000,
+      "short_circuit_ka": 40,
+      "momentary_ka": 104,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "copper"
+      ],
+      "cable_entry": null,
+      "insulation": null,
+      "enclosure_material": [
+        "aluminum"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "space heaters"
+      ],
       "lead_time_weeks": 32
+    },
+    {
+      "id": "UTL-15-600",
+      "name": "UTL 15 kV Service Section, 600 A",
+      "equipment_type": "utility_service",
+      "voltage_kv": 15,
+      "bil_kv": 95,
+      "bus_current_a": 600,
+      "short_circuit_ka": 25,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.20.3"
+      ],
+      "features": [
+        "utility disconnect"
+      ],
+      "lead_time_weeks": 20,
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000
+    },
+    {
+      "id": "UTL-15-1200",
+      "name": "UTL 15 kV Service Section, 1200 A",
+      "equipment_type": "utility_service",
+      "voltage_kv": 15,
+      "bil_kv": 95,
+      "bus_current_a": 1200,
+      "short_circuit_ka": 25,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.20.3"
+      ],
+      "features": [
+        "utility disconnect",
+        "revenue metering"
+      ],
+      "lead_time_weeks": 24,
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000
+    },
+    {
+      "id": "UTL-38-1200",
+      "name": "UTL 38 kV Service Section, 1200 A",
+      "equipment_type": "utility_service",
+      "voltage_kv": 38,
+      "bil_kv": 150,
+      "bus_current_a": 1200,
+      "short_circuit_ka": 25,
+      "enclosure": [
+        "NEMA 3R"
+      ],
+      "location": [
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.20.3"
+      ],
+      "features": [
+        "utility disconnect",
+        "revenue metering"
+      ],
+      "lead_time_weeks": 32,
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000
+    },
+    {
+      "id": "XFM-15-2500",
+      "name": "XFM 2.5 MVA Transformer, 13.8 kV to 480 V",
+      "equipment_type": "transformer",
+      "power_kva": 2500,
+      "voltage_kv": 15,
+      "secondary_voltage_kv": [
+        0.48
+      ],
+      "bil_kv": 95,
+      "impedance_pct": [
+        5.75
+      ],
+      "cooling": [
+        "ONAN"
+      ],
+      "insulating_fluid": [
+        "mineral oil",
+        "natural ester"
+      ],
+      "location": [
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C57.12.00"
+      ],
+      "features": [],
+      "lead_time_weeks": 52,
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000
+    },
+    {
+      "id": "XFM-38-20000",
+      "name": "XFM 20 MVA Transformer, 34.5 kV to 13.8 kV",
+      "equipment_type": "transformer",
+      "power_kva": 20000,
+      "voltage_kv": 38,
+      "secondary_voltage_kv": [
+        13.8
+      ],
+      "bil_kv": 150,
+      "impedance_pct": [
+        8
+      ],
+      "cooling": [
+        "ONAN",
+        "ONAF"
+      ],
+      "insulating_fluid": [
+        "mineral oil"
+      ],
+      "location": [
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C57.12.00"
+      ],
+      "features": [],
+      "lead_time_weeks": 70,
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000
+    },
+    {
+      "id": "XFM-38-30000",
+      "name": "XFM 30 MVA Transformer, 34.5 kV to 13.8 kV",
+      "equipment_type": "transformer",
+      "power_kva": 30000,
+      "voltage_kv": 38,
+      "secondary_voltage_kv": [
+        13.8
+      ],
+      "bil_kv": 150,
+      "impedance_pct": [
+        8,
+        10
+      ],
+      "cooling": [
+        "ONAN",
+        "ONAF"
+      ],
+      "insulating_fluid": [
+        "mineral oil",
+        "natural ester"
+      ],
+      "location": [
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C57.12.00"
+      ],
+      "features": [],
+      "lead_time_weeks": 78,
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000
+    },
+    {
+      "id": "UPS-480-500",
+      "name": "UPS 500 kW, 480 V",
+      "equipment_type": "ups",
+      "power_kw": 500,
+      "voltage_kv": 0.48,
+      "runtime_min": 5,
+      "battery_type": [
+        "VRLA",
+        "lithium-ion"
+      ],
+      "efficiency_pct": 96,
+      "location": [
+        "indoor"
+      ],
+      "standards": [
+        "UL 1778"
+      ],
+      "features": [
+        "maintenance bypass"
+      ],
+      "lead_time_weeks": 20,
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000
+    },
+    {
+      "id": "UPS-480-1000",
+      "name": "UPS 1 MW, 480 V",
+      "equipment_type": "ups",
+      "power_kw": 1000,
+      "voltage_kv": 0.48,
+      "runtime_min": 5,
+      "battery_type": [
+        "lithium-ion"
+      ],
+      "efficiency_pct": 96.5,
+      "location": [
+        "indoor"
+      ],
+      "standards": [
+        "UL 1778"
+      ],
+      "features": [
+        "maintenance bypass",
+        "hot-swappable modules"
+      ],
+      "lead_time_weeks": 26,
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000
+    },
+    {
+      "id": "UPS-480-1500",
+      "name": "UPS 1.5 MW, 480 V",
+      "equipment_type": "ups",
+      "power_kw": 1500,
+      "voltage_kv": 0.48,
+      "runtime_min": 10,
+      "battery_type": [
+        "lithium-ion"
+      ],
+      "efficiency_pct": 97,
+      "location": [
+        "indoor"
+      ],
+      "standards": [
+        "UL 1778"
+      ],
+      "features": [
+        "maintenance bypass",
+        "hot-swappable modules"
+      ],
+      "lead_time_weeks": 30,
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000
+    },
+    {
+      "id": "RCK-42-20",
+      "name": "RCK 42U Rack, 20 kW",
+      "equipment_type": "server_rack",
+      "rack_units": 42,
+      "rack_power_kw": 20,
+      "static_load_kg": 1200,
+      "rack_width_mm": [
+        600
+      ],
+      "cooling": [
+        "air"
+      ],
+      "standards": [
+        "EIA-310"
+      ],
+      "features": [],
+      "lead_time_weeks": 8
+    },
+    {
+      "id": "RCK-48-60",
+      "name": "RCK 48U Rack, 60 kW",
+      "equipment_type": "server_rack",
+      "rack_units": 48,
+      "rack_power_kw": 60,
+      "static_load_kg": 1500,
+      "rack_width_mm": [
+        600,
+        800
+      ],
+      "cooling": [
+        "air",
+        "rear-door liquid"
+      ],
+      "standards": [
+        "EIA-310"
+      ],
+      "features": [
+        "seismic certified"
+      ],
+      "lead_time_weeks": 12
+    },
+    {
+      "id": "RCK-48-120",
+      "name": "RCK 48U Rack, 120 kW",
+      "equipment_type": "server_rack",
+      "rack_units": 48,
+      "rack_power_kw": 120,
+      "static_load_kg": 1800,
+      "rack_width_mm": [
+        600,
+        800
+      ],
+      "cooling": [
+        "direct-to-chip",
+        "rear-door liquid"
+      ],
+      "standards": [
+        "EIA-310"
+      ],
+      "features": [
+        "seismic certified"
+      ],
+      "lead_time_weeks": 16
     }
   ]
 }
