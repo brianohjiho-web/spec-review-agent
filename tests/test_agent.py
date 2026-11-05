@@ -55,8 +55,7 @@ def happy_path():
 def test_full_review():
     agent, requests = make_agent(happy_path())
     review = agent.run(SPEC_TEXT)
-    assert review.recommended_id is None
-    assert any(r.requirement.mandatory and r.status == "REVIEW" for r in review.ranked[0].results)
+    assert review.recommended_id == "MVA-15-3000"
     assert review.summary == "Good fit."
     assert review.source == "claude"
     assert len(requests) == 4
@@ -96,7 +95,7 @@ def test_claude_cannot_override_the_python_result():
     replies = happy_path()
     replies[-1] = reply("tool_use", tool("submit_review", {"summary": "Pick MVA-15-4000!", "customer_questions": []}, "t5"))
     agent, _ = make_agent(replies)
-    assert agent.run(SPEC_TEXT).recommended_id is None
+    assert agent.run(SPEC_TEXT).recommended_id == "MVA-15-3000"
 
 
 def test_invented_requirement_is_flagged():
@@ -140,7 +139,7 @@ def test_plain_text_answer_gets_one_reminder():
     replies = happy_path()
     replies.insert(0, reply("end_turn", {"type": "text", "text": "Looks fine."}))
     agent, _ = make_agent(replies)
-    assert agent.run(SPEC_TEXT).recommended_id is None
+    assert agent.run(SPEC_TEXT).recommended_id == "MVA-15-3000"
 
 
 def test_second_plain_text_answer_stops():

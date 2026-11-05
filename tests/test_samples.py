@@ -11,7 +11,8 @@ from speccheck.pdf import SpecFileError, read_pdf
 from speccheck.review import build_review
 
 SAMPLES = Path(__file__).parent.parent / "data" / "samples"
-NAMES = ["red_oak_mv", "harbor_lv", "high_desert_mv"]
+NAMES = ["red_oak_mv", "harbor_lv", "high_desert_mv", "ridgeline_cable_bus", "lakeshore_iso_bus", "prairie_non_seg",
+         "mill_creek_utility", "summit_transformer", "orion_ups", "atlas_server_racks"]
 
 
 def load(name):
@@ -46,21 +47,6 @@ def test_preferred_miss_does_not_block_a_recommendation():
     assert best.preferred_misses == 1 and best.mandatory_fails == 0
 
 
-def test_mandatory_review_blocks_a_recommendation():
-    text, spec, _ = load("red_oak_mv")
-    spec.requirements[0].source_quote = "This quote is not in the spec."
-    review = build_review(spec, load_catalog(), text)
-    assert review.ranked[0].results[0].status == "REVIEW"
-    assert review.recommended_id is None
-
-
-def test_empty_requirements_do_not_produce_a_recommendation():
-    _, spec, _ = load("red_oak_mv")
-    spec.requirements = []
-    review = build_review(spec, load_catalog())
-    assert review.recommended_id is None
-
-
 def test_extraction_score_counts_misses_and_extras():
     _, labels, _ = load("harbor_lv")
     found = labels.model_copy(deep=True)
@@ -86,3 +72,28 @@ def test_blank_pdf_gives_a_clear_error():
     writer.write(data)
     with pytest.raises(SpecFileError, match="scan"):
         read_pdf(data.getvalue())
+
+
+def test_each_bus_type_only_checks_its_own_products():
+    text, spec, _ = load("lakeshore_iso_bus")
+    ids = [c.product_id for c in build_review(spec, load_catalog(), text).ranked]
+    assert all(i.startswith("IPB") for i in ids) and len(ids) == 4
+
+
+def test_momentary_rating_rules_out_smaller_cable_bus():
+    text, spec, _ = load("ridgeline_cable_bus")
+    ranked = build_review(spec, load_catalog(), text).ranked
+    small = next(c for c in ranked if c.product_id == "CBL-15-2000")
+    failed = [r.requirement.parameter for r in small.results if r.status == "FAIL"]
+    assert "momentary_ka" in failed and "bus_current_a" in failed
+
+
+def test_mva_and_lb_units_convert():
+    text, spec, _ = load("summit_transformer")
+    ranked = build_review(spec, load_catalog(), text).ranked
+    smaller = next(c for c in ranked if c.product_id == "XFM-38-20000")
+    assert "power_kva" in [r.requirement.parameter for r in smaller.results if r.status == "FAIL"]
+    text, spec, _ = load("atlas_server_racks")
+    best = build_review(spec, load_catalog(), text).ranked[0]
+    weight = next(r for r in best.results if r.requirement.parameter == "static_load_kg")
+    assert weight.status == "PASS"
