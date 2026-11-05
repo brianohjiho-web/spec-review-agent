@@ -11,13 +11,8 @@ def build_review(spec: SpecRequirements, catalog: list[dict], spec_text: str | N
     checks = [check_product(spec.requirements, p, spec_text) for p in by_type(catalog, spec.equipment_type)]
     ranked = rank_products(checks)
     best = ranked[0] if ranked else None
-    # A recommendation needs at least one checked requirement and every must-have must pass.
-    meets_must_haves = (
-        best is not None
-        and bool(spec.requirements)
-        and all(r.status == "PASS" for r in best.results if r.requirement.mandatory)
-    )
-    recommended = best.product_id if meets_must_haves else None
+    # Python picks the product. A product with a mandatory failure is never recommended.
+    recommended = best.product_id if best and best.mandatory_fails == 0 else None
     return Review(equipment_type=spec.equipment_type, ranked=ranked, recommended_id=recommended, **details)
 
 

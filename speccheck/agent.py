@@ -11,6 +11,10 @@ from .review import build_review
 
 DEFAULT_MODEL = "claude-sonnet-5-5"
 MAX_TURNS = 15
+EQUIPMENT_TYPES = [
+    "utility_service", "transformer", "cable_bus", "iso_phase_bus", "non_seg_bus",
+    "mv_switchgear", "lv_switchgear", "ups", "server_rack",
+]
 
 SYSTEM_PROMPT = f"""You review equipment specs for an application engineer.
 
@@ -30,6 +34,9 @@ Rules for save_requirements:
 - Keep the value and unit exactly as written in the spec. Do not convert units.
 - source_quote must be copied word for word from the spec and must contain the value.
 - mandatory is true for "shall", "must", or "required", and false for "preferred" or "should".
+- equipment_type is one of: {", ".join(EQUIPMENT_TYPES)}.
+- For a transformer, voltage_kv is the primary voltage and bus_current_a is not used.
+- Put conductor material in bus_material and peak withstand current in momentary_ka.
 - For text parameters, use these exact values when they fit: {json.dumps(VOCABULARY)}.
 
 Rules for submit_review:
@@ -63,7 +70,7 @@ TOOLS = [
             "additionalProperties": False,
             "required": ["equipment_type", "requirements"],
             "properties": {
-                "equipment_type": {"type": "string", "enum": ["mv_switchgear", "lv_switchgear"]},
+                "equipment_type": {"type": "string", "enum": EQUIPMENT_TYPES},
                 "requirements": {"type": "array", "items": REQUIREMENT_SCHEMA},
             },
         },
@@ -76,7 +83,7 @@ TOOLS = [
             "type": "object",
             "additionalProperties": False,
             "required": ["equipment_type"],
-            "properties": {"equipment_type": {"type": "string", "enum": ["mv_switchgear", "lv_switchgear"]}},
+            "properties": {"equipment_type": {"type": "string", "enum": EQUIPMENT_TYPES}},
         },
     },
     {

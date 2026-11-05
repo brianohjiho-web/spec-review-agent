@@ -20,17 +20,34 @@ class Rule:
 RULES = {
     "voltage_kv": Rule("Rated maximum voltage", "min", "kV"),
     "bil_kv": Rule("Impulse withstand (BIL)", "min", "kV"),
-    "bus_current_a": Rule("Main bus current", "min", "A"),
+    "bus_current_a": Rule("Continuous current", "min", "A"),
     "short_circuit_ka": Rule("Short-circuit rating", "min", "kA"),
+    "momentary_ka": Rule("Momentary rating", "min", "kA"),
     "frequency_hz": Rule("Frequency", "one_of_number", "Hz"),
     "control_voltage_vdc": Rule("Control voltage", "one_of_number", "VDC"),
     "max_ambient_c": Rule("Ambient temperature", "min", "C"),
     "max_altitude_m": Rule("Site altitude", "min", "m"),
     "lead_time_weeks": Rule("Lead time", "max", "weeks"),
+    "power_kva": Rule("Power rating", "min", "kVA"),
+    "power_kw": Rule("Power rating", "min", "kW"),
+    "secondary_voltage_kv": Rule("Secondary voltage", "one_of_number", "kV"),
+    "impedance_pct": Rule("Impedance", "one_of_number", "%"),
+    "runtime_min": Rule("Battery runtime", "min", "min"),
+    "efficiency_pct": Rule("Efficiency", "min", "%"),
+    "rack_units": Rule("Rack height", "min", "U"),
+    "rack_power_kw": Rule("Rack power", "min", "kW"),
+    "static_load_kg": Rule("Static load", "min", "kg"),
+    "rack_width_mm": Rule("Rack width", "one_of_number", "mm"),
     "enclosure": Rule("Enclosure", "one_of_text"),
     "arc_resistance": Rule("Arc resistance", "one_of_text"),
     "breaker_type": Rule("Breaker type", "one_of_text"),
-    "bus_material": Rule("Bus material", "one_of_text"),
+    "bus_material": Rule("Conductor material", "one_of_text"),
+    "insulation": Rule("Cable insulation", "one_of_text"),
+    "enclosure_material": Rule("Enclosure material", "one_of_text"),
+    "cooling": Rule("Cooling", "one_of_text"),
+    "location": Rule("Location", "one_of_text"),
+    "insulating_fluid": Rule("Insulating fluid", "one_of_text"),
+    "battery_type": Rule("Battery type", "one_of_text"),
     "cable_entry": Rule("Cable entry", "one_of_text"),
     "standards": Rule("Standard", "one_of_text"),
     "features": Rule("Feature", "one_of_text"),
@@ -40,9 +57,15 @@ VOCABULARY = {
     "enclosure": ["NEMA 1", "NEMA 3R"],
     "arc_resistance": ["Type 2", "Type 2B"],
     "breaker_type": ["vacuum", "air"],
-    "bus_material": ["copper", "tin-plated copper", "silver-plated copper"],
+    "bus_material": ["copper", "tin-plated copper", "silver-plated copper", "aluminum"],
+    "insulation": ["EPR", "XLPE"],
+    "enclosure_material": ["aluminum", "steel"],
+    "cooling": ["self-cooled", "forced-air", "ONAN", "ONAF", "air", "rear-door liquid", "direct-to-chip"],
+    "location": ["indoor", "outdoor"],
+    "insulating_fluid": ["mineral oil", "natural ester"],
+    "battery_type": ["lithium-ion", "VRLA"],
     "cable_entry": ["top", "bottom"],
-    "standards": ["IEEE C37.20.1", "IEEE C37.20.2", "IEEE C37.20.7", "UL 1558"],
+    "standards": ["IEEE C37.20.1", "IEEE C37.20.2", "IEEE C37.20.7", "IEEE C37.23", "IEEE C37.20.3", "IEEE C57.12.00", "UL 1558", "UL 1778", "EIA-310"],
     "features": [
         "remote racking",
         "infrared windows",
@@ -50,6 +73,16 @@ VOCABULARY = {
         "zone selective interlocking",
         "arc flash maintenance mode",
         "drawout breakers",
+        "ventilated enclosure",
+        "seal-off bushings",
+        "expansion joints",
+        "dry air pressurization",
+        "space heaters",
+        "flexible connections",
+        "revenue metering",
+        "utility disconnect",
+        "maintenance bypass",
+        "hot-swappable modules",
     ],
 }
 
@@ -59,11 +92,22 @@ UNIT_FACTORS = {
     "bil_kv": {"kv": 1},
     "bus_current_a": {"a": 1, "ka": 1000},
     "short_circuit_ka": {"ka": 1, "a": 0.001},
+    "momentary_ka": {"ka": 1, "a": 0.001},
     "frequency_hz": {"hz": 1},
     "control_voltage_vdc": {"v": 1, "vdc": 1},
     "max_altitude_m": {"m": 1, "ft": 0.3048},
     "lead_time_weeks": {"weeks": 1, "week": 1},
     "max_ambient_c": {"c": 1},
+    "power_kva": {"kva": 1, "mva": 1000},
+    "power_kw": {"kw": 1, "mw": 1000},
+    "secondary_voltage_kv": {"kv": 1, "v": 0.001},
+    "impedance_pct": {"%": 1, "percent": 1},
+    "runtime_min": {"min": 1, "minutes": 1},
+    "efficiency_pct": {"%": 1, "percent": 1},
+    "rack_units": {"u": 1, "ru": 1},
+    "rack_power_kw": {"kw": 1},
+    "static_load_kg": {"kg": 1, "lb": 0.45359237},
+    "rack_width_mm": {"mm": 1},
 }
 
 
@@ -160,7 +204,7 @@ def check_requirement(req: Requirement, product: dict, spec_text: Optional[str] 
     elif rule.mode == "max":
         ok = actual <= needed
     else:
-        ok = needed in actual
+        ok = any(abs(needed - value) < 1e-6 for value in actual)
     return result("PASS" if ok else "FAIL", "", shown)
 
 

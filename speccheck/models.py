@@ -4,7 +4,10 @@ from typing import Literal, Optional
 from pydantic import BaseModel, Field
 
 Status = Literal["PASS", "FAIL", "REVIEW"]
-EquipmentType = Literal["mv_switchgear", "lv_switchgear"]
+EquipmentType = Literal[
+    "utility_service", "transformer", "cable_bus", "iso_phase_bus", "non_seg_bus",
+    "mv_switchgear", "lv_switchgear", "ups", "server_rack",
+]
 
 
 class Requirement(BaseModel):
