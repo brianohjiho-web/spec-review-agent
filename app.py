@@ -1,11 +1,12 @@
 """SpecCheck AI web app. Run it with: streamlit run app.py"""
 import json
+import os
 import re
 from html import escape
 from pathlib import Path
 
 import streamlit as st
-from anthropic import APIError
+from anthropic import Anthropic, APIError
 from dotenv import load_dotenv
 
 from speccheck.agent import AgentError, SpecAgent
@@ -47,6 +48,20 @@ SHORT_NAMES = {
 
 load_dotenv(ROOT / ".env")
 st.set_page_config(page_title="SpecCheck AI", layout="wide")
+
+
+def load_streamlit_secrets() -> None:
+    """Copies Streamlit Cloud secrets into settings, if any exist."""
+    try:
+        secrets = dict(st.secrets)
+    except Exception:  # No secrets file, which is normal on a computer.
+        return
+    for name in ("ANTHROPIC_API_KEY", "APP_PASSWORD", "DAILY_REVIEW_LIMIT", "SPECCHECK_MODEL"):
+        if name in secrets and not os.getenv(name):
+            os.environ[name] = str(secrets[name])
+
+
+load_streamlit_secrets()
 
 
 @st.cache_data
@@ -218,9 +233,16 @@ def equipment_panel() -> dict[str, str]:
 
 def claude_panel() -> None:
     html('<div class="sc-h2">Check your own spec</div>')
+    typed_key = ""
     if not has_api_key():
-        st.warning("Add your ANTHROPIC_API_KEY to the .env file, then restart the app.")
-        return
+        typed_key = st.text_input(
+            "Claude API key",
+            type="password",
+            help="Used only for this visit. It isn't saved or stored on GitHub.",
+        ).strip()
+        if not typed_key:
+            st.warning("Add your ANTHROPIC_API_KEY to the .env file, or paste a Claude API key above.")
+            return
     if app_password() and not password_ok(st.text_input("Demo password", type="password")):
         st.info("Enter the demo password to use Claude.")
         return
@@ -234,7 +256,8 @@ def claude_panel() -> None:
         try:
             spec_text = read_pdf(upload.getvalue())
             with st.spinner("Claude is reading the spec. This can take a minute..."):
-                st.session_state["review"] = SpecAgent(catalog()).run(spec_text)
+                client = Anthropic(api_key=typed_key) if typed_key else None
+                st.session_state["review"] = SpecAgent(catalog(), client=client).run(spec_text)
                 st.session_state["review_text"] = spec_text
         except (SpecFileError, AgentError) as error:
             st.error(str(error))
