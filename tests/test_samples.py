@@ -97,3 +97,24 @@ def test_mva_and_lb_units_convert():
     best = build_review(spec, load_catalog(), text).ranked[0]
     weight = next(r for r in best.results if r.requirement.parameter == "static_load_kg")
     assert weight.status == "PASS"
+
+
+def test_budget_and_price():
+    text, spec, _ = load("orion_ups")
+    ranked = build_review(spec, load_catalog(), text).ranked
+    assert ranked[0].price_usd == 650000
+    budget = next(r for r in ranked[0].results if r.requirement.parameter == "price_usd")
+    assert budget.status == "PASS"
+    spec.requirements[-1].value_number = 600000
+    over = build_review(spec, load_catalog(), None).ranked
+    best = next(c for c in over if c.product_id == "UPS-480-1500")
+    assert "price_usd" in [r.requirement.parameter for r in best.results if r.status == "FAIL"]
+
+
+def test_price_breaks_ties():
+    from speccheck.checks import rank_products
+    from speccheck.models import ProductCheck
+
+    cheap = ProductCheck(product_id="a", product_name="a", price_usd=10, results=[])
+    pricey = ProductCheck(product_id="b", product_name="b", price_usd=20, results=[])
+    assert rank_products([pricey, cheap]) == [cheap, pricey]
