@@ -6,7 +6,7 @@ A customer spec can run many pages, and someone has to check every requirement a
 
 ![SpecCheck AI screenshot](docs/screenshot.png)
 
-> All specs and products in this repo are made up for this demo. They are not real ratings from any manufacturer, and this project is not connected to any company.
+> All specs, products, and prices in this repo are made up for this demo. They are not real ratings or prices from any manufacturer, and this project is not connected to any company.
 
 ## What it does
 
@@ -14,9 +14,10 @@ A customer spec can run many pages, and someone has to check every requirement a
 2. Uses Claude to pull out each requirement, along with a word-for-word quote from the spec.
 3. Checks each requirement against the catalog with plain Python rules.
 4. Marks each item as Pass, Fail, or Review.
-5. Ranks the products and recommends one only if it meets every must-have item.
+5. Ranks the products and recommends one only if it meets every must-have item. Ties go to the lower price, and a budget in the spec is checked like any other requirement.
 6. Writes a short summary and lists questions for the customer.
-7. Exports the compliance table as a CSV file.
+7. Estimates the material cost of the best match. Copper, aluminum, lead, and nickel use monthly global prices from FRED. Steel, electrical steel, lithium, and transformer oil use prices you enter. Charts show the last 12 months of prices and price indexes from FRED.
+8. Exports the compliance table as a CSV file.
 
 ## How it works
 
@@ -55,7 +56,7 @@ streamlit run app.py
 
 Demo mode works without an API key. It uses requirements I labeled by hand, so it shows the Python checks and the interface without calling Claude.
 
-To review your own PDF with Claude, copy `.env.example` to `.env` and add your [Claude API key](https://platform.claude.com/). Keep this file private. It is listed in `.gitignore`, so Git leaves it out. Reviews use API credits, and the PDF text is sent to the Claude API.
+To review your own PDF with Claude, paste a key into the app, or copy `.env.example` to `.env` and add your [Claude API key](https://platform.claude.com/). Keep this file private. It is listed in `.gitignore`, so Git leaves it out. Reviews use API credits, and the PDF text is sent to the Claude API.
 
 ## Website
 
@@ -65,7 +66,7 @@ To publish it, go to **Settings > Pages** in GitHub, choose **Deploy from a bran
 
 ## Public demo
 
-The app can run on Streamlit Community Cloud. Add `ANTHROPIC_API_KEY` as a secret there. Visitors would use your API credits, so set a spending limit and add `APP_PASSWORD` and `DAILY_REVIEW_LIMIT` as secrets too.
+The app can run on Streamlit Community Cloud. Add `ANTHROPIC_API_KEY` under **Settings > Secrets** there. The app reads Streamlit secrets directly. Visitors would use your API credits, so set a spending limit and add `APP_PASSWORD` and `DAILY_REVIEW_LIMIT` as secrets too. Without a secret, visitors can paste their own key for one visit instead.
 
 ## Test it
 
@@ -110,6 +111,7 @@ speccheck/agent.py      Claude agent and tools
 speccheck/checks.py     Pass or fail rules and quote checks
 speccheck/review.py     Ranking and CSV export
 speccheck/settings.py   API key check and demo limits
+speccheck/metals.py     Material prices and price history
 speccheck/theme.py      Page design
 speccheck/pdf.py        PDF reading
 docs/index.html         GitHub Pages site

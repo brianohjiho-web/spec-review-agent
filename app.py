@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 from speccheck.agent import AgentError, SpecAgent
 from speccheck.catalog import load_catalog
 from speccheck.checks import RULES
+from speccheck.metals import CHARTS, ENTERED, LB_PER_METRIC_TON, LIVE, latest_prices, material_cost, per_lb
 from speccheck.models import CheckResult, ProductCheck, Review, SpecRequirements
 from speccheck.pdf import SpecFileError, read_pdf
 from speccheck.review import build_review, to_csv
@@ -21,20 +22,20 @@ from speccheck.theme import CSS, FOOTER, HEADER
 ROOT = Path(__file__).parent
 SAMPLES = ROOT / "data" / "samples"
 EQUIPMENT = {
-    "Utility": (":material/electric_bolt:", {"Mill Creek: utility service": "mill_creek_utility"}),
-    "Transformer": (":material/settings_input_component:", {"Summit: 30 MVA transformer": "summit_transformer"}),
+    "Utility": (":material/electric_bolt:", {"Utility service": "mill_creek_utility"}),
+    "Transformer": (":material/settings_input_component:", {"Transformer": "summit_transformer"}),
     "Bus": (":material/view_stream:", {
-        "Ridgeline: cable bus": "ridgeline_cable_bus",
-        "Lakeshore: iso phase bus": "lakeshore_iso_bus",
-        "Prairie: non-seg bus": "prairie_non_seg",
+        "Cable bus": "ridgeline_cable_bus",
+        "Iso phase bus": "lakeshore_iso_bus",
+        "Non-seg bus": "prairie_non_seg",
     }),
     "Switchgear": (":material/dashboard:", {
-        "Project Red Oak: 13.8 kV data center": "red_oak_mv",
-        "Harbor Colo: 480 V service": "harbor_lv",
-        "High Desert: 34.5 kV outdoor": "high_desert_mv",
+        "Medium-voltage switchgear": "red_oak_mv",
+        "Low-voltage switchgear": "harbor_lv",
+        "Outdoor switchgear, 34.5 kV": "high_desert_mv",
     }),
-    "UPS": (":material/battery_charging_full:", {"Orion: 1.5 MW UPS": "orion_ups"}),
-    "Server racks": (":material/dns:", {"Atlas: AI server racks": "atlas_server_racks"}),
+    "UPS": (":material/battery_charging_full:", {"UPS": "orion_ups"}),
+    "Server racks": (":material/dns:", {"Server racks": "atlas_server_racks"}),
 }
 STATUS_LABELS = {"PASS": "Pass", "FAIL": "Fail", "REVIEW": "Review"}
 SHORT_NAMES = {
@@ -44,6 +45,7 @@ SHORT_NAMES = {
     "Short-circuit rating": "Short circuit",
     "Ambient temperature": "Ambient temp",
     "Site altitude": "Altitude",
+    "Price": "Budget",
 }
 
 load_dotenv(ROOT / ".env")
@@ -94,9 +96,13 @@ def label(text: str) -> None:
     html(f'<span class="sc-label">{escape(text)}</span>')
 
 
+def usd(text: str) -> str:
+    return re.sub(r"(\d+(?:\.\d+)?) USD", lambda m: f"${float(m.group(1)):,.0f}", text)
+
+
 def required_text(result: CheckResult) -> str:
     text = re.sub(r"^at least (.*)$", r"\1 min", result.required)
-    return re.sub(r"^at most (.*)$", r"\1 max", text)
+    return usd(re.sub(r"^at most (.*)$", r"\1 max", text))
 
 
 def item_name(result: CheckResult) -> str:
@@ -113,34 +119,165 @@ def note_text(result: CheckResult) -> str:
 
 def compliance_table(check: ProductCheck, status: str) -> str:
     results = [r for r in check.results if status == "All" or STATUS_LABELS[r.status] == status]
-    show_note = any(r.note for r in check.results)
-    note_head = "<th>Note</th>" if show_note else ""
     rows = []
     for r in results:
-        note = f"<td>{escape(note_text(r))}</td>" if show_note else ""
-        product = "—" if r.product_value == "Not checked" else r.product_value
+        product = "—" if r.product_value == "Not checked" else usd(r.product_value)
+        priority = "Must have" if r.requirement.mandatory else "Preferred"
+        note = f'<div class="sc-note">{escape(note_text(r))}</div>' if r.note else ""
+        section = f'<div class="sc-tag">Section {escape(r.requirement.section)}</div>' if r.requirement.section else ""
         rows.append(
-            f'<tr><td><span class="sc-chip {r.status}">{STATUS_LABELS[r.status]}</span></td>'
-            f"<td>{escape(r.requirement.section)}</td><td>{escape(item_name(r))}</td>"
-            f'<td>{"Must have" if r.requirement.mandatory else "Preferred"}</td>'
-            f'<td class="sc-num">{escape(required_text(r))}</td><td class="sc-num">{escape(product)}</td>'
-            f'<td class="sc-quote">{escape(r.requirement.source_quote)}</td>{note}</tr>'
+            f'<tr class="sc-row-{r.status}"><td><span class="sc-chip {r.status}">{STATUS_LABELS[r.status]}</span></td>'
+            f'<td><div class="sc-name">{escape(item_name(r))}</div><div class="sc-tag">{priority}</div></td>'
+            f'<td>{escape(required_text(r))}</td><td>{escape(product)}{note}</td>'
+            f'<td><div class="sc-quote">“{escape(r.requirement.source_quote)}”</div>{section}</td></tr>'
         )
-    body = "".join(rows) or '<tr><td colspan="8">No items with this status.</td></tr>'
+    body = "".join(rows) or '<tr><td colspan="5">No items with this status.</td></tr>'
     return (
-        '<div class="sc-scroll"><table><thead><tr><th>Status</th><th>Section</th><th>Item</th><th>Priority</th>'
-        f"<th>Required</th><th>Product</th><th>Spec wording</th>{note_head}</tr></thead><tbody>{body}</tbody></table></div>"
+        '<div class="sc-scroll"><table><thead><tr><th>Status</th><th>Requirement</th>'
+        f"<th>Spec needs</th><th>Product has</th><th>From the spec</th></tr></thead><tbody>{body}</tbody></table></div>"
+    )
+
+
+def money(value) -> str:
+    return "—" if value is None else f"${value:,.0f}"
+
+
+@st.cache_data(ttl=12 * 60 * 60, show_spinner=False)
+def metal_prices() -> dict:
+    return latest_prices()
+
+
+CALCULATOR = {**{k: (v, "lb") for k, v in LIVE.items()}, **ENTERED}
+
+
+def entered_prices() -> dict:
+    return {key: st.session_state.get(f"price-{key}") or 0.0 for key in CALCULATOR}
+
+
+def materials_table(product_id: str) -> str:
+    product = next((p for p in catalog() if p["id"] == product_id), None)
+    if not product or not product.get("materials_lb"):
+        return ""
+    rows = material_cost(product["materials_lb"], metal_prices(), entered_prices())
+    if not rows:
+        return ""
+    total = sum(r["cost"] for r in rows if r["cost"])
+    share = price_split(product["price_usd"], rows, total) if product.get("price_usd") else ""
+    return (
+        '<div class="sc-type" style="margin-top:10px;background:#e4f1f2;border-color:#dfe5ea">'
+        f'<div class="sc-type-kicker">Material cost estimate: {escape(product["name"])}</div>'
+        f'<div style="font-size:2rem;font-weight:600;line-height:1.15">{money(total)}</div></div>{share}'
+    )
+
+
+def price_split(price: float, rows: list, total: float) -> str:
+    """Splits the product price into each material plus other costs, adding up to 100%."""
+    def pct(value):
+        share = value / price * 100
+        return f"{share:.1f}%" if share < 1 else f"{share:.0f}%"
+
+    parts = [(r["name"], r["cost"], False) for r in rows if r["cost"]]
+    parts.append(("Other costs (labor, parts, overhead)", max(0, price - total), True))
+    body = "".join(
+        f'<div class="sc-split-row"><span>{escape(name)}</span>'
+        f'<div class="sc-split-bar"><span style="width:{max(0.5, value / price * 100):.2f}%;background:{"#566575" if other else "#0b6e76"}"></span></div>'
+        f'<span class="sc-split-num">{money(value)}</span><span class="sc-split-num" style="color:#566575">{pct(value)}</span></div>'
+        for name, value, other in parts
+    )
+    return f'<div class="sc-split"><b>Product price: {money(price)} = 100%</b>{body}</div>'
+
+
+def price_inputs() -> None:
+    prices = metal_prices()
+    with st.expander("Material price calculator"):
+        st.caption("Copper, aluminum, lead, and nickel use FRED prices unless you type your own. "
+                   "Steel, electrical steel, lithium, and transformer oil need a price you enter. Leave a box blank to skip it.")
+        keys = list(CALCULATOR)
+        for row in (keys[:4], keys[4:]):
+            for column, key in zip(st.columns(4), row):
+                name, unit = CALCULATOR[key]
+                hint = f"{per_lb(prices[key]):.2f} from FRED" if key in LIVE else "Enter a price"
+                column.number_input(f"{name} ($/{unit})", min_value=0.0, step=0.05, format="%.2f",
+                                    value=None, placeholder=hint, key=f"price-{key}")
+
+
+def sparkline(history: list, label: str, unit: str, index: bool = False) -> str:
+    """A small line chart drawn as SVG. Hovering a point shows its month and price."""
+    width, height, left, right, top, bottom = 260, 96, 4, 8, 10, 18
+    values = [v for _, v in history]
+    low, high = min(values), max(values)
+    pad = (high - low) * 0.12 or 1
+
+    def x(i):
+        return left + (width - left - right) * i / (len(history) - 1)
+
+    def y(v):
+        return top + (height - top - bottom) * (1 - (v - (low - pad)) / ((high + pad) - (low - pad)))
+
+    points = " ".join(f"{x(i):.1f},{y(v):.1f}" for i, v in enumerate(values))
+    base = height - bottom
+    dots = "".join(
+        f'<circle cx="{x(i):.1f}" cy="{y(v):.1f}" r="7" fill="transparent"><title>{month(d)}: {f"{v:,.1f}" if index else f"${v:,.2f}{unit}"}</title></circle>'
+        for i, (d, v) in enumerate(history)
+    )
+    return (
+        f'<svg viewBox="0 0 {width} {height}" style="width:100%;height:auto;display:block" role="img" '
+        f'aria-label="{escape(label)} price, last 12 months">'
+        f'<line x1="{left}" x2="{width - right}" y1="{base}" y2="{base}" stroke="#dfe5ea"/>'
+        f'<polygon points="{x(0):.1f},{base} {points} {x(len(values) - 1):.1f},{base}" fill="#0b6e76" opacity=".1"/>'
+        f'<polyline points="{points}" fill="none" stroke="#0b6e76" stroke-width="2" stroke-linejoin="round"/>'
+        f'<circle cx="{x(len(values) - 1):.1f}" cy="{y(values[-1]):.1f}" r="4" fill="#0b6e76" stroke="#fff" stroke-width="2"/>'
+        f'<text x="{left}" y="{height - 4}" font-size="10" fill="#566575">{month(history[0][0])}</text>'
+        f'<text x="{width - right}" y="{height - 4}" font-size="10" fill="#566575" text-anchor="end">{month(history[-1][0])}</text>'
+        f"{dots}</svg>"
+    )
+
+
+def month(date: str) -> str:
+    year, number = date[:4], int(date[5:7])
+    names = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    return f"{names[number - 1]} {year[2:]}"
+
+
+def price_charts() -> None:
+    prices = metal_prices()
+    cards = ""
+    for key, (name, kind, note) in CHARTS.items():
+        if kind == "none":
+            cards += (f'<div class="sc-trend"><div class="sc-tag" style="font-weight:600">{name}</div>'
+                      f'<p class="sc-small" style="margin:0">{note}. Enter your own price in the calculator.</p></div>')
+            continue
+        history = [[d, v / LB_PER_METRIC_TON if kind == "ton" else v] for d, v in prices[key]["history"]]
+        first, last = history[0][1], history[-1][1]
+        change = (last - first) / first * 100
+        arrow, color = ("▲ +", "#17603a") if change >= 0 else ("▼ ", "#96231a")
+        if kind == "index":
+            shown, unit = f"Index {last:,.1f}", ""
+        else:
+            unit = "/bbl" if kind == "barrel" else "/lb"
+            shown = f"${last:,.2f}{unit}"
+        sub = f'<div class="sc-tag">{note}</div>' if note else ""
+        cards += (
+            f'<div class="sc-trend"><div class="sc-tag" style="font-weight:600">{name}</div>{sub}'
+            f'<div><b style="font-size:1.15rem">{shown}</b> '
+            f'<span style="font-size:.78rem;color:{color}">{arrow}{change:.0f}% in 12 mo</span></div>'
+            f"{sparkline(history, name, unit, kind == 'index')}</div>"
+        )
+    html(
+        '<div class="sc-h2" style="font-size:1.05rem;margin-top:22px">Price trends, last 12 months</div>'
+        f'<div class="sc-trends">{cards}</div>'
     )
 
 
 def products_table(review: Review) -> str:
     rows = "".join(
-        f'<tr><td>{escape(c.product_name)}</td><td class="sc-num">{c.mandatory_fails}</td>'
+        f'<tr><td>{escape(c.product_name)}</td><td class="sc-num">{money(c.price_usd)}</td>'
+        f'<td class="sc-num">{c.mandatory_fails}</td>'
         f'<td class="sc-num">{c.preferred_misses}</td><td class="sc-num">{c.reviews}</td></tr>'
         for c in review.ranked
     )
     return (
-        '<div class="sc-scroll small"><table><thead><tr><th>Product</th><th>Must-haves missed</th>'
+        '<div class="sc-scroll small"><table><thead><tr><th>Product</th><th>Price</th><th>Must-haves missed</th>'
         f"<th>Preferred items missed</th><th>To review</th></tr></thead><tbody>{rows}</tbody></table></div>"
     )
 
@@ -165,9 +302,50 @@ def result_panel(review: Review) -> str:
     )
 
 
-def show_review(review: Review, spec_text: str) -> None:
+def type_box(equipment_type: str) -> None:
+    name, text = TYPE_INFO[equipment_type]
+    html(f'<div class="sc-type"><div class="sc-type-kicker">What this equipment is</div>'
+         f'<b>{escape(name)}</b><p>{escape(text)}</p></div>')
+
+
+def doc_html(text: str) -> str:
+    """Shows spec text like a page in a document editor: title, headings, and full paragraphs."""
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+
+    def is_heading(line: str) -> bool:
+        return bool(re.match(r"^(\d+(\.\d+)*\.?|[A-Z]\.)\s+\S", line)) and len(line) < 70 and not line.endswith((".", ":", ";"))
+
+    i, title = 1, lines[0] if lines else ""
+    while (i < len(lines) and not is_heading(lines[i]) and not title.endswith(".")
+           and not lines[i].lower().startswith("sample document") and len(lines[i]) < 40):
+        title += " " + lines[i]
+        i += 1
+    parts, paragraph = [f"<h1>{escape(title)}</h1>"] if title else [], []
+
+    def flush():
+        if paragraph:
+            joined = " ".join(paragraph)
+            note = ' class="sc-docnote"' if joined.lower().startswith("sample document") else ""
+            parts.append(f"<p{note}>{escape(joined)}</p>")
+            paragraph.clear()
+
+    for line in lines[i:]:
+        if is_heading(line):
+            flush()
+            parts.append(f"<h2>{escape(line)}</h2>")
+        else:
+            paragraph.append(line)
+            if line.lower().startswith("sample document"):
+                flush()
+    flush()
+    return f'<div class="sc-docwrap"><article class="sc-docpage">{"".join(parts)}</article></div>'
+
+
+def show_review(review: Review, spec_text: str, show_type: bool = True) -> None:
     band = "band-match" if review.recommended_id else "band-gap"
     with st.container(key=band):
+        if show_type:
+            type_box(review.equipment_type)
         label("Result")
         html(result_panel(review))
 
@@ -193,14 +371,65 @@ def show_review(review: Review, spec_text: str) -> None:
         )
 
     with st.container(key="band-products"):
-        label("Compare")
-        html('<div class="sc-h2">Product comparison</div>')
-        html(products_table(review))
+        label("Costs")
+        html('<div class="sc-h2">Material cost</div>')
+        html(materials_table(review.ranked[0].product_id))
+        price_inputs()
+        price_charts()
 
     with st.container(key="band-spec"):
         label("Source")
         with st.expander("View original spec"):
-            html(f'<pre class="sc-spec">{escape(spec_text)}</pre>')
+            html(doc_html(spec_text))
+
+
+TYPE_INFO = {
+    "utility_service": [
+        "Utility service section",
+        "Where power from the power company comes into the site. It holds the main shutoff and the power meter."
+    ],
+    "transformer": [
+        "Transformer",
+        "Changes the voltage. It steps high voltage down to a lower voltage the site can use."
+    ],
+    "cable_bus": [
+        "Cable bus",
+        "Insulated cables held in a vented metal tray with a cover. It carries a lot of current between equipment, like from a transformer to switchgear."
+    ],
+    "iso_phase_bus": [
+        "Iso phase bus",
+        "Each of the three phases runs in its own metal tube. It carries very high current, like between a power plant's generator and its transformer."
+    ],
+    "non_seg_bus": [
+        "Non-seg bus",
+        "Metal bars for all three phases share one metal housing. It's a common way to connect a transformer to switchgear."
+    ],
+    "mv_switchgear": [
+        "Medium-voltage switchgear",
+        "Cabinets with breakers for power above 1,000 volts. They send power to different parts of the site and shut it off safely if something goes wrong."
+    ],
+    "lv_switchgear": [
+        "Low-voltage switchgear",
+        "Cabinets with breakers for power at 1,000 volts or less, like 480 volts. They feed equipment inside the building."
+    ],
+    "ups": [
+        "UPS",
+        "Battery backup. It keeps power on for a few minutes during an outage until the generators start."
+    ],
+    "server_rack": [
+        "Server racks",
+        "Frames that hold servers. These are built for AI computers that use a lot of power and need liquid cooling."
+    ]
+}
+
+EQUIPMENT_INFO = {
+    "Utility": "Where power from the power company enters the site. It has the main shutoff and the power meter.",
+    "Transformer": "Changes the voltage. It usually steps high voltage down to a level the site can use.",
+    "Bus": "Metal bars or cables inside a metal housing that carry a lot of current between equipment. Cable bus uses cables, iso phase bus gives each phase its own housing, and non-seg bus puts all three phases in one housing.",
+    "Switchgear": "Large cabinets with breakers. They send power to different parts of the site and shut it off safely when something goes wrong.",
+    "UPS": "Battery backup. It keeps power on for a few minutes during an outage until the generators start.",
+    "Server racks": "Frames that hold the servers and computers that use the power."
+}
 
 
 def pick_equipment(name: str) -> None:
@@ -225,14 +454,16 @@ def equipment_panel() -> dict[str, str]:
                 on_click=pick_equipment,
                 args=(name,),
             )
-        html('<p class="sc-small">Click equipment to see its sample specs. Click it again to see them all.</p>')
+        if chosen:
+            html(f'<div class="sc-panel" style="margin-top:14px"><b>{escape(chosen)}</b><p style="margin:4px 0 0">{escape(EQUIPMENT_INFO[chosen])}</p></div>')
+        html('<p class="sc-small">Click equipment to see what it is and its sample specs. Click it again to see them all.</p>')
     if chosen:
         return EQUIPMENT[chosen][1]
     return {spec: file for _, specs in EQUIPMENT.values() for spec, file in specs.items()}
 
 
 def claude_panel() -> None:
-    html('<div class="sc-h2">Check your own spec</div>')
+    html('<div class="sc-h2" style="margin-top:28px">Check your own spec</div>')
     typed_key = ""
     if not has_api_key():
         typed_key = st.text_input(
@@ -248,17 +479,17 @@ def claude_panel() -> None:
         return
 
     upload = st.file_uploader("Spec PDF", type="pdf")
-    st.caption("Your text is sent to Claude and uses API credits. Don't upload confidential documents.")
     if upload and st.button("Run review", type="primary"):
         if not review_counter().take(daily_limit()):
             st.warning("Today's review limit has been reached. Please try again tomorrow.")
             return
         try:
             spec_text = read_pdf(upload.getvalue())
-            with st.spinner("Claude is reading the spec. This can take a minute..."):
+            with st.spinner(""):
                 client = Anthropic(api_key=typed_key) if typed_key else None
                 st.session_state["review"] = SpecAgent(catalog(), client=client).run(spec_text)
                 st.session_state["review_text"] = spec_text
+                st.session_state["showing"] = "claude"
         except (SpecFileError, AgentError) as error:
             st.error(str(error))
         except APIError as error:
@@ -269,37 +500,36 @@ html(CSS)
 html(HEADER)
 sample_names = equipment_panel()
 
+def show_samples() -> None:
+    st.session_state["showing"] = "sample"
+
+
 with st.container(key="band-demo"):
     label("Demo")
-    mode = st.segmented_control(
-        "Mode",
-        ["Sample specs", "Check your own spec"],
-        default="Sample specs",
+    html('<div class="sc-h2">Pick a sample spec</div>')
+    names = list(sample_names)
+    name = st.segmented_control(
+        "Sample spec",
+        names,
+        default=names[0],
+        key=f"sample-{st.session_state.get('equipment')}",
+        on_change=show_samples,
         label_visibility="collapsed",
-    ) or "Sample specs"
-    if mode == "Sample specs":
-        html('<div class="sc-h2">Pick a sample spec</div>')
-        names = list(sample_names)
-        name = st.segmented_control(
-            "Sample spec",
-            names,
-            default=names[0],
-            key=f"sample-{st.session_state.get('equipment')}",
-            label_visibility="collapsed",
-        ) or names[0]
-        sample = sample_names[name]
-        st.download_button(
-            "Download this sample PDF",
-            (SAMPLES / f"{sample}.pdf").read_bytes(),
-            file_name=f"{sample}.pdf",
-            mime="application/pdf",
-        )
-    else:
-        claude_panel()
+    ) or names[0]
+    sample = sample_names[name]
+    sample_review, sample_text = saved_review(sample)
+    type_box(sample_review.equipment_type)
+    st.download_button(
+        "Download this sample PDF",
+        (SAMPLES / f"{sample}.pdf").read_bytes(),
+        file_name=f"{sample}.pdf",
+        mime="application/pdf",
+    )
+    claude_panel()
 
-if mode == "Sample specs":
-    show_review(*saved_review(sample))
-elif "review" in st.session_state:
+if st.session_state.get("showing") == "claude" and "review" in st.session_state:
     show_review(st.session_state["review"], st.session_state["review_text"])
+else:
+    show_review(sample_review, sample_text, show_type=False)
 
 html(FOOTER)
