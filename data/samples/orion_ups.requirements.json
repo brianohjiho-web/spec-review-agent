@@ -110,6 +110,16 @@
       "unit": "weeks",
       "value_text": null,
       "mandatory": true
+    },
+    {
+      "id": "R12",
+      "section": "4",
+      "parameter": "price_usd",
+      "source_quote": "budget for the UPS system is $700,000",
+      "value_number": 700000,
+      "unit": "USD",
+      "value_text": null,
+      "mandatory": true
     }
   ]
 }
