@@ -37,6 +37,7 @@ class CheckResult(BaseModel):
 class ProductCheck(BaseModel):
     product_id: str
     product_name: str
+    price_usd: Optional[float] = None
     results: list[CheckResult]
 
     @property

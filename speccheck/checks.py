@@ -28,6 +28,7 @@ RULES = {
     "max_ambient_c": Rule("Ambient temperature", "min", "C"),
     "max_altitude_m": Rule("Site altitude", "min", "m"),
     "lead_time_weeks": Rule("Lead time", "max", "weeks"),
+    "price_usd": Rule("Price", "max", "USD"),
     "power_kva": Rule("Power rating", "min", "kVA"),
     "power_kw": Rule("Power rating", "min", "kW"),
     "secondary_voltage_kv": Rule("Secondary voltage", "one_of_number", "kV"),
@@ -98,6 +99,7 @@ UNIT_FACTORS = {
     "max_altitude_m": {"m": 1, "ft": 0.3048},
     "lead_time_weeks": {"weeks": 1, "week": 1},
     "max_ambient_c": {"c": 1},
+    "price_usd": {"usd": 1, "$": 1, "dollars": 1},
     "power_kva": {"kva": 1, "mva": 1000},
     "power_kw": {"kw": 1, "mw": 1000},
     "secondary_voltage_kv": {"kv": 1, "v": 0.001},
@@ -210,9 +212,13 @@ def check_requirement(req: Requirement, product: dict, spec_text: Optional[str] 
 
 def check_product(requirements: list[Requirement], product: dict, spec_text: Optional[str] = None) -> ProductCheck:
     results = [check_requirement(r, product, spec_text) for r in requirements]
-    return ProductCheck(product_id=product["id"], product_name=product["name"], results=results)
+    return ProductCheck(product_id=product["id"], product_name=product["name"],
+                        price_usd=product.get("price_usd"), results=results)
 
 
 def rank_products(checks: list[ProductCheck]) -> list[ProductCheck]:
-    """Best first. Python's sort keeps catalog order for ties, and the catalog runs small to large."""
-    return sorted(checks, key=lambda c: (c.mandatory_fails, c.reviews, c.preferred_misses))
+    """Best first. Ties go to the lower price, then to catalog order."""
+    def price(c: ProductCheck) -> float:
+        return c.price_usd if c.price_usd is not None else float("inf")
+
+    return sorted(checks, key=lambda c: (c.mandatory_fails, c.reviews, c.preferred_misses, price(c)))

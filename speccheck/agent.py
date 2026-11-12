@@ -37,6 +37,7 @@ Rules for save_requirements:
 - equipment_type is one of: {", ".join(EQUIPMENT_TYPES)}.
 - For a transformer, voltage_kv is the primary voltage and bus_current_a is not used.
 - Put conductor material in bus_material and peak withstand current in momentary_ka.
+- Put a budget or maximum price in price_usd with unit USD.
 - For text parameters, use these exact values when they fit: {json.dumps(VOCABULARY)}.
 
 Rules for submit_review:
@@ -206,6 +207,7 @@ class SpecAgent:
         check = check_product(self.spec.requirements, product, self.spec_text)
         return {
             "product_id": product_id,
+            "price_usd": check.price_usd,
             "mandatory_fails": check.mandatory_fails,
             "preferred_misses": check.preferred_misses,
             "needs_review": check.reviews,

@@ -57,6 +57,39 @@ h1,h2,h3,p{font-family:"IBM Plex Sans",-apple-system,"Segoe UI",sans-serif}
 .stButton button[kind="primary"]{background:var(--accent);border-color:var(--accent);color:#fff}
 .sc-spec{white-space:pre-wrap;overflow-wrap:anywhere;font:400 .85rem/1.55 "IBM Plex Mono",Consolas,monospace;margin:0}
 @media (max-width:780px){.sc-hero{grid-template-columns:1fr;gap:26px;padding-block:24px 36px}.sc-cards{grid-template-columns:1fr}.sc-counts div{padding-inline:10px}}
+
+.st-key-band-demo,.st-key-band-match,.st-key-band-gap,.st-key-band-table,.st-key-band-products,.st-key-band-spec,.st-key-band-path{background:#fff!important;border-top:1px solid var(--line)}
+.sc-label{background:none;color:var(--accent);padding:0;border-radius:0;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase}
+.sc-card,.c-blue,.c-teal,.c-amber{background:#f6f8fa;border:1px solid var(--line);color:var(--accent)}
+.sc-card svg{max-width:110px!important}
+.sc-preview{box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.sc-type{background:#e4f1f2;border:1px solid var(--accent);border-radius:8px;padding:18px 20px;margin:14px 0}
+.sc-type-kicker{color:var(--accent);text-transform:uppercase;letter-spacing:.06em;font-size:.76rem;font-weight:600}
+.sc-type b{display:block;font-size:1.2rem;color:var(--ink);margin-top:4px}
+.sc-type p{font-size:1.05rem;line-height:1.55;margin:6px 0 0;max-width:70ch;color:var(--ink)}
+.sc-scroll td{vertical-align:middle}
+.sc-row-FAIL{background:#fdf1ef}.sc-row-REVIEW{background:#fef8e8}
+.sc-name{font-weight:600}.sc-tag{font-size:.78rem;color:var(--muted);margin-top:2px}
+.sc-note{font-size:.8rem;color:#8a5a0c;margin-top:4px}
+.sc-quote{font-style:italic}
+.sc-mine td{font-weight:600;background:#e4f1f2}
+.sc-scroll td .sc-tag,.sc-scroll td .sc-name{text-align:left;display:block}
+.sc-trends{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:10px}
+.sc-trend,.sc-trend div{text-align:left!important}
+.sc-trend{align-content:start;border:1px solid var(--line);border-radius:8px;padding:12px;background:#fff;min-width:0;display:grid;gap:6px}
+@media (max-width:900px){.sc-trends{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.sc-docwrap{background:#eaeef2;border-radius:6px;padding:24px 16px}
+.sc-docpage{background:#fff;color:#202124;max-width:720px;margin:0 auto;padding:56px 64px;box-shadow:0 1px 3px rgba(60,64,67,.3),0 4px 8px rgba(60,64,67,.15);font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;font-size:11pt;line-height:1.5}
+.sc-docpage h1{font-family:Arial,sans-serif;font-size:20pt;font-weight:400;margin:0 0 6px;padding:0;line-height:1.25;color:#202124}
+.sc-docpage h2{font-family:Arial,sans-serif;font-size:13pt;font-weight:700;margin:18px 0 4px;padding:0;color:#202124}
+.sc-docpage p{margin:0 0 8px;font-family:Arial,sans-serif;color:#202124}
+.sc-docpage .sc-docnote{font-style:italic;color:#5f6368;margin-bottom:14px}
+@media (max-width:600px){.sc-docpage{padding:28px 20px}}
+.sc-split{display:grid;gap:8px;border:1px solid var(--line);border-radius:8px;padding:16px 18px;background:#fff;margin:10px 0}
+.sc-split-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,2fr) 7rem 3.2rem;gap:12px;align-items:center;font-size:.9rem;text-align:left}
+.sc-split-bar{height:8px;background:#eaeef2;border-radius:4px;overflow:hidden}
+.sc-split-bar span{display:block;height:100%;border-radius:4px}
+.sc-split-num{text-align:right;font-variant-numeric:tabular-nums}
 </style>
 """
 
@@ -90,10 +123,10 @@ _FLAG = (f'<svg {_ART}><rect x="36" y="10" width="128" height="90" rx="5" fill="
 
 HEADER = f"""
 <header class="sc-band"><div class="sc-wrap">
-<div class="sc-nav"><div class="sc-brand">{LOGO}SpecCheck AI</div><div class="sc-tag"><b>By Brian Oh</b> · Sample data only</div></div>
+<div class="sc-nav"><div class="sc-brand">{LOGO}SpecCheck AI</div><div class="sc-tag"><b>By Brian Oh</b></div></div>
 <div class="sc-hero"><div><h1>Spec review for power equipment</h1>
 <p class="sc-lede">Upload a customer spec. SpecCheck AI checks it against a product catalog and shows what passes, what fails, and what an engineer should review.</p></div>
-<div class="sc-visual">{LINEUP}<div class="sc-preview"><small>Sample result</small>
+<div class="sc-visual"><div class="sc-preview"><small>Sample result</small>
 <div class="sc-prow"><span>Current: 3000 A</span><span class="sc-chip PASS">Pass</span></div>
 <div class="sc-prow"><span>Infrared windows</span><span class="sc-chip FAIL">Fail</span></div>
 <div class="sc-prow"><span>Witnessed factory test</span><span class="sc-chip REVIEW">Review</span></div></div></div></div>
