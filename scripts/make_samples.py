@@ -172,7 +172,7 @@ SPECS = {
             "The system shall comply with UL 1778.",
             "The location is indoor.",
         ]),
-        ("4. Delivery", ["Delivery shall be within 32 weeks."]),
+        ("4. Delivery and budget", ["Delivery shall be within 32 weeks.", "The budget for the UPS system is $700,000."]),
     ]),
     "atlas_server_racks": ("Atlas AI Hall: Server Racks", [
         ("1. Scope", ["Furnish server racks for high-density AI systems at a fictional data hall."]),
@@ -362,6 +362,7 @@ LABELS = {
             (("3", "standards", "comply with UL 1778"), dict(text="UL 1778")),
             (("3", "location", "location is indoor"), dict(text="indoor")),
             (("4", "lead_time_weeks", "within 32 weeks"), dict(number=32, unit="weeks")),
+            (("4", "price_usd", "budget for the UPS system is $700,000"), dict(number=700000, unit="USD")),
         ]),
     },
     "atlas_server_racks": {
