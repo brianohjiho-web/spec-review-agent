@@ -1,5 +1,5 @@
 {
-  "note": "Made-up products for a portfolio demo. These are not real ratings from any manufacturer.",
+  "note": "Made-up products, prices, and material weights for a portfolio demo. They are not real data from any manufacturer.",
   "products": [
     {
       "id": "MVX-15-1200",
@@ -43,7 +43,13 @@
       "insulation": null,
       "enclosure_material": null,
       "cooling": null,
-      "location": null
+      "location": null,
+      "price_usd": 310000,
+      "materials_lb": {
+        "copper": 1500,
+        "aluminum": 300,
+        "steel": 9000
+      }
     },
     {
       "id": "MVX-15-2000",
@@ -91,7 +97,13 @@
       "insulation": null,
       "enclosure_material": null,
       "cooling": null,
-      "location": null
+      "location": null,
+      "price_usd": 380000,
+      "materials_lb": {
+        "copper": 2200,
+        "aluminum": 400,
+        "steel": 10000
+      }
     },
     {
       "id": "MVA-15-3000",
@@ -142,7 +154,13 @@
       "insulation": null,
       "enclosure_material": null,
       "cooling": null,
-      "location": null
+      "location": null,
+      "price_usd": 520000,
+      "materials_lb": {
+        "copper": 3200,
+        "aluminum": 600,
+        "steel": 14000
+      }
     },
     {
       "id": "MVA-15-4000",
@@ -195,7 +213,13 @@
       "insulation": null,
       "enclosure_material": null,
       "cooling": null,
-      "location": null
+      "location": null,
+      "price_usd": 640000,
+      "materials_lb": {
+        "copper": 4200,
+        "aluminum": 700,
+        "steel": 16000
+      }
     },
     {
       "id": "MVX-27-2000",
@@ -239,7 +263,13 @@
       "insulation": null,
       "enclosure_material": null,
       "cooling": null,
-      "location": null
+      "location": null,
+      "price_usd": 470000,
+      "materials_lb": {
+        "copper": 2400,
+        "aluminum": 450,
+        "steel": 12000
+      }
     },
     {
       "id": "MVA-38-3000",
@@ -288,7 +318,13 @@
       "insulation": null,
       "enclosure_material": null,
       "cooling": null,
-      "location": null
+      "location": null,
+      "price_usd": 780000,
+      "materials_lb": {
+        "copper": 3800,
+        "aluminum": 800,
+        "steel": 20000
+      }
     },
     {
       "id": "LVS-508-3200",
@@ -335,7 +371,13 @@
       "insulation": null,
       "enclosure_material": null,
       "cooling": null,
-      "location": null
+      "location": null,
+      "price_usd": 160000,
+      "materials_lb": {
+        "copper": 2600,
+        "aluminum": 300,
+        "steel": 6000
+      }
     },
     {
       "id": "LVS-508-5000",
@@ -384,7 +426,13 @@
       "insulation": null,
       "enclosure_material": null,
       "cooling": null,
-      "location": null
+      "location": null,
+      "price_usd": 240000,
+      "materials_lb": {
+        "copper": 4000,
+        "aluminum": 450,
+        "steel": 9000
+      }
     },
     {
       "id": "CBL-15-2000",
@@ -430,7 +478,12 @@
       "features": [
         "ventilated enclosure"
       ],
-      "lead_time_weeks": 20
+      "lead_time_weeks": 20,
+      "price_usd": 95000,
+      "materials_lb": {
+        "copper": 1800,
+        "aluminum": 1200
+      }
     },
     {
       "id": "CBL-15-4000",
@@ -478,7 +531,12 @@
         "ventilated enclosure",
         "expansion joints"
       ],
-      "lead_time_weeks": 26
+      "lead_time_weeks": 26,
+      "price_usd": 160000,
+      "materials_lb": {
+        "copper": 3600,
+        "aluminum": 1600
+      }
     },
     {
       "id": "CBL-38-3000",
@@ -524,7 +582,12 @@
       "features": [
         "ventilated enclosure"
       ],
-      "lead_time_weeks": 30
+      "lead_time_weeks": 30,
+      "price_usd": 190000,
+      "materials_lb": {
+        "copper": 3000,
+        "aluminum": 1800
+      }
     },
     {
       "id": "IPB-15-8000",
@@ -567,7 +630,12 @@
       "features": [
         "seal-off bushings"
       ],
-      "lead_time_weeks": 36
+      "lead_time_weeks": 36,
+      "price_usd": 1100000,
+      "materials_lb": {
+        "aluminum": 9000,
+        "steel": 3000
+      }
     },
     {
       "id": "IPB-15-12000",
@@ -611,7 +679,12 @@
         "seal-off bushings",
         "expansion joints"
       ],
-      "lead_time_weeks": 40
+      "lead_time_weeks": 40,
+      "price_usd": 1500000,
+      "materials_lb": {
+        "aluminum": 13000,
+        "steel": 4000
+      }
     },
     {
       "id": "IPB-27-20000",
@@ -656,7 +729,12 @@
         "expansion joints",
         "dry air pressurization"
       ],
-      "lead_time_weeks": 54
+      "lead_time_weeks": 54,
+      "price_usd": 2400000,
+      "materials_lb": {
+        "aluminum": 20000,
+        "steel": 6000
+      }
     },
     {
       "id": "IPB-27-30000",
@@ -701,7 +779,12 @@
         "expansion joints",
         "dry air pressurization"
       ],
-      "lead_time_weeks": 62
+      "lead_time_weeks": 62,
+      "price_usd": 3200000,
+      "materials_lb": {
+        "aluminum": 28000,
+        "steel": 8000
+      }
     },
     {
       "id": "NSB-5-3000",
@@ -748,7 +831,13 @@
         "space heaters",
         "flexible connections"
       ],
-      "lead_time_weeks": 18
+      "lead_time_weeks": 18,
+      "price_usd": 85000,
+      "materials_lb": {
+        "copper": 2200,
+        "aluminum": 900,
+        "steel": 3000
+      }
     },
     {
       "id": "NSB-15-3000",
@@ -795,7 +884,13 @@
         "space heaters",
         "flexible connections"
       ],
-      "lead_time_weeks": 22
+      "lead_time_weeks": 22,
+      "price_usd": 120000,
+      "materials_lb": {
+        "copper": 2400,
+        "aluminum": 1000,
+        "steel": 3500
+      }
     },
     {
       "id": "NSB-15-5000",
@@ -842,7 +937,13 @@
         "space heaters",
         "flexible connections"
       ],
-      "lead_time_weeks": 28
+      "lead_time_weeks": 28,
+      "price_usd": 175000,
+      "materials_lb": {
+        "copper": 3800,
+        "aluminum": 1300,
+        "steel": 4500
+      }
     },
     {
       "id": "NSB-27-3000",
@@ -886,7 +987,13 @@
       "features": [
         "space heaters"
       ],
-      "lead_time_weeks": 32
+      "lead_time_weeks": 32,
+      "price_usd": 160000,
+      "materials_lb": {
+        "copper": 2600,
+        "aluminum": 1100,
+        "steel": 4000
+      }
     },
     {
       "id": "UTL-15-600",
@@ -915,7 +1022,13 @@
         60
       ],
       "max_ambient_c": 40,
-      "max_altitude_m": 1000
+      "max_altitude_m": 1000,
+      "price_usd": 70000,
+      "materials_lb": {
+        "copper": 400,
+        "aluminum": 200,
+        "steel": 3000
+      }
     },
     {
       "id": "UTL-15-1200",
@@ -945,7 +1058,13 @@
         60
       ],
       "max_ambient_c": 40,
-      "max_altitude_m": 1000
+      "max_altitude_m": 1000,
+      "price_usd": 95000,
+      "materials_lb": {
+        "copper": 700,
+        "aluminum": 250,
+        "steel": 3500
+      }
     },
     {
       "id": "UTL-38-1200",
@@ -973,7 +1092,13 @@
         60
       ],
       "max_ambient_c": 40,
-      "max_altitude_m": 1000
+      "max_altitude_m": 1000,
+      "price_usd": 150000,
+      "materials_lb": {
+        "copper": 900,
+        "aluminum": 300,
+        "steel": 5000
+      }
     },
     {
       "id": "XFM-15-2500",
@@ -1007,7 +1132,14 @@
         60
       ],
       "max_ambient_c": 40,
-      "max_altitude_m": 1000
+      "max_altitude_m": 1000,
+      "price_usd": 90000,
+      "materials_lb": {
+        "copper": 2500,
+        "steel": 4000,
+        "electrical_steel": 5000,
+        "transformer_oil": 600
+      }
     },
     {
       "id": "XFM-38-20000",
@@ -1041,7 +1173,14 @@
         60
       ],
       "max_ambient_c": 40,
-      "max_altitude_m": 1000
+      "max_altitude_m": 1000,
+      "price_usd": 1200000,
+      "materials_lb": {
+        "copper": 18000,
+        "steel": 25000,
+        "electrical_steel": 30000,
+        "transformer_oil": 4500
+      }
     },
     {
       "id": "XFM-38-30000",
@@ -1077,7 +1216,14 @@
         60
       ],
       "max_ambient_c": 40,
-      "max_altitude_m": 1000
+      "max_altitude_m": 1000,
+      "price_usd": 1600000,
+      "materials_lb": {
+        "copper": 25000,
+        "steel": 32000,
+        "electrical_steel": 40000,
+        "transformer_oil": 6000
+      }
     },
     {
       "id": "UPS-480-500",
@@ -1105,7 +1251,14 @@
         60
       ],
       "max_ambient_c": 40,
-      "max_altitude_m": 1000
+      "max_altitude_m": 1000,
+      "price_usd": 260000,
+      "materials_lb": {
+        "copper": 600,
+        "aluminum": 150,
+        "steel": 3000,
+        "lead": 6000
+      }
     },
     {
       "id": "UPS-480-1000",
@@ -1133,7 +1286,15 @@
         60
       ],
       "max_ambient_c": 40,
-      "max_altitude_m": 1000
+      "max_altitude_m": 1000,
+      "price_usd": 450000,
+      "materials_lb": {
+        "copper": 1100,
+        "aluminum": 250,
+        "steel": 5000,
+        "lithium": 60,
+        "nickel": 150
+      }
     },
     {
       "id": "UPS-480-1500",
@@ -1161,7 +1322,15 @@
         60
       ],
       "max_ambient_c": 40,
-      "max_altitude_m": 1000
+      "max_altitude_m": 1000,
+      "price_usd": 650000,
+      "materials_lb": {
+        "copper": 1600,
+        "aluminum": 350,
+        "steel": 7000,
+        "lithium": 120,
+        "nickel": 300
+      }
     },
     {
       "id": "RCK-42-20",
@@ -1180,7 +1349,13 @@
         "EIA-310"
       ],
       "features": [],
-      "lead_time_weeks": 8
+      "lead_time_weeks": 8,
+      "price_usd": 3500,
+      "materials_lb": {
+        "copper": 40,
+        "aluminum": 10,
+        "steel": 250
+      }
     },
     {
       "id": "RCK-48-60",
@@ -1203,7 +1378,13 @@
       "features": [
         "seismic certified"
       ],
-      "lead_time_weeks": 12
+      "lead_time_weeks": 12,
+      "price_usd": 9000,
+      "materials_lb": {
+        "copper": 80,
+        "aluminum": 20,
+        "steel": 350
+      }
     },
     {
       "id": "RCK-48-120",
@@ -1226,7 +1407,13 @@
       "features": [
         "seismic certified"
       ],
-      "lead_time_weeks": 16
+      "lead_time_weeks": 16,
+      "price_usd": 18000,
+      "materials_lb": {
+        "copper": 120,
+        "aluminum": 40,
+        "steel": 450
+      }
     }
   ]
 }
