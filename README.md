@@ -1,5 +1,7 @@
 # SpecCheck AI: Spec Review Agent
 
+**[Run SpecCheck AI online](https://spec-review-agent-5megvoy4huyip7c2tmz7fg.streamlit.app/)**
+
 An AI agent that does the first pass on equipment spec reviews.
 
 A customer spec can run many pages, and someone has to check every requirement against the product line. I built SpecCheck AI to do that first pass. It pulls out each requirement, checks it against a catalog, ranks the products, and flags what an engineer needs to look at.
