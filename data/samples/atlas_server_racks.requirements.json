@@ -44,6 +44,16 @@
     {
       "id": "R5",
       "section": "2",
+      "parameter": "height_in",
+      "source_quote": "no taller than 7.5 ft",
+      "value_number": 7.5,
+      "unit": "ft",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "2",
       "parameter": "cooling",
       "source_quote": "direct-to-chip",
       "value_number": null,
@@ -52,7 +62,7 @@
       "mandatory": true
     },
     {
-      "id": "R6",
+      "id": "R7",
       "section": "2",
       "parameter": "standards",
       "source_quote": "comply with EIA-310",
@@ -62,7 +72,7 @@
       "mandatory": true
     },
     {
-      "id": "R7",
+      "id": "R8",
       "section": "2",
       "parameter": "features",
       "source_quote": "seismic certified",
@@ -72,7 +82,7 @@
       "mandatory": true
     },
     {
-      "id": "R8",
+      "id": "R9",
       "section": "3",
       "parameter": "lead_time_weeks",
       "source_quote": "within 16 weeks",

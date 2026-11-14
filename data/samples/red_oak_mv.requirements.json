@@ -84,6 +84,26 @@
     {
       "id": "R9",
       "section": "2.2",
+      "parameter": "phases",
+      "source_quote": "3 phase, 3 wire",
+      "value_number": 3,
+      "unit": "",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R10",
+      "section": "2.2",
+      "parameter": "height_in",
+      "source_quote": "no more than 120 in. high",
+      "value_number": 120,
+      "unit": "in.",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R11",
+      "section": "2.2",
       "parameter": "arc_resistance",
       "source_quote": "accessibility Type 2B",
       "value_number": null,
@@ -92,7 +112,7 @@
       "mandatory": true
     },
     {
-      "id": "R10",
+      "id": "R12",
       "section": "2.2",
       "parameter": "standards",
       "source_quote": "tested to IEEE C37.20.7",
@@ -102,7 +122,7 @@
       "mandatory": true
     },
     {
-      "id": "R11",
+      "id": "R13",
       "section": "2.2",
       "parameter": "breaker_type",
       "source_quote": "Circuit breakers shall be vacuum type",
@@ -112,7 +132,7 @@
       "mandatory": true
     },
     {
-      "id": "R12",
+      "id": "R14",
       "section": "2.2",
       "parameter": "features",
       "source_quote": "Remote racking is required",
@@ -122,7 +142,7 @@
       "mandatory": true
     },
     {
-      "id": "R13",
+      "id": "R15",
       "section": "2.2",
       "parameter": "features",
       "source_quote": "shall be seismic certified",
@@ -132,7 +152,7 @@
       "mandatory": true
     },
     {
-      "id": "R14",
+      "id": "R16",
       "section": "2.2",
       "parameter": "features",
       "source_quote": "Infrared windows are preferred",
@@ -142,7 +162,7 @@
       "mandatory": false
     },
     {
-      "id": "R15",
+      "id": "R17",
       "section": "3.1",
       "parameter": "max_ambient_c",
       "source_quote": "ambient temperature of 40 C",
@@ -152,7 +172,7 @@
       "mandatory": true
     },
     {
-      "id": "R16",
+      "id": "R18",
       "section": "3.1",
       "parameter": "max_altitude_m",
       "source_quote": "altitude is 300 m",
@@ -162,7 +182,7 @@
       "mandatory": true
     },
     {
-      "id": "R17",
+      "id": "R19",
       "section": "4.1",
       "parameter": "lead_time_weeks",
       "source_quote": "within 56 weeks",
@@ -172,7 +192,7 @@
       "mandatory": true
     },
     {
-      "id": "R18",
+      "id": "R20",
       "section": "4.1",
       "parameter": "other",
       "source_quote": "Owner shall witness factory acceptance testing",

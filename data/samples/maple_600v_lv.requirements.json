@@ -1,0 +1,115 @@
+{
+  "equipment_type": "lv_switchgear",
+  "requirements": [
+    {
+      "id": "R1",
+      "section": "2",
+      "parameter": "voltage_kv",
+      "source_quote": "rated 600 V",
+      "value_number": 600,
+      "unit": "V",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R2",
+      "section": "2",
+      "parameter": "frequency_hz",
+      "source_quote": "three phase, 60 Hz",
+      "value_number": 60,
+      "unit": "Hz",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R3",
+      "section": "2",
+      "parameter": "bus_current_a",
+      "source_quote": "Main bus shall be 4000 A",
+      "value_number": 4000,
+      "unit": "A",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R4",
+      "section": "2",
+      "parameter": "short_circuit_ka",
+      "source_quote": "Short-circuit rating shall be 85 kA",
+      "value_number": 85,
+      "unit": "kA",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R5",
+      "section": "2",
+      "parameter": "control_voltage_vdc",
+      "source_quote": "Control voltage shall be 125 VDC",
+      "value_number": 125,
+      "unit": "VDC",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "3",
+      "parameter": "breaker_type",
+      "source_quote": "air type",
+      "value_number": null,
+      "unit": "",
+      "value_text": "air",
+      "mandatory": true
+    },
+    {
+      "id": "R7",
+      "section": "3",
+      "parameter": "features",
+      "source_quote": "drawout breakers",
+      "value_number": null,
+      "unit": "",
+      "value_text": "drawout breakers",
+      "mandatory": true
+    },
+    {
+      "id": "R8",
+      "section": "3",
+      "parameter": "enclosure",
+      "source_quote": "enclosure shall be NEMA 3R",
+      "value_number": null,
+      "unit": "",
+      "value_text": "NEMA 3R",
+      "mandatory": true
+    },
+    {
+      "id": "R9",
+      "section": "3",
+      "parameter": "features",
+      "source_quote": "Zone selective interlocking shall be provided",
+      "value_number": null,
+      "unit": "",
+      "value_text": "zone selective interlocking",
+      "mandatory": true
+    },
+    {
+      "id": "R10",
+      "section": "3",
+      "parameter": "standards",
+      "source_quote": "listed to UL 1558",
+      "value_number": null,
+      "unit": "",
+      "value_text": "UL 1558",
+      "mandatory": true
+    },
+    {
+      "id": "R11",
+      "section": "4",
+      "parameter": "lead_time_weeks",
+      "source_quote": "within 36 weeks",
+      "value_number": 36,
+      "unit": "weeks",
+      "value_text": null,
+      "mandatory": true
+    }
+  ]
+}
