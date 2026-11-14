@@ -39,6 +39,10 @@ RULES = {
     "rack_power_kw": Rule("Rack power", "min", "kW"),
     "static_load_kg": Rule("Static load", "min", "kg"),
     "rack_width_mm": Rule("Rack width", "one_of_number", "mm"),
+    "phases": Rule("Phases", "one_of_number"),
+    "height_in": Rule("Height", "max", "in"),
+    "width_in": Rule("Width", "max", "in"),
+    "depth_in": Rule("Depth", "max", "in"),
     "enclosure": Rule("Enclosure", "one_of_text"),
     "arc_resistance": Rule("Arc resistance", "one_of_text"),
     "breaker_type": Rule("Breaker type", "one_of_text"),
@@ -54,6 +58,20 @@ RULES = {
     "features": Rule("Feature", "one_of_text"),
 }
 
+# How the requirement check groups rows, in display order.
+GROUPS = {
+    "Electrical ratings": ["voltage_kv", "bil_kv", "bus_current_a", "short_circuit_ka", "momentary_ka", "frequency_hz",
+                           "phases", "control_voltage_vdc", "power_kva", "power_kw", "secondary_voltage_kv",
+                           "impedance_pct", "runtime_min", "efficiency_pct", "rack_power_kw"],
+    "Construction": ["enclosure", "arc_resistance", "breaker_type", "bus_material", "insulation", "enclosure_material",
+                     "cooling", "insulating_fluid", "battery_type", "cable_entry", "rack_units", "rack_width_mm",
+                     "static_load_kg", "features"],
+    "Standards": ["standards"],
+    "Site and size": ["location", "max_ambient_c", "max_altitude_m", "height_in", "width_in", "depth_in"],
+    "Delivery and price": ["lead_time_weeks", "price_usd"],
+}
+GROUP_OF = {parameter: group for group, parameters in GROUPS.items() for parameter in parameters}
+
 VOCABULARY = {
     "enclosure": ["NEMA 1", "NEMA 3R"],
     "arc_resistance": ["Type 2", "Type 2B"],
@@ -66,7 +84,7 @@ VOCABULARY = {
     "insulating_fluid": ["mineral oil", "natural ester"],
     "battery_type": ["lithium-ion", "VRLA"],
     "cable_entry": ["top", "bottom"],
-    "standards": ["IEEE C37.20.1", "IEEE C37.20.2", "IEEE C37.20.7", "IEEE C37.23", "IEEE C37.20.3", "IEEE C57.12.00", "UL 1558", "UL 1778", "EIA-310"],
+    "standards": ["IEEE C37.20.1", "IEEE C37.20.2", "IEEE C37.20.7", "IEEE C37.23", "IEEE C37.20.3", "IEEE C57.12.00", "UL 891", "UL 1558", "UL 1778", "EIA-310"],
     "features": [
         "remote racking",
         "infrared windows",
@@ -88,6 +106,9 @@ VOCABULARY = {
 }
 
 # Multiply by this number to convert to the catalog's unit.
+# Enclosure sizes are kept in inches.
+SIZE_UNITS = {"in": 1, "in.": 1, "inch": 1, "inches": 1, '"': 1, "ft": 12, "feet": 12, "mm": 1 / 25.4, "m": 1000 / 25.4}
+
 UNIT_FACTORS = {
     "voltage_kv": {"kv": 1, "v": 0.001},
     "bil_kv": {"kv": 1},
@@ -110,6 +131,10 @@ UNIT_FACTORS = {
     "rack_power_kw": {"kw": 1},
     "static_load_kg": {"kg": 1, "lb": 0.45359237},
     "rack_width_mm": {"mm": 1},
+    "phases": {"": 1, "phase": 1, "phases": 1, "ph": 1},
+    "height_in": SIZE_UNITS,
+    "width_in": SIZE_UNITS,
+    "depth_in": SIZE_UNITS,
 }
 
 
@@ -133,8 +158,14 @@ def _flatten(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip().lower()
 
 
+NUMBER_WORDS = {"one": 1, "single": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6}
+
+
 def _numbers_in(text: str) -> list[float]:
-    return [float(n.replace(",", "")) for n in re.findall(r"\d[\d,]*(?:\.\d+)?", text)]
+    """Numbers in a quote, including words like "three" in "three-phase"."""
+    found = [float(n.replace(",", "")) for n in re.findall(r"\d[\d,]*(?:\.\d+)?", text)]
+    found += [NUMBER_WORDS[w] for w in re.findall(r"[a-z]+", text.lower()) if w in NUMBER_WORDS]
+    return found
 
 
 def verify_source(req: Requirement, spec_text: str) -> Optional[str]:
@@ -193,7 +224,11 @@ def check_requirement(req: Requirement, product: dict, spec_text: Optional[str] 
         if _simple(req.value_text) not in known:
             return result("REVIEW", "This value is not one the tool knows.", shown)
         listed = [_simple(v) for v in actual]
-        return result("PASS" if _simple(req.value_text) in listed else "FAIL", "", shown)
+        if _simple(req.value_text) in listed:
+            return result("PASS", "", shown)
+        if product.get("lists_complete") is False:  # Public pages often leave options out.
+            return result("REVIEW", "Not listed on the public page. Ask the maker.", shown)
+        return result("FAIL", "", shown)
 
     if req.value_number is None:
         return result("REVIEW", "No required value was found.", shown)

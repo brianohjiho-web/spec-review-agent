@@ -1,8 +1,9 @@
-"""Loads the sample product catalog."""
+"""Loads a product catalog: made-up sample products, or ratings from public datasheets."""
 import json
 from pathlib import Path
 
 DEFAULT_CATALOG = Path(__file__).parent.parent / "data" / "catalog.json"
+PUBLIC_CATALOG = Path(__file__).parent.parent / "data" / "catalog_public.json"
 
 
 def load_catalog(path: Path = DEFAULT_CATALOG) -> list[dict]:
