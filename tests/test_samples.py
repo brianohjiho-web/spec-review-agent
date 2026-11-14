@@ -12,7 +12,7 @@ from speccheck.review import build_review
 
 SAMPLES = Path(__file__).parent.parent / "data" / "samples"
 NAMES = ["red_oak_mv", "harbor_lv", "high_desert_mv", "ridgeline_cable_bus", "lakeshore_iso_bus", "prairie_non_seg",
-         "mill_creek_utility", "summit_transformer", "orion_ups", "atlas_server_racks"]
+         "mill_creek_utility", "summit_transformer", "orion_ups", "atlas_server_racks", "maple_600v_lv"]
 
 
 def load(name):
@@ -118,3 +118,10 @@ def test_price_breaks_ties():
     cheap = ProductCheck(product_id="a", product_name="a", price_usd=10, results=[])
     pricey = ProductCheck(product_id="b", product_name="b", price_usd=20, results=[])
     assert rank_products([pricey, cheap]) == [cheap, pricey]
+
+
+def test_480_v_products_fail_a_600_v_spec():
+    text, spec, _ = load("maple_600v_lv")
+    ranked = build_review(spec, load_catalog(), text).ranked
+    old = next(c for c in ranked if c.product_id == "LVS-508-5000")
+    assert "voltage_kv" in [r.requirement.parameter for r in old.results if r.status == "FAIL"]

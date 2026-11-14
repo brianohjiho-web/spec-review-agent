@@ -88,7 +88,9 @@ def test_parallel_tool_calls_return_in_one_message():
 def test_spec_text_is_marked_as_data():
     agent, requests = make_agent(happy_path())
     agent.run(SPEC_TEXT)
-    assert "<customer_spec>" in requests[0]["messages"][0]["content"]
+    block = requests[0]["messages"][0]["content"][0]
+    assert "<customer_spec>" in block["text"]
+    assert block["cache_control"] == {"type": "ephemeral"}
 
 
 def test_claude_cannot_override_the_python_result():
@@ -176,3 +178,8 @@ def test_strict_tool_schemas_are_well_formed():
 
     for definition in TOOLS:
         walk(definition["input_schema"])
+
+
+def test_prompt_explains_addenda():
+    from speccheck.agent import SYSTEM_PROMPT
+    assert "addendum" in SYSTEM_PROMPT and "newest value" in SYSTEM_PROMPT

@@ -12,7 +12,9 @@ def test_live_and_entered_costs():
     by_key = {r["key"]: r for r in rows}
     assert round(by_key["copper"]["cost"]) == 500
     assert by_key["steel"]["cost"] == 25
-    assert by_key["transformer_oil"]["cost"] is None and by_key["transformer_oil"]["unit"] == "gal"
+    # Nobody typed an oil price, so the default price is used.
+    assert by_key["transformer_oil"]["cost"] == 50 and by_key["transformer_oil"]["source"] == "default"
+    assert material_cost({"lithium": 10}, prices)[0]["cost"] is None
 
 
 def test_saved_prices_have_a_year_of_history():
