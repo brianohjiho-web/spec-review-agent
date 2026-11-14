@@ -10,14 +10,16 @@ from anthropic import Anthropic, APIError
 from dotenv import load_dotenv
 
 from speccheck.agent import AgentError, SpecAgent
-from speccheck.catalog import load_catalog
-from speccheck.checks import RULES
+from speccheck import api_catalog
+from speccheck.catalog import DEFAULT_CATALOG, PUBLIC_CATALOG, load_catalog
+from speccheck.checks import GROUP_OF, GROUPS, RULES
 from speccheck.metals import CHARTS, ENTERED, LB_PER_METRIC_TON, LIVE, latest_prices, material_cost, per_lb
 from speccheck.models import CheckResult, ProductCheck, Review, SpecRequirements
-from speccheck.pdf import SpecFileError, read_pdf
-from speccheck.review import build_review, to_csv
+from speccheck.pdf import SpecFileError, read_pdf, read_pdfs
+from speccheck.review import build_review, to_pdf
 from speccheck.settings import DailyCounter, app_password, daily_limit, has_api_key, password_ok
-from speccheck.theme import CSS, FOOTER, HEADER
+from speccheck.questions import make_questions
+from speccheck.theme import CSS, HEADER, icon
 
 ROOT = Path(__file__).parent
 SAMPLES = ROOT / "data" / "samples"
@@ -29,13 +31,16 @@ EQUIPMENT = {
         "Iso phase bus": "lakeshore_iso_bus",
         "Non-seg bus": "prairie_non_seg",
     }),
-    "Switchgear": (":material/dashboard:", {
-        "Medium-voltage switchgear": "red_oak_mv",
-        "Low-voltage switchgear": "harbor_lv",
-        "Outdoor switchgear, 34.5 kV": "high_desert_mv",
-    }),
+    "Switchgear": (":material/dashboard:", {"Switchgear": None}),
     "UPS": (":material/battery_charging_full:", {"UPS": "orion_ups"}),
     "Server racks": (":material/dns:", {"Server racks": "atlas_server_racks"}),
+}
+# The switchgear samples share one button; the voltage is picked in a second row.
+SWITCHGEAR = {
+    "480 V · indoor": "harbor_lv",
+    "600 V · outdoor": "maple_600v_lv",
+    "13.8 kV · indoor": "red_oak_mv",
+    "34.5 kV · outdoor": "high_desert_mv",
 }
 STATUS_LABELS = {"PASS": "Pass", "FAIL": "Fail", "REVIEW": "Review"}
 SHORT_NAMES = {
@@ -58,7 +63,8 @@ def load_streamlit_secrets() -> None:
         secrets = dict(st.secrets)
     except Exception:  # No secrets file, which is normal on a computer.
         return
-    for name in ("ANTHROPIC_API_KEY", "APP_PASSWORD", "DAILY_REVIEW_LIMIT", "SPECCHECK_MODEL"):
+    for name in ("ANTHROPIC_API_KEY", "APP_PASSWORD", "DAILY_REVIEW_LIMIT", "SPECCHECK_MODEL",
+                 "PRODUCT_API_URL", "PRODUCT_API_KEY", "PRODUCT_API_AUTH", "CATALOG_FILE"):
         if name in secrets and not os.getenv(name):
             os.environ[name] = str(secrets[name])
 
@@ -66,9 +72,35 @@ def load_streamlit_secrets() -> None:
 load_streamlit_secrets()
 
 
+CATALOGS = {"Public datasheets": PUBLIC_CATALOG, "Demo catalog with prices": DEFAULT_CATALOG}
+
+
 @st.cache_data
+def read_catalog(path: str) -> list[dict]:
+    return load_catalog(path)
+
+
+@st.cache_data(ttl=3600, show_spinner="Loading products from the company API...")
+def read_api_catalog() -> list[dict]:
+    return api_catalog.load_from_api()
+
+
 def catalog() -> list[dict]:
-    return load_catalog()
+    """Where products come from, first match wins:
+    1. A company product API, if PRODUCT_API_URL is set (refreshed every hour).
+    2. A saved catalog file, if CATALOG_FILE is set (for example data/catalog_company.json).
+    3. Ratings from public datasheets (the default).
+    Tests can swap in the fixed demo catalog to get stable results."""
+    if "catalog_choice" in st.session_state:
+        return read_catalog(str(CATALOGS[st.session_state["catalog_choice"]]))
+    if api_catalog.enabled():
+        try:
+            return read_api_catalog()
+        except Exception as err:  # Keep the app usable if their API is down.
+            st.warning(f"Couldn't load the company product API ({type(err).__name__}). Using public datasheets instead.")
+    if os.getenv("CATALOG_FILE"):
+        return read_catalog(os.environ["CATALOG_FILE"])
+    return read_catalog(str(PUBLIC_CATALOG))
 
 
 @st.cache_resource
@@ -100,6 +132,31 @@ def usd(text: str) -> str:
     return re.sub(r"(\d+(?:\.\d+)?) USD", lambda m: f"${float(m.group(1)):,.0f}", text)
 
 
+def product_facts(product: dict, short: bool = False) -> str:
+    """Voltage, current or power, and phases for one catalog product, plus its source if public."""
+    facts = []
+    volts = product.get("voltage_kv")
+    if volts is not None:
+        facts.append(("Voltage", f"{volts * 1000:g} V" if volts < 1 else f"{volts:g} kV"))
+    for key, unit in (("bus_current_a", "A"), ("power_kva", "kVA"), ("power_kw", "kW"), ("rack_units", "U")):
+        if product.get(key) is not None:
+            facts.append(("Current" if key == "bus_current_a" else "Rating", f"{product[key]:g} {unit}"))
+    if product.get("phases"):
+        facts.append(("Phases", " or ".join(str(p) for p in product["phases"])))
+    if short:
+        return ", ".join(value for _, value in facts) or "ratings in source"
+    text = " · ".join(f"<b>{label}</b> {value}" for label, value in facts)
+    if product.get("source_url"):
+        source = f'<a href="{escape(product["source_url"])}" target="_blank" rel="noopener">{escape(product["maker"])} source page</a>'
+        text = f'{text} · {source}' if text else source
+        text += f'<br><span class="sc-small">{escape(product.get("source_note", ""))}</span>'
+    return text
+
+JUMP = """<details class="sc-jump"><summary>Sections</summary><nav>
+<a href="#sec-samples">Sample specs</a><a href="#sec-check">Requirement check</a>
+<a href="#sec-compare">Compare products</a><a href="#sec-cost">Material cost</a><a href="#sec-questions">Questions to ask</a><a href="#sec-spec">Original spec</a></nav></details>"""
+
+
 def required_text(result: CheckResult) -> str:
     text = re.sub(r"^at least (.*)$", r"\1 min", result.required)
     return usd(re.sub(r"^at most (.*)$", r"\1 max", text))
@@ -110,33 +167,113 @@ def item_name(result: CheckResult) -> str:
     return SHORT_NAMES.get(rule.label, rule.label) if rule else "Other"
 
 
-def note_text(result: CheckResult) -> str:
-    return result.note.replace(
-        "This item is outside the automatic checks. An engineer must review it.",
-        "Needs engineer review.",
-    )
+NOT_LISTED = '<span class="sc-na">—</span>'
 
+
+def why(result: CheckResult) -> str:
+    text = reason(result)
+    return f'<div class="sc-why">{escape(text)}</div>' if text else ""
+
+
+def reason(result: CheckResult) -> str:
+    """A short plain reason for a failed or review row. Pass rows need none."""
+    need = usd(result.required.replace("at least ", "").replace("at most ", ""))
+    note = result.note
+    if result.status == "PASS":
+        return ""
+    if result.status == "FAIL":
+        if result.required.startswith("at least"):
+            return f"Below the {need} minimum"
+        if result.required.startswith("at most"):
+            return f"Over the {need} limit"
+        return f"Doesn't offer {need}"
+    for key, text in (
+        ("source quote was not found", "Words not found in the spec. Check how it was read."),
+        ("value was not found in the source quote", "Number doesn't match the spec text"),
+        ("outside the automatic checks", "The tool can't check this. An engineer should read it."),
+        ("public page", "Not mentioned on the maker's page"),
+        ("no value", "Not in the product data"),
+        ("Unknown unit", "Unknown unit. Check by hand."),
+        ("not one the tool knows", "Unknown value. Check by hand."),
+        ("No required value", "Spec has no clear value. Ask the customer."),
+    ):
+        if key in note:
+            return text
+    return note or "Check by hand"
+
+def compare_table(review: Review) -> str:
+    """Every product of this type side by side, one row per spec item."""
+    products = review.ranked
+    makers = {p["id"]: p.get("maker", "") for p in catalog()}
+    mine = review.source == "claude"  # An uploaded PDF gets its own column.
+    head = "<th>Spec item</th>"
+    if mine:
+        head += '<th class="mine"><div class="sc-cmp-maker">Your PDF</div><div class="sc-cmp-name">Uploaded file</div></th>'
+    for n, c in enumerate(products):
+        if c.mandatory_fails:
+            summary, tone = f"{c.mandatory_fails} fail · {c.reviews} to check", "bad"
+        elif c.reviews:
+            summary, tone = f"No fails · {c.reviews} to check", "warn"
+        else:
+            summary, tone = "Meets all", "ok"
+        maker = makers.get(c.product_id, "")
+        name = c.product_name.replace(maker, "").strip() if maker else c.product_name
+        tag = '<div class="sc-cmp-tag">Best match</div>' if n == 0 else ""
+        head += (f'<th class="{"best" if n == 0 else ""}"><div class="sc-cmp-maker">{escape(maker)}</div>'
+                 f'<div class="sc-cmp-name">{escape(name or c.product_name)}</div>'
+                 f'<div class="sc-cmp-sum {tone}">{summary}</div>{tag}</th>')
+    rows = ""
+    for k, first in enumerate(products[0].results if products else []):
+        cells = ""
+        for n, c in enumerate(products):
+            r = c.results[k]
+            if r.status == "REVIEW" and r.product_value in ("Not checked", "Not listed"):
+                body = NOT_LISTED
+            else:
+                mark = {"PASS": "✓", "FAIL": "✗", "REVIEW": "?"}[r.status]
+                body = f'<span class="sc-mk {r.status}">{mark}</span>{escape(usd(r.product_value))}'
+            tip = f' title="{escape(reason(r))}"' if reason(r) else ""
+            cells += f'<td class="c-{r.status}{" best" if n == 0 else ""}"{tip}>{body}</td>'
+        need = "" if mine else f'<div class="sc-ci-need">{escape(required_text(first))}</div>'
+        pdf = f'<td class="mine">{escape(usd(first.required.replace("at least ", "").replace("at most ", "")))}</td>' if mine else ""
+        rows += f'<tr><th><div class="sc-ci-name">{escape(item_name(first))}</div>{need}</th>{pdf}{cells}</tr>'
+    return (
+        '<p class="sc-small"><span class="sc-mk PASS">✓</span> meets it &nbsp; <span class="sc-mk FAIL">✗</span> doesn\'t &nbsp; '
+        '<span class="sc-mk REVIEW">?</span> check it &nbsp; <span class="sc-na">—</span> not listed by the maker</p>'
+        f'<div class="sc-scroll"><table class="sc-cmp"><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
+    )
 
 def compliance_table(check: ProductCheck, status: str) -> str:
-    results = [r for r in check.results if status == "All" or STATUS_LABELS[r.status] == status]
+    """A compliance matrix with rows grouped by topic."""
+    numbered = list(enumerate(check.results, 1))
+    shown = [(n, r) for n, r in numbered if status == "All" or STATUS_LABELS[r.status] == status]
     rows = []
-    for r in results:
-        product = "—" if r.product_value == "Not checked" else usd(r.product_value)
-        priority = "Must have" if r.requirement.mandatory else "Preferred"
-        note = f'<div class="sc-note">{escape(note_text(r))}</div>' if r.note else ""
-        section = f'<div class="sc-tag">Section {escape(r.requirement.section)}</div>' if r.requirement.section else ""
-        rows.append(
-            f'<tr class="sc-row-{r.status}"><td><span class="sc-chip {r.status}">{STATUS_LABELS[r.status]}</span></td>'
-            f'<td><div class="sc-name">{escape(item_name(r))}</div><div class="sc-tag">{priority}</div></td>'
-            f'<td>{escape(required_text(r))}</td><td>{escape(product)}{note}</td>'
-            f'<td><div class="sc-quote">“{escape(r.requirement.source_quote)}”</div>{section}</td></tr>'
-        )
-    body = "".join(rows) or '<tr><td colspan="5">No items with this status.</td></tr>'
+    count = 0
+    for group in [*GROUPS, "Other"]:
+        items = [(n, r) for n, r in shown if GROUP_OF.get(r.requirement.parameter, "Other") == group]
+        if not items:
+            continue
+        passed = sum(r.status == "PASS" for _, r in items)
+        rows.append(f'<tr class="sc-grp"><td colspan="6">{group}<span>{passed} of {len(items)} pass</span></td></tr>')
+        for _, r in items:
+            count += 1
+            n = count
+            product = NOT_LISTED if r.product_value in ("Not checked", "Not listed") else escape(usd(r.product_value))
+            pref = '<span class="sc-pref">Preferred</span>' if not r.requirement.mandatory else ""
+            section = f'<span class="sc-sec">Section {escape(r.requirement.section)}</span>' if r.requirement.section else ""
+            rows.append(
+                f'<tr class="sc-row-{r.status}"><td class="sc-num">{n}</td>'
+                f'<td><div class="sc-name">{escape(item_name(r))}{pref}</div></td>'
+                f'<td>{escape(required_text(r))}</td><td>{product}</td>'
+                f'<td><span class="sc-chip {r.status}">{STATUS_LABELS[r.status]}</span>{why(r)}</td>'
+                f'<td class="sc-ref">{section}<span class="sc-quote">“{escape(r.requirement.source_quote)}”</span></td></tr>'
+            )
+    body = "".join(rows) or '<tr><td colspan="6">No items with this status.</td></tr>'
     return (
-        '<div class="sc-scroll"><table><thead><tr><th>Status</th><th>Requirement</th>'
-        f"<th>Spec needs</th><th>Product has</th><th>From the spec</th></tr></thead><tbody>{body}</tbody></table></div>"
+        f'<div class="sc-scroll"><table class="sc-matrix"><thead><tr><th>#</th><th>Requirement</th>'
+        f"<th>Spec needs</th><th>Product has</th><th>Result</th><th>Spec reference</th></tr></thead>"
+        f"<tbody>{body}</tbody></table></div>"
     )
-
 
 def money(value) -> str:
     return "—" if value is None else f"${value:,.0f}"
@@ -151,7 +288,7 @@ CALCULATOR = {**{k: (v, "lb") for k, v in LIVE.items()}, **ENTERED}
 
 
 def entered_prices() -> dict:
-    return {key: st.session_state.get(f"price-{key}") or 0.0 for key in CALCULATOR}
+    return {}  # No typed prices: FRED for metals, default prices for the rest.
 
 
 def materials_table(product_id: str) -> str:
@@ -176,29 +313,24 @@ def price_split(price: float, rows: list, total: float) -> str:
         share = value / price * 100
         return f"{share:.1f}%" if share < 1 else f"{share:.0f}%"
 
-    parts = [(r["name"], r["cost"], False) for r in rows if r["cost"]]
-    parts.append(("Other costs (labor, parts, overhead)", max(0, price - total), True))
-    body = "".join(
-        f'<div class="sc-split-row"><span>{escape(name)}</span>'
-        f'<div class="sc-split-bar"><span style="width:{max(0.5, value / price * 100):.2f}%;background:{"#566575" if other else "#0b6e76"}"></span></div>'
-        f'<span class="sc-split-num">{money(value)}</span><span class="sc-split-num" style="color:#566575">{pct(value)}</span></div>'
-        for name, value, other in parts
-    )
+    def bar_row(name, value, color, extra=""):
+        return (f'<div class="sc-split-row"{extra}><span>{escape(name)}</span>'
+                f'<div class="sc-split-bar"><span style="width:{max(0.5, value / price * 100):.2f}%;background:{color}"></span></div>'
+                f'<span class="sc-split-num">{money(value)}</span><span class="sc-split-num" style="color:#566575">{pct(value)}</span></div>')
+
+    by_name = {r["name"]: r for r in rows}
+    body = ""
+    for name, _ in CALCULATOR.values():
+        r = by_name.get(name)
+        if r and r["cost"]:
+            body += bar_row(name, r["cost"], "#0b6e76")
+        else:
+            label = "No price" if r else "Not used"
+            body += (f'<div class="sc-split-row" style="color:#566575"><span>{name}</span><div class="sc-split-bar"></div>'
+                     f'<span class="sc-split-num" style="font-size:.8rem">{label}</span><span class="sc-split-num">—</span></div>')
+    body += bar_row("Other costs (labor, parts, overhead)", max(0, price - total), "#566575",
+                    ' style="border-top:1px solid #dfe5ea;padding-top:8px"')
     return f'<div class="sc-split"><b>Product price: {money(price)} = 100%</b>{body}</div>'
-
-
-def price_inputs() -> None:
-    prices = metal_prices()
-    with st.expander("Material price calculator"):
-        st.caption("Copper, aluminum, lead, and nickel use FRED prices unless you type your own. "
-                   "Steel, electrical steel, lithium, and transformer oil need a price you enter. Leave a box blank to skip it.")
-        keys = list(CALCULATOR)
-        for row in (keys[:4], keys[4:]):
-            for column, key in zip(st.columns(4), row):
-                name, unit = CALCULATOR[key]
-                hint = f"{per_lb(prices[key]):.2f} from FRED" if key in LIVE else "Enter a price"
-                column.number_input(f"{name} ($/{unit})", min_value=0.0, step=0.05, format="%.2f",
-                                    value=None, placeholder=hint, key=f"price-{key}")
 
 
 def sparkline(history: list, label: str, unit: str, index: bool = False) -> str:
@@ -283,24 +415,37 @@ def products_table(review: Review) -> str:
 
 
 def result_panel(review: Review) -> str:
+    """Best match card: name, verdict, key facts, and a small pass score on the right."""
     best = review.ranked[0]
     match = bool(review.recommended_id)
-    kicker = "Best match" if match else "No full match"
+    kind = TYPE_INFO[review.equipment_type][0]
+    kicker = f'{"Best match" if match else "No full match"} · {kind}'
     title = best.product_name if match else "No product meets every must-have item"
-    closest = "" if match else f'<p class="sc-small" style="margin-top:2px">Closest option: {escape(best.product_name)}</p>'
-    chip = '<span class="sc-chip PASS">No must-haves failed</span>' if match else '<span class="sc-chip FAIL">Gaps found</span>'
+    if match and best.reviews:
+        verdict, tone = f"No must-have item failed, but {best.reviews} items need a check", "warn"
+    elif match:
+        verdict, tone = "Meets every must-have item", "ok"
+    else:
+        verdict, tone = f"{best.mandatory_fails} must-have item{'s' if best.mandatory_fails != 1 else ''} not met", "bad"
+    closest = "" if match else f'<p class="sc-closest">Closest option: {escape(best.product_name)}</p>'
+    product = next((p for p in catalog() if p["id"] == best.product_id), {})
+    facts = product_facts(product, short=True)
     summary = f"<p>{escape(review.summary)}</p>" if review.summary else ""
     questions = "".join(f"<li>{escape(q)}</li>" for q in review.customer_questions)
     questions = f'<p class="sc-small">Questions for the customer:</p><ul>{questions}</ul>' if questions else ""
     source = "Claude read this spec. Pass and fail came from the catalog rules." if review.source == "claude" else "Prepared sample. Claude didn't run."
+    total = len(best.results)
+    counts = {s: sum(r.status == s for r in best.results) for s in ("PASS", "REVIEW", "FAIL")}
+    bar = "".join(f'<span class="sc-bar-{s}" style="flex:{counts[s]}"></span>' for s in counts if counts[s])
+    score = (f'<aside class="sc-score"><div class="sc-score-lbl">Items that pass</div>'
+             f'<div class="sc-score-num"><b>{counts["PASS"]}</b> of {total}</div><div class="sc-bar">{bar}</div>'
+             f'<div class="sc-score-det"><span class="{"bad" if counts["FAIL"] else ""}">{counts["FAIL"]} fail</span>'
+             f'<span class="{"warn" if counts["REVIEW"] else ""}">{counts["REVIEW"]} to check</span></div></aside>')
     return (
-        f'<div class="sc-panel"><div class="sc-verdict"><div><div class="sc-kicker">{kicker}</div><h2>{escape(title)}</h2>{closest}</div>{chip}</div>'
-        f'<div class="sc-counts"><div><b>{best.mandatory_fails}</b><span>Must-haves missed</span></div>'
-        f'<div><b>{best.preferred_misses}</b><span>Preferred items missed</span></div>'
-        f'<div><b>{best.reviews}</b><span>To review</span></div></div>{summary}{questions}'
-        f'<p class="sc-small">{source}</p></div>'
+        f'<div class="sc-res-row"><div class="sc-panel"><div class="sc-kicker">{kicker}</div><h2>{escape(title)}</h2>'
+        f'<p class="sc-verdict {tone}">{verdict}</p>{closest}<p class="sc-facts">{escape(facts)}</p>'
+        f'{summary}{questions}<p class="sc-small">{source}</p></div>{score}</div>'
     )
-
 
 def type_box(equipment_type: str) -> None:
     name, text = TYPE_INFO[equipment_type]
@@ -344,43 +489,74 @@ def doc_html(text: str) -> str:
 def show_review(review: Review, spec_text: str, show_type: bool = True) -> None:
     band = "band-match" if review.recommended_id else "band-gap"
     with st.container(key=band):
-        if show_type:
-            type_box(review.equipment_type)
         label("Result")
         html(result_panel(review))
 
     with st.container(key="band-table"):
+        html('<span class="sc-anchor" id="sec-check"></span>')
         label("Details")
-        html('<div class="sc-h2">Requirement check</div>')
+        html(f'<div class="sc-h2">{icon("check", "#2b4a6f")}Requirement check</div>'
+             '<p class="sc-legend"><span class="sc-chip PASS">Pass</span> product has it '
+             '<span class="sc-chip FAIL">Fail</span> product doesn\'t '
+             '<span class="sc-chip REVIEW">Review</span> a person should check</p>')
         names = {c.product_name: c for c in review.ranked}
-        chosen = names[st.selectbox("Product", list(names))]
+        by_name = {p["name"]: p for p in catalog()}
+        pick_col, show_col = st.columns([3, 2], vertical_alignment="bottom")
+        picked = pick_col.selectbox("Product", list(names), format_func=lambda n: n)
+        chosen = names[picked]
         counts = {s: sum(STATUS_LABELS[r.status] == s for r in chosen.results) for s in ("Fail", "Review", "Pass")}
         options = ["All", "Fail", "Review", "Pass"]
-        shown = st.segmented_control(
+        shown = show_col.segmented_control(
             "Show",
             options,
             default="All",
             format_func=lambda s: f"{s} {counts[s] if s in counts else len(chosen.results)}",
         )
+        html(f'<p class="sc-facts">{product_facts(by_name.get(picked, {}))}</p>')
         html(compliance_table(chosen, shown or "All"))
         st.download_button(
-            "Download CSV",
-            to_csv(chosen),
-            file_name=f"{chosen.product_id}-compliance.csv",
-            mime="text/csv",
+            "Download compliance list (PDF)",
+            to_pdf(chosen, getattr(review, "document_name", None)),
+            file_name=f"{chosen.product_id}-compliance.pdf",
+            mime="application/pdf",
         )
 
+    with st.container(key="band-compare"):
+        html('<span class="sc-anchor" id="sec-compare"></span>')
+        label("Compare")
+        html(f'<div class="sc-h2">{icon("compare", "#2f6f6a")}Compare products</div>'
+             '<p class="sc-desc">Every product of this type against the same spec. Best match first.</p>')
+        html(compare_table(review))
+
     with st.container(key="band-products"):
+        html('<span class="sc-anchor" id="sec-cost"></span>')
         label("Costs")
-        html('<div class="sc-h2">Material cost</div>')
+        html(f'<div class="sc-h2">{icon("cost", "#a0522d")}Material cost</div>')
         html(materials_table(review.ranked[0].product_id))
-        price_inputs()
         price_charts()
 
     with st.container(key="band-spec"):
+        html('<span class="sc-anchor" id="sec-spec"></span>')
         label("Source")
+        html(f'<div class="sc-h2">{icon("spec", "#6b7280")}Original spec</div>')
+        html('<p class="sc-desc">A short version of the spec with only the important parts. Real specs run many pages.</p>')
         with st.expander("View original spec"):
             html(doc_html(spec_text))
+
+    questions = make_questions(review)
+
+    def listing(key: str) -> str:
+        return "".join(f"<li>{escape(q)}</li>" for q in questions[key])
+
+    with st.container(key="band-questions"):
+        html('<span class="sc-anchor" id="sec-questions"></span>')
+        label("Next steps")
+        html(f'<div class="sc-h2">{icon("questions", "#5f6b2e")}Questions to ask</div>'
+             '<div class="sc-qcols">'
+             f'<div><h3>For the customer</h3><h4>Every job</h4><ol>{listing("customer_fixed")}</ol>'
+             f'<h4>From this spec</h4><ol class="sc-qspec">{listing("customer")}</ol></div>'
+             f'<div><h3>For your engineers</h3><h4>Every job</h4><ol>{listing("engineer_fixed")}</ol>'
+             f'<h4>From this spec</h4><ol class="sc-qspec">{listing("engineer")}</ol></div></div>')
 
 
 TYPE_INFO = {
@@ -422,48 +598,25 @@ TYPE_INFO = {
     ]
 }
 
-EQUIPMENT_INFO = {
-    "Utility": "Where power from the power company enters the site. It has the main shutoff and the power meter.",
-    "Transformer": "Changes the voltage. It usually steps high voltage down to a level the site can use.",
-    "Bus": "Metal bars or cables inside a metal housing that carry a lot of current between equipment. Cable bus uses cables, iso phase bus gives each phase its own housing, and non-seg bus puts all three phases in one housing.",
-    "Switchgear": "Large cabinets with breakers. They send power to different parts of the site and shut it off safely when something goes wrong.",
-    "UPS": "Battery backup. It keeps power on for a few minutes during an outage until the generators start.",
-    "Server racks": "Frames that hold the servers and computers that use the power."
-}
-
-
-def pick_equipment(name: str) -> None:
-    """Clicking a card selects it. Clicking it again shows all equipment."""
-    chosen = None if st.session_state.get("equipment") == name else name
-    st.session_state["equipment"] = chosen
+ABOUT = """
+<div class="sc-h2">What this tool does</div>
+<div class="sc-about"><p>A customer sends a spec that lists what they need. SpecCheck reads it and checks each item
+against your products, so you see fast which product fits and what is missing.</p>
+<ol class="sc-steps"><li>Add the customer's spec PDF.</li>
+<li>Claude finds each requirement and copies the exact words from the spec.</li>
+<li>Simple rules compare each one to your catalog: pass, fail, or review.</li>
+<li>You get the best product, the gaps, and questions for the customer.</li></ol></div>
+"""
 
 
 def equipment_panel() -> dict[str, str]:
-    with st.container(key="band-path"):
-        label("Equipment")
-        html('<div class="sc-h2">What it covers</div>')
-        chosen = st.session_state.get("equipment")
-        columns = st.columns(len(EQUIPMENT))
-        for column, (name, (icon, _)) in zip(columns, EQUIPMENT.items()):
-            column.button(
-                name,
-                icon=icon,
-                key=f"equipment-{name}",
-                type="primary" if chosen == name else "secondary",
-                width="stretch",
-                on_click=pick_equipment,
-                args=(name,),
-            )
-        if chosen:
-            html(f'<div class="sc-panel" style="margin-top:14px"><b>{escape(chosen)}</b><p style="margin:4px 0 0">{escape(EQUIPMENT_INFO[chosen])}</p></div>')
-        html('<p class="sc-small">Click equipment to see what it is and its sample specs. Click it again to see them all.</p>')
-    if chosen:
-        return EQUIPMENT[chosen][1]
+    with st.container(key="band-about"):
+        html(ABOUT)
     return {spec: file for _, specs in EQUIPMENT.values() for spec, file in specs.items()}
 
 
 def claude_panel() -> None:
-    html('<div class="sc-h2" style="margin-top:28px">Check your own spec</div>')
+    html(f'<div class="sc-h2" style="margin-top:28px">{icon("live", "#1f5f9e")}Check your own spec</div>')
     typed_key = ""
     if not has_api_key():
         typed_key = st.text_input(
@@ -478,13 +631,18 @@ def claude_panel() -> None:
         st.info("Enter the demo password to use Claude.")
         return
 
-    upload = st.file_uploader("Spec PDF", type="pdf")
-    if upload and st.button("Run review", type="primary"):
+    uploads = st.file_uploader(
+        "Spec PDFs",
+        type="pdf",
+        accept_multiple_files=True,
+        help="Add the spec and any addenda.",
+    )
+    if uploads and st.button("Run review", type="primary"):
         if not review_counter().take(daily_limit()):
             st.warning("Today's review limit has been reached. Please try again tomorrow.")
             return
         try:
-            spec_text = read_pdf(upload.getvalue())
+            spec_text = read_pdfs([(u.name, u.getvalue()) for u in uploads])
             with st.spinner(""):
                 client = Anthropic(api_key=typed_key) if typed_key else None
                 st.session_state["review"] = SpecAgent(catalog(), client=client).run(spec_text)
@@ -500,23 +658,36 @@ html(CSS)
 html(HEADER)
 sample_names = equipment_panel()
 
+SAMPLE_GROUP = {spec: group for group, (_, specs) in EQUIPMENT.items() for spec in specs}
+
+
+def sample_label(name: str) -> str:
+    return f"{EQUIPMENT[SAMPLE_GROUP[name]][0]} {name}"
+
+
 def show_samples() -> None:
     st.session_state["showing"] = "sample"
 
 
 with st.container(key="band-demo"):
+    html('<span class="sc-anchor" id="sec-samples"></span>')
     label("Demo")
-    html('<div class="sc-h2">Pick a sample spec</div>')
+    html(f'<div class="sc-h2">Pick a sample spec</div>')
     names = list(sample_names)
     name = st.segmented_control(
         "Sample spec",
         names,
         default=names[0],
-        key=f"sample-{st.session_state.get('equipment')}",
+        format_func=sample_label,
+        key="sample",
         on_change=show_samples,
         label_visibility="collapsed",
     ) or names[0]
     sample = sample_names[name]
+    if name == "Switchgear":
+        voltage = st.segmented_control("Voltage", list(SWITCHGEAR), default=list(SWITCHGEAR)[0],
+                                       key="switchgear-voltage", on_change=show_samples) or list(SWITCHGEAR)[0]
+        sample = SWITCHGEAR[voltage]
     sample_review, sample_text = saved_review(sample)
     type_box(sample_review.equipment_type)
     st.download_button(
@@ -532,4 +703,4 @@ if st.session_state.get("showing") == "claude" and "review" in st.session_state:
 else:
     show_review(sample_review, sample_text, show_type=False)
 
-html(FOOTER)
+html(JUMP)

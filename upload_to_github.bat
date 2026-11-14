@@ -27,6 +27,22 @@ if not errorlevel 1 (
     exit /b 1
 )
 
+git ls-files --error-unmatch .streamlit/secrets.toml >nul 2>nul
+if not errorlevel 1 (
+    echo.
+    echo STOPPED: your Streamlit secrets file was about to be uploaded. Nothing was pushed.
+    pause
+    exit /b 1
+)
+
+git ls-files --error-unmatch data/catalog_company.json >nul 2>nul
+if not errorlevel 1 (
+    echo.
+    echo STOPPED: private company catalog data was about to be uploaded. Nothing was pushed.
+    pause
+    exit /b 1
+)
+
 git diff --cached --quiet
 if errorlevel 1 git commit -m "Add SpecCheck AI"
 
