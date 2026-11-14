@@ -44,6 +44,12 @@
       "enclosure_material": null,
       "cooling": null,
       "location": null,
+      "phases": [
+        3
+      ],
+      "height_in": 95,
+      "width_in": 144,
+      "depth_in": 96,
       "price_usd": 310000,
       "materials_lb": {
         "copper": 1500,
@@ -98,6 +104,12 @@
       "enclosure_material": null,
       "cooling": null,
       "location": null,
+      "phases": [
+        3
+      ],
+      "height_in": 95,
+      "width_in": 180,
+      "depth_in": 96,
       "price_usd": 380000,
       "materials_lb": {
         "copper": 2200,
@@ -155,6 +167,12 @@
       "enclosure_material": null,
       "cooling": null,
       "location": null,
+      "phases": [
+        3
+      ],
+      "height_in": 110,
+      "width_in": 216,
+      "depth_in": 96,
       "price_usd": 520000,
       "materials_lb": {
         "copper": 3200,
@@ -214,6 +232,12 @@
       "enclosure_material": null,
       "cooling": null,
       "location": null,
+      "phases": [
+        3
+      ],
+      "height_in": 110,
+      "width_in": 216,
+      "depth_in": 96,
       "price_usd": 640000,
       "materials_lb": {
         "copper": 4200,
@@ -264,6 +288,12 @@
       "enclosure_material": null,
       "cooling": null,
       "location": null,
+      "phases": [
+        3
+      ],
+      "height_in": 95,
+      "width_in": 180,
+      "depth_in": 96,
       "price_usd": 470000,
       "materials_lb": {
         "copper": 2400,
@@ -319,6 +349,12 @@
       "enclosure_material": null,
       "cooling": null,
       "location": null,
+      "phases": [
+        3
+      ],
+      "height_in": 110,
+      "width_in": 288,
+      "depth_in": 120,
       "price_usd": 780000,
       "materials_lb": {
         "copper": 3800,
@@ -372,6 +408,12 @@
       "enclosure_material": null,
       "cooling": null,
       "location": null,
+      "phases": [
+        3
+      ],
+      "height_in": 90,
+      "width_in": 120,
+      "depth_in": 60,
       "price_usd": 160000,
       "materials_lb": {
         "copper": 2600,
@@ -427,6 +469,12 @@
       "enclosure_material": null,
       "cooling": null,
       "location": null,
+      "phases": [
+        3
+      ],
+      "height_in": 90,
+      "width_in": 180,
+      "depth_in": 72,
       "price_usd": 240000,
       "materials_lb": {
         "copper": 4000,
@@ -479,6 +527,12 @@
         "ventilated enclosure"
       ],
       "lead_time_weeks": 20,
+      "phases": [
+        3
+      ],
+      "height_in": 8,
+      "width_in": 24,
+      "depth_in": null,
       "price_usd": 95000,
       "materials_lb": {
         "copper": 1800,
@@ -532,6 +586,12 @@
         "expansion joints"
       ],
       "lead_time_weeks": 26,
+      "phases": [
+        3
+      ],
+      "height_in": 8,
+      "width_in": 36,
+      "depth_in": null,
       "price_usd": 160000,
       "materials_lb": {
         "copper": 3600,
@@ -583,6 +643,12 @@
         "ventilated enclosure"
       ],
       "lead_time_weeks": 30,
+      "phases": [
+        3
+      ],
+      "height_in": 8,
+      "width_in": 36,
+      "depth_in": null,
       "price_usd": 190000,
       "materials_lb": {
         "copper": 3000,
@@ -631,6 +697,12 @@
         "seal-off bushings"
       ],
       "lead_time_weeks": 36,
+      "phases": [
+        3
+      ],
+      "height_in": 36,
+      "width_in": 36,
+      "depth_in": null,
       "price_usd": 1100000,
       "materials_lb": {
         "aluminum": 9000,
@@ -680,6 +752,12 @@
         "expansion joints"
       ],
       "lead_time_weeks": 40,
+      "phases": [
+        3
+      ],
+      "height_in": 42,
+      "width_in": 42,
+      "depth_in": null,
       "price_usd": 1500000,
       "materials_lb": {
         "aluminum": 13000,
@@ -730,6 +808,12 @@
         "dry air pressurization"
       ],
       "lead_time_weeks": 54,
+      "phases": [
+        3
+      ],
+      "height_in": 54,
+      "width_in": 54,
+      "depth_in": null,
       "price_usd": 2400000,
       "materials_lb": {
         "aluminum": 20000,
@@ -780,6 +864,12 @@
         "dry air pressurization"
       ],
       "lead_time_weeks": 62,
+      "phases": [
+        3
+      ],
+      "height_in": 60,
+      "width_in": 60,
+      "depth_in": null,
       "price_usd": 3200000,
       "materials_lb": {
         "aluminum": 28000,
@@ -832,6 +922,12 @@
         "flexible connections"
       ],
       "lead_time_weeks": 18,
+      "phases": [
+        3
+      ],
+      "height_in": 12,
+      "width_in": 30,
+      "depth_in": null,
       "price_usd": 85000,
       "materials_lb": {
         "copper": 2200,
@@ -885,6 +981,12 @@
         "flexible connections"
       ],
       "lead_time_weeks": 22,
+      "phases": [
+        3
+      ],
+      "height_in": 15,
+      "width_in": 30,
+      "depth_in": null,
       "price_usd": 120000,
       "materials_lb": {
         "copper": 2400,
@@ -938,6 +1040,12 @@
         "flexible connections"
       ],
       "lead_time_weeks": 28,
+      "phases": [
+        3
+      ],
+      "height_in": 15,
+      "width_in": 42,
+      "depth_in": null,
       "price_usd": 175000,
       "materials_lb": {
         "copper": 3800,
@@ -988,6 +1096,12 @@
         "space heaters"
       ],
       "lead_time_weeks": 32,
+      "phases": [
+        3
+      ],
+      "height_in": 15,
+      "width_in": 30,
+      "depth_in": null,
       "price_usd": 160000,
       "materials_lb": {
         "copper": 2600,
@@ -1023,6 +1137,12 @@
       ],
       "max_ambient_c": 40,
       "max_altitude_m": 1000,
+      "phases": [
+        3
+      ],
+      "height_in": 95,
+      "width_in": 60,
+      "depth_in": 96,
       "price_usd": 70000,
       "materials_lb": {
         "copper": 400,
@@ -1059,6 +1179,12 @@
       ],
       "max_ambient_c": 40,
       "max_altitude_m": 1000,
+      "phases": [
+        3
+      ],
+      "height_in": 95,
+      "width_in": 72,
+      "depth_in": 96,
       "price_usd": 95000,
       "materials_lb": {
         "copper": 700,
@@ -1093,6 +1219,12 @@
       ],
       "max_ambient_c": 40,
       "max_altitude_m": 1000,
+      "phases": [
+        3
+      ],
+      "height_in": 110,
+      "width_in": 96,
+      "depth_in": 120,
       "price_usd": 150000,
       "materials_lb": {
         "copper": 900,
@@ -1133,6 +1265,12 @@
       ],
       "max_ambient_c": 40,
       "max_altitude_m": 1000,
+      "phases": [
+        3
+      ],
+      "height_in": 85,
+      "width_in": 90,
+      "depth_in": 80,
       "price_usd": 90000,
       "materials_lb": {
         "copper": 2500,
@@ -1174,6 +1312,12 @@
       ],
       "max_ambient_c": 40,
       "max_altitude_m": 1000,
+      "phases": [
+        3
+      ],
+      "height_in": 120,
+      "width_in": 150,
+      "depth_in": 130,
       "price_usd": 1200000,
       "materials_lb": {
         "copper": 18000,
@@ -1217,6 +1361,12 @@
       ],
       "max_ambient_c": 40,
       "max_altitude_m": 1000,
+      "phases": [
+        3
+      ],
+      "height_in": 135,
+      "width_in": 170,
+      "depth_in": 145,
       "price_usd": 1600000,
       "materials_lb": {
         "copper": 25000,
@@ -1252,6 +1402,12 @@
       ],
       "max_ambient_c": 40,
       "max_altitude_m": 1000,
+      "phases": [
+        3
+      ],
+      "height_in": 79,
+      "width_in": 120,
+      "depth_in": 40,
       "price_usd": 260000,
       "materials_lb": {
         "copper": 600,
@@ -1287,6 +1443,12 @@
       ],
       "max_ambient_c": 40,
       "max_altitude_m": 1000,
+      "phases": [
+        3
+      ],
+      "height_in": 79,
+      "width_in": 216,
+      "depth_in": 40,
       "price_usd": 450000,
       "materials_lb": {
         "copper": 1100,
@@ -1323,6 +1485,12 @@
       ],
       "max_ambient_c": 40,
       "max_altitude_m": 1000,
+      "phases": [
+        3
+      ],
+      "height_in": 79,
+      "width_in": 300,
+      "depth_in": 40,
       "price_usd": 650000,
       "materials_lb": {
         "copper": 1600,
@@ -1350,6 +1518,13 @@
       ],
       "features": [],
       "lead_time_weeks": 8,
+      "phases": [
+        1,
+        3
+      ],
+      "height_in": 80,
+      "width_in": 23.6,
+      "depth_in": 42,
       "price_usd": 3500,
       "materials_lb": {
         "copper": 40,
@@ -1379,6 +1554,13 @@
         "seismic certified"
       ],
       "lead_time_weeks": 12,
+      "phases": [
+        1,
+        3
+      ],
+      "height_in": 90,
+      "width_in": 23.6,
+      "depth_in": 48,
       "price_usd": 9000,
       "materials_lb": {
         "copper": 80,
@@ -1408,11 +1590,779 @@
         "seismic certified"
       ],
       "lead_time_weeks": 16,
+      "phases": [
+        1,
+        3
+      ],
+      "height_in": 90,
+      "width_in": 23.6,
+      "depth_in": 48,
       "price_usd": 18000,
       "materials_lb": {
         "copper": 120,
         "aluminum": 40,
         "steel": 450
+      }
+    },
+    {
+      "id": "LVS-635-3200",
+      "name": "LVS 600 V Switchgear, 3200 A",
+      "equipment_type": "lv_switchgear",
+      "bil_kv": null,
+      "frequency_hz": [
+        60
+      ],
+      "breaker_type": [
+        "air"
+      ],
+      "bus_material": [
+        "copper",
+        "tin-plated copper"
+      ],
+      "cable_entry": [
+        "top",
+        "bottom"
+      ],
+      "voltage_kv": 0.635,
+      "bus_current_a": 3200,
+      "short_circuit_ka": 65,
+      "control_voltage_vdc": [
+        48,
+        125
+      ],
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": [],
+      "max_ambient_c": 40,
+      "max_altitude_m": 2000,
+      "standards": [
+        "IEEE C37.20.1",
+        "UL 1558"
+      ],
+      "features": [
+        "drawout breakers",
+        "zone selective interlocking"
+      ],
+      "lead_time_weeks": 26,
+      "momentary_ka": null,
+      "insulation": null,
+      "enclosure_material": null,
+      "cooling": null,
+      "location": null,
+      "phases": [
+        3
+      ],
+      "height_in": 90,
+      "width_in": 120,
+      "depth_in": 60,
+      "price_usd": 185000,
+      "materials_lb": {
+        "copper": 2700,
+        "aluminum": 300,
+        "steel": 6500
+      }
+    },
+    {
+      "id": "LVS-635-5000",
+      "name": "LVS 600 V Switchgear, 5000 A",
+      "equipment_type": "lv_switchgear",
+      "bil_kv": null,
+      "frequency_hz": [
+        60
+      ],
+      "breaker_type": [
+        "air"
+      ],
+      "bus_material": [
+        "copper",
+        "tin-plated copper"
+      ],
+      "cable_entry": [
+        "top",
+        "bottom"
+      ],
+      "voltage_kv": 0.635,
+      "bus_current_a": 5000,
+      "short_circuit_ka": 100,
+      "control_voltage_vdc": [
+        48,
+        125
+      ],
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": [],
+      "max_ambient_c": 40,
+      "max_altitude_m": 2000,
+      "standards": [
+        "IEEE C37.20.1",
+        "UL 1558"
+      ],
+      "features": [
+        "drawout breakers",
+        "zone selective interlocking",
+        "arc flash maintenance mode"
+      ],
+      "lead_time_weeks": 34,
+      "momentary_ka": null,
+      "insulation": null,
+      "enclosure_material": null,
+      "cooling": null,
+      "location": null,
+      "phases": [
+        3
+      ],
+      "height_in": 90,
+      "width_in": 180,
+      "depth_in": 72,
+      "price_usd": 265000,
+      "materials_lb": {
+        "copper": 4100,
+        "aluminum": 300,
+        "steel": 9500
+      }
+    },
+    {
+      "id": "CBL-0.6-3000",
+      "name": "CBL 600 V Cable Bus, 3000 A",
+      "equipment_type": "cable_bus",
+      "voltage_kv": 0.6,
+      "bil_kv": null,
+      "bus_current_a": 3000,
+      "short_circuit_ka": 65,
+      "momentary_ka": 169,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "copper"
+      ],
+      "cable_entry": null,
+      "insulation": [
+        "XLPE"
+      ],
+      "enclosure_material": [
+        "aluminum"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "ventilated enclosure"
+      ],
+      "lead_time_weeks": 14,
+      "phases": [
+        3
+      ],
+      "height_in": 8,
+      "width_in": 36,
+      "depth_in": null,
+      "price_usd": 70000,
+      "materials_lb": {
+        "copper": 2600,
+        "aluminum": 1100
+      }
+    },
+    {
+      "id": "CBL-0.6-5000",
+      "name": "CBL 600 V Cable Bus, 5000 A",
+      "equipment_type": "cable_bus",
+      "voltage_kv": 0.6,
+      "bil_kv": null,
+      "bus_current_a": 5000,
+      "short_circuit_ka": 100,
+      "momentary_ka": 260,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "copper"
+      ],
+      "cable_entry": null,
+      "insulation": [
+        "XLPE",
+        "EPR"
+      ],
+      "enclosure_material": [
+        "aluminum"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "ventilated enclosure",
+        "expansion joints"
+      ],
+      "lead_time_weeks": 18,
+      "phases": [
+        3
+      ],
+      "height_in": 8,
+      "width_in": 48,
+      "depth_in": null,
+      "price_usd": 115000,
+      "materials_lb": {
+        "copper": 4300,
+        "aluminum": 1500
+      }
+    },
+    {
+      "id": "NSB-0.6-4000",
+      "name": "NSB 600 V Non-Seg Bus, 4000 A",
+      "equipment_type": "non_seg_bus",
+      "voltage_kv": 0.6,
+      "bil_kv": null,
+      "bus_current_a": 4000,
+      "short_circuit_ka": 85,
+      "momentary_ka": 221,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "copper",
+        "tin-plated copper"
+      ],
+      "cable_entry": null,
+      "insulation": null,
+      "enclosure_material": [
+        "aluminum",
+        "steel"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "space heaters",
+        "flexible connections"
+      ],
+      "lead_time_weeks": 16,
+      "phases": [
+        3
+      ],
+      "height_in": 12,
+      "width_in": 36,
+      "depth_in": null,
+      "price_usd": 95000,
+      "materials_lb": {
+        "copper": 3200,
+        "aluminum": 900,
+        "steel": 2500
+      }
+    },
+    {
+      "id": "UPS-600-1000",
+      "name": "UPS 1 MW, 600 V",
+      "equipment_type": "ups",
+      "power_kw": 1000,
+      "voltage_kv": 0.6,
+      "runtime_min": 5,
+      "battery_type": [
+        "lithium-ion"
+      ],
+      "efficiency_pct": 96.5,
+      "location": [
+        "indoor"
+      ],
+      "standards": [
+        "UL 1778"
+      ],
+      "features": [
+        "maintenance bypass",
+        "hot-swappable modules"
+      ],
+      "lead_time_weeks": 28,
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "phases": [
+        3
+      ],
+      "height_in": 79,
+      "width_in": 216,
+      "depth_in": 40,
+      "price_usd": 480000,
+      "materials_lb": {
+        "copper": 1150,
+        "aluminum": 250,
+        "steel": 5000,
+        "lithium": 60,
+        "nickel": 150
+      }
+    },
+    {
+      "id": "UTL-0.6-2000",
+      "name": "UTL 600 V Service Section, 2000 A",
+      "equipment_type": "utility_service",
+      "voltage_kv": 0.6,
+      "bil_kv": null,
+      "bus_current_a": 2000,
+      "short_circuit_ka": 65,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "UL 891"
+      ],
+      "features": [
+        "utility disconnect",
+        "revenue metering"
+      ],
+      "lead_time_weeks": 14,
+      "phases": [
+        3
+      ],
+      "height_in": 90,
+      "width_in": 48,
+      "depth_in": 60,
+      "price_usd": 45000,
+      "materials_lb": {
+        "copper": 600,
+        "aluminum": 150,
+        "steel": 2200
+      },
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000
+    },
+    {
+      "id": "UTL-0.6-4000",
+      "name": "UTL 600 V Service Section, 4000 A",
+      "equipment_type": "utility_service",
+      "voltage_kv": 0.6,
+      "bil_kv": null,
+      "bus_current_a": 4000,
+      "short_circuit_ka": 100,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "UL 891"
+      ],
+      "features": [
+        "utility disconnect",
+        "revenue metering"
+      ],
+      "lead_time_weeks": 18,
+      "phases": [
+        3
+      ],
+      "height_in": 90,
+      "width_in": 72,
+      "depth_in": 60,
+      "price_usd": 68000,
+      "materials_lb": {
+        "copper": 1100,
+        "aluminum": 250,
+        "steel": 3000
+      },
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000
+    },
+    {
+      "id": "XFM-15-2500-600",
+      "name": "XFM 2.5 MVA Transformer, 13.8 kV to 600 V",
+      "equipment_type": "transformer",
+      "power_kva": 2500,
+      "voltage_kv": 15,
+      "secondary_voltage_kv": [
+        0.6
+      ],
+      "bil_kv": 95,
+      "impedance_pct": [
+        5.75
+      ],
+      "cooling": [
+        "ONAN"
+      ],
+      "insulating_fluid": [
+        "mineral oil",
+        "natural ester"
+      ],
+      "location": [
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C57.12.00"
+      ],
+      "features": [],
+      "lead_time_weeks": 52,
+      "phases": [
+        3
+      ],
+      "height_in": 85,
+      "width_in": 90,
+      "depth_in": 80,
+      "price_usd": 92000,
+      "materials_lb": {
+        "copper": 2500,
+        "steel": 4000,
+        "electrical_steel": 5000,
+        "transformer_oil": 600
+      },
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000
+    },
+    {
+      "id": "UTL-38-600",
+      "name": "UTL 38 kV Service Section, 600 A",
+      "equipment_type": "utility_service",
+      "voltage_kv": 38,
+      "bil_kv": 150,
+      "bus_current_a": 600,
+      "short_circuit_ka": 25,
+      "enclosure": [
+        "NEMA 3R"
+      ],
+      "location": [
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.20.3"
+      ],
+      "features": [
+        "utility disconnect",
+        "revenue metering"
+      ],
+      "lead_time_weeks": 28,
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "phases": [
+        3
+      ],
+      "height_in": 110,
+      "width_in": 96,
+      "depth_in": 120,
+      "price_usd": 125000,
+      "materials_lb": {
+        "copper": 600,
+        "aluminum": 250,
+        "steel": 4500
+      }
+    },
+    {
+      "id": "UTL-38-2000",
+      "name": "UTL 38 kV Service Section, 2000 A",
+      "equipment_type": "utility_service",
+      "voltage_kv": 38,
+      "bil_kv": 150,
+      "bus_current_a": 2000,
+      "short_circuit_ka": 31.5,
+      "enclosure": [
+        "NEMA 3R"
+      ],
+      "location": [
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.20.3"
+      ],
+      "features": [
+        "utility disconnect",
+        "revenue metering"
+      ],
+      "lead_time_weeks": 34,
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "phases": [
+        3
+      ],
+      "height_in": 110,
+      "width_in": 96,
+      "depth_in": 120,
+      "price_usd": 185000,
+      "materials_lb": {
+        "copper": 1400,
+        "aluminum": 350,
+        "steel": 5500
+      }
+    },
+    {
+      "id": "UTL-38-3000",
+      "name": "UTL 38 kV Service Section, 3000 A",
+      "equipment_type": "utility_service",
+      "voltage_kv": 38,
+      "bil_kv": 150,
+      "bus_current_a": 3000,
+      "short_circuit_ka": 40,
+      "enclosure": [
+        "NEMA 3R"
+      ],
+      "location": [
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.20.3"
+      ],
+      "features": [
+        "utility disconnect",
+        "revenue metering"
+      ],
+      "lead_time_weeks": 38,
+      "frequency_hz": [
+        60
+      ],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "phases": [
+        3
+      ],
+      "height_in": 110,
+      "width_in": 120,
+      "depth_in": 120,
+      "price_usd": 230000,
+      "materials_lb": {
+        "copper": 2000,
+        "aluminum": 400,
+        "steel": 6500
+      }
+    },
+    {
+      "id": "MVX-38-1200",
+      "name": "MVX 38 kV Metal-Clad, 1200 A",
+      "equipment_type": "mv_switchgear",
+      "frequency_hz": [
+        60
+      ],
+      "breaker_type": [
+        "vacuum"
+      ],
+      "bus_material": [
+        "copper",
+        "silver-plated copper"
+      ],
+      "cable_entry": [
+        "top",
+        "bottom"
+      ],
+      "voltage_kv": 38,
+      "bil_kv": 150,
+      "bus_current_a": 1200,
+      "short_circuit_ka": 25,
+      "control_voltage_vdc": [
+        125
+      ],
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": [],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "standards": [
+        "IEEE C37.20.2"
+      ],
+      "features": [
+        "drawout breakers"
+      ],
+      "lead_time_weeks": 48,
+      "momentary_ka": null,
+      "insulation": null,
+      "enclosure_material": null,
+      "cooling": null,
+      "location": null,
+      "phases": [
+        3
+      ],
+      "height_in": 105,
+      "width_in": 192,
+      "depth_in": 120,
+      "price_usd": 560000,
+      "materials_lb": {
+        "copper": 2000,
+        "aluminum": 600,
+        "steel": 16000
+      }
+    },
+    {
+      "id": "MVX-38-2000",
+      "name": "MVX 38 kV Metal-Clad, 2000 A",
+      "equipment_type": "mv_switchgear",
+      "frequency_hz": [
+        60
+      ],
+      "breaker_type": [
+        "vacuum"
+      ],
+      "bus_material": [
+        "copper",
+        "silver-plated copper"
+      ],
+      "cable_entry": [
+        "top",
+        "bottom"
+      ],
+      "voltage_kv": 38,
+      "bil_kv": 150,
+      "bus_current_a": 2000,
+      "short_circuit_ka": 31.5,
+      "control_voltage_vdc": [
+        125
+      ],
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": [],
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "standards": [
+        "IEEE C37.20.2"
+      ],
+      "features": [
+        "drawout breakers",
+        "remote racking"
+      ],
+      "lead_time_weeks": 52,
+      "momentary_ka": null,
+      "insulation": null,
+      "enclosure_material": null,
+      "cooling": null,
+      "location": null,
+      "phases": [
+        3
+      ],
+      "height_in": 105,
+      "width_in": 240,
+      "depth_in": 120,
+      "price_usd": 650000,
+      "materials_lb": {
+        "copper": 2800,
+        "aluminum": 700,
+        "steel": 18000
+      }
+    },
+    {
+      "id": "CBL-38-2000",
+      "name": "CBL 38 kV Cable Bus, 2000 A",
+      "equipment_type": "cable_bus",
+      "voltage_kv": 38,
+      "bil_kv": 150,
+      "bus_current_a": 2000,
+      "short_circuit_ka": 40,
+      "momentary_ka": 104,
+      "frequency_hz": [
+        60
+      ],
+      "control_voltage_vdc": null,
+      "enclosure": [
+        "NEMA 1",
+        "NEMA 3R"
+      ],
+      "arc_resistance": null,
+      "max_ambient_c": 40,
+      "max_altitude_m": 1000,
+      "breaker_type": null,
+      "bus_material": [
+        "copper"
+      ],
+      "cable_entry": null,
+      "insulation": [
+        "EPR"
+      ],
+      "enclosure_material": [
+        "aluminum"
+      ],
+      "cooling": [
+        "self-cooled"
+      ],
+      "location": [
+        "indoor",
+        "outdoor"
+      ],
+      "standards": [
+        "IEEE C37.23"
+      ],
+      "features": [
+        "ventilated enclosure"
+      ],
+      "lead_time_weeks": 26,
+      "phases": [
+        3
+      ],
+      "height_in": 8,
+      "width_in": 24,
+      "depth_in": null,
+      "price_usd": 150000,
+      "materials_lb": {
+        "copper": 2100,
+        "aluminum": 1500
       }
     }
   ]

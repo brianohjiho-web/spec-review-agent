@@ -1,0 +1,88 @@
+{
+  "note": "Questions to ask after a review. every_job questions always show. The family lists fill the 'From this spec' list after any questions about failed or unclear items.",
+  "families": {
+    "utility_service": "utility",
+    "transformer": "transformer",
+    "cable_bus": "bus",
+    "iso_phase_bus": "bus",
+    "non_seg_bus": "bus",
+    "mv_switchgear": "switchgear",
+    "lv_switchgear": "switchgear",
+    "ups": "ups",
+    "server_rack": "rack"
+  },
+  "customer": {
+    "utility": [
+      "Has the power company signed off on the metering layout, or do they have their own standard we must follow?",
+      "Where does the power company's cable come in, top or bottom, and who supplies the cable ends?",
+      "Will the power company supply the meter and CTs, or do we?"
+    ],
+    "transformer": [
+      "What load will the transformer carry on a normal day, and how much growth do you expect in the next five years?",
+      "Is there a noise limit at the site, like a property line or nearby offices?",
+      "What secondary voltage and winding connection do you need?"
+    ],
+    "bus": [
+      "How long is the run, and how many bends or wall crossings does it have?",
+      "What equipment does the bus connect to at each end, and who supplies the end connections?",
+      "Will any part of the run be outdoors or pass through a fire wall?"
+    ],
+    "switchgear": [
+      "Can you send the one-line diagram so we can match the number and size of breakers?",
+      "How much room is there in front of and behind the lineup to open doors and pull breakers?",
+      "Do you want space saved in the lineup for breakers you may add later?"
+    ],
+    "ups": [
+      "How much of the load must stay on during an outage, and how long does it need to run on battery?",
+      "Will this UPS run alone or side by side with other UPS units?",
+      "What battery type do you prefer, and how many years should it last?"
+    ],
+    "rack": [
+      "What is the heaviest loaded rack you plan to install, and will racks be moved while loaded?",
+      "How will power get to each rack: overhead busway or cables under the floor?",
+      "How much power per rack do you expect now and in three years?"
+    ],
+    "every_job": [
+      "What date does the equipment need to be on site, and is there a penalty if it is late?",
+      "Do you have an approved vendor list or brand rules we should know about?",
+      "Who signs off on our drawings, and how long does that review usually take?"
+    ]
+  },
+  "engineer": {
+    "utility": [
+      "Does the power company need to approve our drawings, and how long does that usually take?",
+      "Can our section fit the power company's meter and CT layout?",
+      "Do we have a test report for the short-circuit rating?"
+    ],
+    "transformer": [
+      "Do our loss numbers meet the efficiency rules for this size of transformer?",
+      "Can we meet the sound level the site needs?",
+      "What is our lead time for this kVA size today?"
+    ],
+    "bus": [
+      "Do we need a site visit to measure the route before we quote?",
+      "Will the bus line up with the connection points on the equipment at each end?",
+      "Does this route need expansion joints or wall seals?"
+    ],
+    "switchgear": [
+      "Do we have a test report for the short-circuit rating that we can send to the customer?",
+      "Will the lineup fit on one truck, or does it ship in sections that join on site?",
+      "Do we need extra sections for all the breakers on the one-line?"
+    ],
+    "ups": [
+      "Will the battery cabinets fit in the room, and how much cooling do they need?",
+      "Can our UPS run in parallel with their existing units?",
+      "Is the battery runtime still met at the end of battery life?"
+    ],
+    "rack": [
+      "Was the load rating tested on wheels or on leveling feet?",
+      "Can our racks hold the full load on casters, or only on leveling feet?",
+      "Do our racks fit their aisle containment?"
+    ],
+    "every_job": [
+      "What is our real lead time today, not the catalog number?",
+      "If we offer our standard option where the spec differs, how do price and lead time change?",
+      "Is anything in this spec something we have not built before?"
+    ]
+  }
+}
