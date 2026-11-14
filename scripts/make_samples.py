@@ -21,6 +21,7 @@ SPECS = {
         ("2.2 Construction", [
             "The switchgear shall be metal-clad and built to IEEE C37.20.2.",
             "The enclosure shall be NEMA 1 for indoor use.",
+            "The lineup shall be 3 phase, 3 wire, and no more than 120 in. high.",
             "The lineup shall be arc-resistant, accessibility Type 2B, and tested to IEEE C37.20.7.",
             "Circuit breakers shall be vacuum type.",
             "Remote racking is required for all breakers.",
@@ -135,7 +136,8 @@ SPECS = {
             "System frequency is 60 Hz.",
         ]),
         ("3. Construction", [
-            "The enclosure shall be NEMA 3R, and the location is outdoor.",
+            "The enclosure shall be NEMA 3R, and the location is outdoor. The system is 3 phase.",
+            "The section shall be no more than 96 in. high, 84 in. wide, and 100 in. deep.",
             "Provide revenue metering and a utility disconnect.",
             "The assembly shall comply with IEEE C37.20.3.",
         ]),
@@ -178,6 +180,7 @@ SPECS = {
         ("1. Scope", ["Furnish server racks for high-density AI systems at a fictional data hall."]),
         ("2. Requirements", [
             "Racks shall be 48U high and 600 mm wide.",
+            "Racks shall be no taller than 7.5 ft.",
             "Each rack shall support 100 kW.",
             "Static load shall be 3,300 lb.",
             "Cooling shall be direct-to-chip.",
@@ -185,6 +188,22 @@ SPECS = {
             "Racks shall be seismic certified.",
         ]),
         ("3. Delivery", ["Delivery shall be within 16 weeks."]),
+    ]),
+    "maple_600v_lv": ("Maple Ridge Plant: 600 V Main Switchgear", [
+        ("1. Scope", ["Furnish the 600 V main service switchgear for a fictional manufacturing plant."]),
+        ("2. Ratings", [
+            "The switchgear shall be rated 600 V, three phase, 60 Hz.",
+            "Main bus shall be 4000 A continuous.",
+            "Short-circuit rating shall be 85 kA.",
+            "Control voltage shall be 125 VDC.",
+        ]),
+        ("3. Construction", [
+            "Breakers shall be air type with drawout breakers.",
+            "The enclosure shall be NEMA 3R.",
+            "Zone selective interlocking shall be provided.",
+            "The assembly shall be listed to UL 1558.",
+        ]),
+        ("4. Delivery", ["Delivery shall be within 36 weeks."]),
     ]),
 }
 
@@ -210,6 +229,8 @@ LABELS = {
             (("2.1", "control_voltage_vdc", "control power shall be 125 VDC"), dict(number=125, unit="VDC")),
             (("2.2", "standards", "built to IEEE C37.20.2"), dict(text="IEEE C37.20.2")),
             (("2.2", "enclosure", "enclosure shall be NEMA 1"), dict(text="NEMA 1")),
+            (("2.2", "phases", "3 phase, 3 wire"), dict(number=3, unit="")),
+            (("2.2", "height_in", "no more than 120 in. high"), dict(number=120, unit="in.")),
             (("2.2", "arc_resistance", "accessibility Type 2B"), dict(text="Type 2B")),
             (("2.2", "standards", "tested to IEEE C37.20.7"), dict(text="IEEE C37.20.7")),
             (("2.2", "breaker_type", "Circuit breakers shall be vacuum type"), dict(text="vacuum")),
@@ -329,6 +350,10 @@ LABELS = {
             (("3", "features", "revenue metering"), dict(text="revenue metering")),
             (("3", "features", "utility disconnect"), dict(text="utility disconnect")),
             (("3", "standards", "comply with IEEE C37.20.3"), dict(text="IEEE C37.20.3")),
+            (("3", "phases", "3 phase"), dict(number=3, unit="")),
+            (("3", "height_in", "no more than 96 in. high"), dict(number=96, unit="in.")),
+            (("3", "width_in", "84 in. wide"), dict(number=84, unit="in.")),
+            (("3", "depth_in", "100 in. deep"), dict(number=100, unit="in.")),
             (("4", "lead_time_weeks", "within 26 weeks"), dict(number=26, unit="weeks")),
         ]),
     },
@@ -372,10 +397,27 @@ LABELS = {
             (("2", "rack_width_mm", "600 mm wide"), dict(number=600, unit="mm")),
             (("2", "rack_power_kw", "support 100 kW"), dict(number=100, unit="kW")),
             (("2", "static_load_kg", "Static load shall be 3,300 lb"), dict(number=3300, unit="lb")),
+            (("2", "height_in", "no taller than 7.5 ft"), dict(number=7.5, unit="ft")),
             (("2", "cooling", "direct-to-chip"), dict(text="direct-to-chip")),
             (("2", "standards", "comply with EIA-310"), dict(text="EIA-310")),
             (("2", "features", "seismic certified"), dict(text="seismic certified")),
             (("3", "lead_time_weeks", "within 16 weeks"), dict(number=16, unit="weeks")),
+        ]),
+    },
+    "maple_600v_lv": {
+        "equipment_type": "lv_switchgear",
+        "requirements": numbered([
+            (("2", "voltage_kv", "rated 600 V"), dict(number=600, unit="V")),
+            (("2", "frequency_hz", "three phase, 60 Hz"), dict(number=60, unit="Hz")),
+            (("2", "bus_current_a", "Main bus shall be 4000 A"), dict(number=4000, unit="A")),
+            (("2", "short_circuit_ka", "Short-circuit rating shall be 85 kA"), dict(number=85, unit="kA")),
+            (("2", "control_voltage_vdc", "Control voltage shall be 125 VDC"), dict(number=125, unit="VDC")),
+            (("3", "breaker_type", "air type"), dict(text="air")),
+            (("3", "features", "drawout breakers"), dict(text="drawout breakers")),
+            (("3", "enclosure", "enclosure shall be NEMA 3R"), dict(text="NEMA 3R")),
+            (("3", "features", "Zone selective interlocking shall be provided"), dict(text="zone selective interlocking")),
+            (("3", "standards", "listed to UL 1558"), dict(text="UL 1558")),
+            (("4", "lead_time_weeks", "within 36 weeks"), dict(number=36, unit="weeks")),
         ]),
     },
 }
@@ -392,6 +434,7 @@ EXPECTED = {
     "summit_transformer": {"recommended": "XFM-38-30000", "top_ranked": "XFM-38-30000", "top_ranked_fails": []},
     "orion_ups": {"recommended": "UPS-480-1500", "top_ranked": "UPS-480-1500", "top_ranked_fails": []},
     "atlas_server_racks": {"recommended": "RCK-48-120", "top_ranked": "RCK-48-120", "top_ranked_fails": []},
+    "maple_600v_lv": {"recommended": "LVS-635-5000", "top_ranked": "LVS-635-5000", "top_ranked_fails": []},
 }
 
 
