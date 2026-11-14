@@ -24,6 +24,7 @@ class Requirement(BaseModel):
 class SpecRequirements(BaseModel):
     equipment_type: EquipmentType
     requirements: list[Requirement]
+    document_name: str = ""
 
 
 class CheckResult(BaseModel):
@@ -60,3 +61,4 @@ class Review(BaseModel):
     summary: str = ""
     customer_questions: list[str] = Field(default_factory=list)
     source: Literal["claude", "saved_example"] = "saved_example"
+    document_name: str = ""

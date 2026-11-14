@@ -24,6 +24,12 @@ ENTERED = {
     "lithium": ("Lithium", "lb"),
     "transformer_oil": ("Transformer oil", "gal"),
 }
+# Used when nobody types a price. key: ($ per lb or per gallon, where it came from).
+DEFAULT_PRICES = {
+    "steel": (0.65, "Nucor hot-rolled coil, $1,295 per short ton, Nov 9 2026"),
+    "electrical_steel": (2.43, "US electrical steel, $5,362 per metric ton, Q2 2026"),
+    "transformer_oil": (5.00, "Rough middle of the usual $3 to $7 per gallon"),
+}
 # key: (name, kind, note). Kind is "ton" ($ per metric ton), "barrel", or "index".
 CHARTS = {
     "copper": ("Copper", "ton", ""),
@@ -88,7 +94,8 @@ def material_cost(materials: dict, prices: dict, entered: dict | None = None) ->
                          "cost": amount * price, "source": "entered" if own else "FRED"})
         elif key in ENTERED:
             name, unit = ENTERED[key]
-            price = entered.get(key) or None
+            own = entered.get(key)
+            price = own or DEFAULT_PRICES.get(key, (None,))[0]
             rows.append({"key": key, "name": name, "amount": amount, "unit": unit, "price": price,
-                         "cost": amount * price if price else None, "source": "entered"})
+                         "cost": amount * price if price else None, "source": "entered" if own else "default"})
     return rows
