@@ -643,7 +643,7 @@ def claude_panel() -> None:
             return
         try:
             spec_text = read_pdfs([(u.name, u.getvalue()) for u in uploads])
-            with st.spinner(""):
+            with st.spinner("Claude is reading the spec. A long spec can take 1 to 3 minutes."):
                 client = Anthropic(api_key=typed_key) if typed_key else None
                 st.session_state["review"] = SpecAgent(catalog(), client=client).run(spec_text)
                 st.session_state["review_text"] = spec_text
