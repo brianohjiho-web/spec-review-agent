@@ -433,7 +433,7 @@ def result_panel(review: Review) -> str:
     summary = f"<p>{escape(review.summary)}</p>" if review.summary else ""
     questions = "".join(f"<li>{escape(q)}</li>" for q in review.customer_questions)
     questions = f'<p class="sc-small">Questions for the customer:</p><ul>{questions}</ul>' if questions else ""
-    source = "Claude read this spec. Pass and fail came from the catalog rules." if review.source == "claude" else "Prepared sample. Claude didn't run."
+    source = "" if review.source == "claude" else "Prepared sample. Claude didn't run."
     total = len(best.results)
     counts = {s: sum(r.status == s for r in best.results) for s in ("PASS", "REVIEW", "FAIL")}
     bar = "".join(f'<span class="sc-bar-{s}" style="flex:{counts[s]}"></span>' for s in counts if counts[s])

@@ -128,29 +128,23 @@ The sample specs are short and clean. Real specs are harder, so these results do
 }
 ```
 
-## Project layout
+## Main files and data
 
-```text
-app.py                  Web app
-run_windows.bat         One-click start for Windows
-upload_to_github.bat    One-click GitHub upload for Windows
-mcp_server.py           MCP server
-speccheck/agent.py      Claude agent and tools
-speccheck/checks.py     Pass or fail rules and quote checks
-speccheck/review.py     Ranking and PDF export
-speccheck/api_catalog.py  Optional: load products from a company product API
-speccheck/settings.py   API key check and demo limits
-speccheck/metals.py     Material prices and price history
-speccheck/theme.py      Page design
-speccheck/pdf.py        PDF reading
-docs/index.html         GitHub Pages site
-data/catalog.json       Made-up catalog used only by the tests
-data/catalog_public.json  Ratings from public manufacturer pages, with a source link for each product
-data/samples/           Made-up specs and labels
-data/test_specs/        Harder made-up specs to try with Claude
-scripts/evaluate.py     Scoring
-tests/                  Automated tests
-```
+These are the main files behind the app:
+
+| File | What it does |
+|---|---|
+| `app.py` | Runs the app you open in Streamlit. |
+| `speccheck/agent.py` | Uses the Claude API to read a spec and list its requirements. |
+| `speccheck/checks.py` | Uses Python rules to compare requirements with products and mark Pass, Fail, or Review. |
+| `speccheck/review.py` | Picks the best match and makes the review reports. |
+| `speccheck/api_catalog.py` | Optional: gets products from a company's product API. |
+| `data/catalog_public.json` | Product details from public manufacturer pages. The app can check products in this file. |
+| `data/catalog.json` | Made-up product data used by tests. It keeps test results steady; it is not the public product list. |
+| `data/samples/` | Made-up specs used for the app's sample mode. |
+| `.env.example` | Shows example settings. Add your own API keys in `.env`, and keep it private. |
+
+Claude reads uploaded specs through its API. A company product API is a separate, optional source for product data. More test files and app details are in the folders beside these files.
 
 ## Limits
 
