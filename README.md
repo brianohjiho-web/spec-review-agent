@@ -25,13 +25,13 @@ SpecCheck uses the Claude API to read uploaded specs and find requirements. Pyth
 
 ## Product catalog
 
-The tool checks specs against 86 real product lines from 30 companies, including Eaton, Siemens, ABB, Schneider Electric, GE Vernova, Mitsubishi Electric, Vertiv, Hitachi Energy, Toshiba, Huawei, Rittal, Legrand, Panduit, S&C Electric, and nVent. Ratings were copied from each maker's public web page on Nov 13, 2026, and each product links to its source. Anything a page doesn't state is left blank, so it shows as Review. An option a page doesn't mention is also Review, not Fail, because public pages often leave options out.
+SpecCheck uses public product info from 86 product lines at 30 companies, including Eaton, Siemens, ABB, Schneider Electric, GE Vernova, Mitsubishi Electric, Vertiv, Hitachi Energy, Toshiba, Huawei, Rittal, Legrand, Panduit, S&C Electric, and nVent. I copied this info from their websites on Nov 13, 2026. Each product links to its source. If a website does not give a detail, SpecCheck marks it Review instead of guessing.
 
-SpecCheck is designed for sales and solutions engineers who compare customer specs with their company's products. A company can connect its own product API or use a private catalog file. I use public product details in this demo to show how the tool works without exposing a company's private API or product data.
+Sales and solutions engineers can use SpecCheck to compare a customer's spec with the products their company sells. A company can connect its own product API or use a private product file. This demo uses public product info to show how the tool works without sharing a company's private data.
 
-`data/catalog.json` is a fixed, made-up catalog used only by the tests, so their results don't change when public data changes.
+`data/catalog.json` has made-up products for tests only. It keeps test results the same.
 
-This project is not affiliated with or endorsed by any manufacturer. Check the source page before quoting any rating.
+This project is not connected to or endorsed by any manufacturer. Check the source link before using a rating.
 
 
 ## Use a company's own product data
