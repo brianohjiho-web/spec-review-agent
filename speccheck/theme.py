@@ -310,3 +310,100 @@ def icon(name: str, color: str) -> str:
     return (f'<span class="sc-ic" style="color:{color};background:{color}22" aria-hidden="true">'
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
             f'stroke-linecap="round" stroke-linejoin="round">{ICON_PATHS[name]}</svg></span>')
+
+
+# ---- Look matched to the website: graph-paper background, white section cards,
+# ---- numbered colored headers with line drawings, colored tabs, tables, and charts.
+import json as _json
+from pathlib import Path as _Path
+
+SECTION_ART = _json.loads((_Path(__file__).parent / "section_art.json").read_text(encoding="utf-8"))
+SECTION_COLOR = {"live": "#1f5f9e", "check": "#2b4a6f", "compare": "#2f6f6a", "cost": "#a0522d",
+                 "questions": "#5f6b2e", "spec": "#6b7280"}
+
+
+def section_head(name: str, title: str, number: int) -> str:
+    """Numbered section title in the section's color, with its drawing on the right."""
+    art = SECTION_ART[name].replace("<svg ", '<svg aria-hidden="true" ', 1)
+    return (f'<div class="sc-h2 sc-sh" style="--sc:{SECTION_COLOR[name]}">'
+            f'<span class="sc-shn">{number:02d}</span><span class="sc-sht">{title}</span>{art}</div>')
+
+
+_CARDS = ".st-key-band-table,.st-key-band-compare,.st-key-band-products,.st-key-band-spec,.st-key-band-questions"
+
+CSS += """<style>
+/* Page: light blue-gray graph paper */
+.stApp,[data-testid="stAppViewContainer"],[data-testid="stMain"]{background-color:#e8edf0!important;
+ background-image:linear-gradient(rgba(42,93,143,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(42,93,143,.06) 1px,transparent 1px)!important;
+ background-size:24px 24px!important;background-attachment:fixed!important}
+.st-key-band-about,.st-key-band-demo,.st-key-band-path{background:transparent!important;border:0!important}
+
+/* Sections become white cards with a colored top rule */
+""" + _CARDS + """{background:#fff!important;border:1px solid #d6dde3!important;border-top:3px solid var(--sc)!important;
+ border-radius:6px!important;box-shadow:0 1px 3px rgba(20,40,60,.08)!important;
+ margin:14px max(16px,calc((100% - 1240px)/2))!important;width:auto!important;padding:0 20px 20px!important;overflow:hidden}
+.st-key-band-table{--sc:#2b4a6f}.st-key-band-compare{--sc:#2f6f6a}.st-key-band-products{--sc:#a0522d}
+.st-key-band-questions{--sc:#5f6b2e}.st-key-band-spec{--sc:#6b7280}
+""" + ",".join(s + " .sc-label" for s in _CARDS.split(",")) + """{display:none!important}
+.st-key-band-match,.st-key-band-gap{margin:14px max(16px,calc((100% - 1240px)/2))!important;width:auto!important;
+ border-radius:6px!important;border:1px solid #cfe3d6!important;border-left:4px solid #2f8a57!important;padding:18px 20px!important;box-shadow:0 1px 3px rgba(20,40,60,.08)}
+.st-key-band-gap{border-color:#efd3cf!important;border-left-color:#b3261e!important}
+
+.sc-matrix .sc-sec{padding-block:0!important}
+/* Keep the header flush with the card top: anchors take no space, labels are hidden in cards */
+""" + _CARDS + """{position:relative}
+""" + ",".join(c + ' [data-testid="stElementContainer"]:has(.sc-anchor)' for c in _CARDS.split(",")) + """{position:absolute!important;height:0!important;margin:0!important}
+""" + ",".join(c + ' [data-testid="stElementContainer"]:has(.sc-label)' for c in _CARDS.split(",")) + """{display:none!important}
+
+/* Numbered header bar with a drawing */
+.sc-sh{display:flex!important;align-items:center;gap:12px;margin:0 -20px 14px!important;padding:10px 20px!important;
+ background:color-mix(in srgb,var(--sc) 6%,#fff);border-bottom:1px solid color-mix(in srgb,var(--sc) 22%,#d9dfe4);
+ color:var(--sc)!important;font-size:1.05rem!important;font-weight:600;min-height:58px}
+.sc-shn{font:600 .78rem "IBM Plex Mono",Consolas,monospace;color:var(--sc);padding-right:12px;border-right:1px solid color-mix(in srgb,var(--sc) 35%,#d9dfe4)}
+.sc-sh .sec-art{width:150px;height:auto;margin-left:auto;margin-block:-8px;flex:none;color:var(--sc);opacity:.8}
+@media (max-width:640px){.sc-sh .sec-art{width:96px}}
+
+/* Sample tabs: one muted color per equipment type */
+.st-key-sample button{--c:#2a5d8f;border-color:color-mix(in srgb,var(--c) 40%,#d9dfe4)!important;
+ background:color-mix(in srgb,var(--c) 5%,#fff)!important;color:color-mix(in srgb,var(--c) 70%,#1b2630)!important;
+ box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--c) 55%,transparent)}
+.st-key-sample button:nth-of-type(2){--c:#9a6418}
+.st-key-sample button:nth-of-type(3),.st-key-sample button:nth-of-type(4),.st-key-sample button:nth-of-type(5){--c:#5d4f8c}
+.st-key-sample button:nth-of-type(6){--c:#2f6f6a}.st-key-sample button:nth-of-type(7){--c:#3f7344}.st-key-sample button:nth-of-type(8){--c:#8a3b52}
+.st-key-sample button:hover{border-color:var(--c)!important}
+.st-key-sample button[kind$="Active"],.st-key-sample button[aria-checked="true"],.st-key-sample button[aria-pressed="true"]{background:var(--c)!important;border-color:var(--c)!important;color:#fff!important;box-shadow:none}
+.st-key-sample button[kind$="Active"] *,.st-key-sample button[aria-checked="true"] *,.st-key-sample button[aria-pressed="true"] *{color:#fff!important}
+
+/* Requirement table: colored group bands and result pills */
+.sc-matrix tr.sc-grp{--g:#2a5d8f}
+.sc-matrix tr.sc-grp[data-g="Construction"]{--g:#9a6418}.sc-matrix tr.sc-grp[data-g="Standards"]{--g:#5d4f8c}
+.sc-matrix tr.sc-grp[data-g="Site and size"]{--g:#2f6f6a}.sc-matrix tr.sc-grp[data-g="Delivery and price"]{--g:#3f7344}
+.sc-matrix tr.sc-grp[data-g="Other"]{--g:#6b7280}
+.sc-matrix tr.sc-grp td{background:color-mix(in srgb,var(--g) 10%,#fff)!important;color:var(--g)!important;box-shadow:inset 4px 0 0 var(--g)}
+.sc-matrix tr.sc-grp td span{color:color-mix(in srgb,var(--g) 70%,#5d6b77)!important}
+.sc-chip{padding:2px 9px 2px 7px!important;border-radius:999px!important}
+.sc-chip.PASS{background:#1d7a4621!important}.sc-chip.REVIEW{background:#9a620026!important}.sc-chip.FAIL{background:#b3261e21!important}
+
+/* Compare table: tinted cells */
+.sc-cmp td.c-PASS{background:#f1f8f4}.sc-cmp td.c-REVIEW{background:#fbf6ec}
+.sc-cmp td.best{box-shadow:inset 2px 0 0 #0b6e76,inset -2px 0 0 #0b6e76}
+
+/* Price charts: one color per material */
+.sc-trend{--m:#2f6f6a;box-shadow:inset 3px 0 0 var(--m)}
+.sc-trend[data-m="Copper"]{--m:#b5652b}.sc-trend[data-m="Aluminum"]{--m:#5b7c99}.sc-trend[data-m="Lead"]{--m:#5e6470}
+.sc-trend[data-m="Nickel"]{--m:#4f7f5a}.sc-trend[data-m="Steel"]{--m:#46566b}.sc-trend[data-m="Electrical steel"]{--m:#6d5a8f}
+.sc-trend[data-m="Transformer oil"]{--m:#a07a1f}.sc-trend[data-m="Brent crude oil"]{--m:#3b3b3b}
+.sc-trend > .sc-tag:first-child{color:var(--m)!important}
+.sc-trend svg polyline{stroke:var(--m)!important}.sc-trend svg polygon{fill:var(--m)!important;opacity:.14}
+.sc-trend svg circle[r="4"]{fill:var(--m)!important}
+
+/* Question cards: colored headers per audience */
+.sc-qcols>div{border:1px solid #d9dfe4;border-radius:6px;overflow:hidden;background:#fff}
+.sc-qcols>div:first-child{--qc:#1f5f9e}.sc-qcols>div:last-child{--qc:#2f6f6a}
+.sc-qcols h3{margin:0 0 4px!important;padding:10px 14px;background:color-mix(in srgb,var(--qc) 10%,#fff);color:var(--qc)!important;
+ box-shadow:inset 4px 0 0 var(--qc);border-bottom:1px solid #d9dfe4}
+.sc-qcols h4{margin:10px 14px 4px!important;color:var(--qc)!important}
+.sc-qcols h4:nth-of-type(2){color:#9a6418!important}
+.sc-qcols ol{margin:0 14px 10px 14px!important}
+.sc-qcols li::marker{color:var(--qc)!important;font-weight:600}.sc-qcols .sc-qspec li::marker{color:#9a6418!important}
+</style>"""
