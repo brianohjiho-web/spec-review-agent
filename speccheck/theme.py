@@ -406,4 +406,5 @@ CSS += """<style>
 .sc-qcols h4:nth-of-type(2){color:#9a6418!important}
 .sc-qcols ol{margin:0 14px 10px 14px!important}
 .sc-qcols li::marker{color:var(--qc)!important;font-weight:600}.sc-qcols .sc-qspec li::marker{color:#9a6418!important}
+[data-testid="stFileUploaderDropzoneInstructions"]{display:none!important}
 </style>"""
