@@ -19,7 +19,7 @@ from speccheck.pdf import SpecFileError, read_pdf, read_pdfs
 from speccheck.review import build_review, to_pdf
 from speccheck.settings import DailyCounter, app_password, daily_limit, has_api_key, password_ok
 from speccheck.questions import make_questions
-from speccheck.theme import CSS, HEADER, icon
+from speccheck.theme import CSS, HEADER, icon, section_head
 
 ROOT = Path(__file__).parent
 SAMPLES = ROOT / "data" / "samples"
@@ -254,7 +254,7 @@ def compliance_table(check: ProductCheck, status: str) -> str:
         if not items:
             continue
         passed = sum(r.status == "PASS" for _, r in items)
-        rows.append(f'<tr class="sc-grp"><td colspan="6">{group}<span>{passed} of {len(items)} pass</span></td></tr>')
+        rows.append(f'<tr class="sc-grp" data-g="{group}"><td colspan="6">{group}<span>{passed} of {len(items)} pass</span></td></tr>')
         for _, r in items:
             count += 1
             n = count
@@ -376,7 +376,7 @@ def price_charts() -> None:
     cards = ""
     for key, (name, kind, note) in CHARTS.items():
         if kind == "none":
-            cards += (f'<div class="sc-trend"><div class="sc-tag" style="font-weight:600">{name}</div>'
+            cards += (f'<div class="sc-trend" data-m="{name}"><div class="sc-tag" style="font-weight:600">{name}</div>'
                       f'<p class="sc-small" style="margin:0">{note}. Enter your own price in the calculator.</p></div>')
             continue
         history = [[d, v / LB_PER_METRIC_TON if kind == "ton" else v] for d, v in prices[key]["history"]]
@@ -390,7 +390,7 @@ def price_charts() -> None:
             shown = f"${last:,.2f}{unit}"
         sub = f'<div class="sc-tag">{note}</div>' if note else ""
         cards += (
-            f'<div class="sc-trend"><div class="sc-tag" style="font-weight:600">{name}</div>{sub}'
+            f'<div class="sc-trend" data-m="{name}"><div class="sc-tag" style="font-weight:600">{name}</div>{sub}'
             f'<div><b style="font-size:1.15rem">{shown}</b> '
             f'<span style="font-size:.78rem;color:{color}">{arrow}{change:.0f}% in 12 mo</span></div>'
             f"{sparkline(history, name, unit, kind == 'index')}</div>"
@@ -495,7 +495,7 @@ def show_review(review: Review, spec_text: str, show_type: bool = True) -> None:
     with st.container(key="band-table"):
         html('<span class="sc-anchor" id="sec-check"></span>')
         label("Details")
-        html(f'<div class="sc-h2">{icon("check", "#2b4a6f")}Requirement check</div>'
+        html(section_head("check", "Requirement check", 1) +
              '<p class="sc-legend"><span class="sc-chip PASS">Pass</span> product has it '
              '<span class="sc-chip FAIL">Fail</span> product doesn\'t '
              '<span class="sc-chip REVIEW">Review</span> a person should check</p>')
@@ -524,21 +524,21 @@ def show_review(review: Review, spec_text: str, show_type: bool = True) -> None:
     with st.container(key="band-compare"):
         html('<span class="sc-anchor" id="sec-compare"></span>')
         label("Compare")
-        html(f'<div class="sc-h2">{icon("compare", "#2f6f6a")}Compare products</div>'
+        html(section_head("compare", "Compare products", 2) +
              '<p class="sc-desc">Every product of this type against the same spec. Best match first.</p>')
         html(compare_table(review))
 
     with st.container(key="band-products"):
         html('<span class="sc-anchor" id="sec-cost"></span>')
         label("Costs")
-        html(f'<div class="sc-h2">{icon("cost", "#a0522d")}Material cost</div>')
+        html(section_head("cost", "Material cost", 3))
         html(materials_table(review.ranked[0].product_id))
         price_charts()
 
     with st.container(key="band-spec"):
         html('<span class="sc-anchor" id="sec-spec"></span>')
         label("Source")
-        html(f'<div class="sc-h2">{icon("spec", "#6b7280")}Original spec</div>')
+        html(section_head("spec", "Original spec", 4))
         html('<p class="sc-desc">A short version of the spec with only the important parts. Real specs run many pages.</p>')
         with st.expander("View original spec"):
             html(doc_html(spec_text))
@@ -551,7 +551,7 @@ def show_review(review: Review, spec_text: str, show_type: bool = True) -> None:
     with st.container(key="band-questions"):
         html('<span class="sc-anchor" id="sec-questions"></span>')
         label("Next steps")
-        html(f'<div class="sc-h2">{icon("questions", "#5f6b2e")}Questions to ask</div>'
+        html(section_head("questions", "Questions to ask", 5) +
              '<div class="sc-qcols">'
              f'<div><h3>For the customer</h3><h4>Every job</h4><ol>{listing("customer_fixed")}</ol>'
              f'<h4>From this spec</h4><ol class="sc-qspec">{listing("customer")}</ol></div>'
