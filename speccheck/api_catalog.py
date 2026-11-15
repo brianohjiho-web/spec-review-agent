@@ -70,7 +70,7 @@ def _get(url: str, key: str | None, auth: str, timeout: int) -> dict | list:
     headers = {"Accept": "application/json"}
     if key:
         if auth.lower() == "bearer":
-            headers["Authorization"] = "Bearer " + key
+            headers["Authorization"] = f"Bearer {key}"
         else:
             headers[auth] = key
     with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=timeout) as resp:

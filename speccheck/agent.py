@@ -32,6 +32,8 @@ Follow these steps, using the tools:
 
 Rules for save_requirements:
 - Use one requirement per value. List each standard or feature as its own requirement.
+- For a long spec, save at most 60 requirements. Pick the ones that decide which product fits:
+  ratings, sizes, standards, enclosure, and key options. Skip submittals, warranty, and installation steps.
 - Allowed parameters: {", ".join(RULES)}, other.
 - Use parameter "other" for any requirement that does not fit the list.
 - Use the rating value for voltage_kv, not the nominal system voltage, when the spec gives both.
@@ -123,6 +125,17 @@ TOOLS = [
 ]
 
 
+SHORTER = ("Your last reply was cut off because it was too long. Start again with save_requirements, "
+           "but save at most 40 requirements: the ratings, sizes, standards, and options that decide "
+           "which product fits. Keep each source_quote short.")
+
+STOP_MESSAGES = {
+    "max_tokens": "max_tokens: the spec has too many requirements to list in one reply. "
+                  "Upload only the section for one piece of equipment and try again.",
+    "refusal": "refusal: Claude declined to review this document.",
+}
+
+
 class AgentError(RuntimeError):
     """The agent could not finish the review."""
 
@@ -146,7 +159,7 @@ class SpecAgent:
         # The spec is marked for caching, so later steps reread it at a lower price.
         spec_block = {"type": "text", "text": prompt, "cache_control": {"type": "ephemeral"}}
         messages = [{"role": "user", "content": [spec_block]}]
-        reminded = False
+        reminded = shortened = False
 
         for _ in range(MAX_TURNS):
             response = self.client.messages.create(
@@ -157,6 +170,13 @@ class SpecAgent:
                 tool_choice={"type": "auto"},
                 messages=messages,
             )
+            if response.stop_reason == "max_tokens" and not shortened:
+                # A long spec can make the reply run out of room mid-tool-call. Drop the cut-off
+                # reply and ask for a shorter list once, instead of failing.
+                shortened = True
+                messages[-1]["content"] = list(messages[-1]["content"]) + [{"type": "text", "text": SHORTER}]
+                continue
+
             # Send back Claude's whole reply unchanged, including thinking blocks.
             messages.append({"role": "assistant", "content": response.content})
 
@@ -168,10 +188,11 @@ class SpecAgent:
                 reminded = True  # Claude can answer without a tool, so remind it once.
                 messages.append({"role": "user", "content": "Please finish by using the tools as instructed."})
             else:
-                raise AgentError(f"Claude stopped early: {response.stop_reason}.")
+                raise AgentError(STOP_MESSAGES.get(response.stop_reason, f"Claude stopped early: {response.stop_reason}."))
 
         if not self.finished or not self.spec:
-            raise AgentError("Claude did not finish the review.")
+            raise AgentError("Claude did not finish the review in time. Try again, or upload only the spec section "
+                             "for one piece of equipment.")
         return build_review(
             self.spec,
             self.catalog,
