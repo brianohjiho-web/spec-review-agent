@@ -25,7 +25,9 @@ SpecCheck uses the Claude API to read uploaded specs and find requirements. Pyth
 
 ## Product catalog
 
-The tool checks specs against 86 real product lines from 30 companies, including Eaton, Siemens, ABB, Schneider Electric, GE Vernova, Mitsubishi Electric, Vertiv, Hitachi Energy, Toshiba, Huawei, Rittal, Legrand, Panduit, S&C Electric, and nVent. Ratings were copied from each maker's public web page on Nov 13, 2026, and each product links to its source. Anything a page doesn't state is left blank, so it shows as Review. An option a page doesn't mention is also Review, not Fail, because public pages often leave options out. A company would swap in its own catalog (`data/catalog_public.json` format).
+The tool checks specs against 86 real product lines from 30 companies, including Eaton, Siemens, ABB, Schneider Electric, GE Vernova, Mitsubishi Electric, Vertiv, Hitachi Energy, Toshiba, Huawei, Rittal, Legrand, Panduit, S&C Electric, and nVent. Ratings were copied from each maker's public web page on Nov 13, 2026, and each product links to its source. Anything a page doesn't state is left blank, so it shows as Review. An option a page doesn't mention is also Review, not Fail, because public pages often leave options out.
+
+SpecCheck is designed for sales and solutions engineers who compare customer specs with their company's products. A company can connect its own product API or use a private catalog file. I use public product details in this demo to show how the tool works without exposing a company's private API or product data.
 
 `data/catalog.json` is a fixed, made-up catalog used only by the tests, so their results don't change when public data changes.
 
