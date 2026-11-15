@@ -6,6 +6,8 @@ An AI agent that does the first pass on equipment spec reviews.
 
 A customer spec can run many pages, and someone has to check every requirement against the product line. I built SpecCheck AI to do that first pass. It pulls out each requirement, checks it against a catalog, ranks the products, and flags what an engineer needs to look at.
 
+SpecCheck uses the Claude API to read uploaded specs and find requirements. Python rules check the products and decide Pass, Fail, or Review.
+
 ![SpecCheck AI screenshot](docs/screenshot.png)
 
 > All specs, products, and prices in this repo are made up for this demo. They are not real ratings or prices from any manufacturer, and this project is not connected to any company.
@@ -66,25 +68,6 @@ I split the work so each part does what it is best at:
 - **Unknown items are not guessed.** Unknown units, unknown values, and items outside the rules go to Review.
 - **Spec text is treated as data.** The prompt tells Claude not to follow instructions found inside a spec.
 - **Must-have items come first.** A product with a failed must-have item is never recommended.
-
-## Run it
-
-You need Python 3.11 or newer.
-
-On Windows, you can double-click `run_windows.bat` to set up and start the app. Or use these commands:
-
-```bash
-git clone https://github.com/YOUR_USERNAME/spec-review-agent.git
-cd spec-review-agent
-python -m venv .venv
-source .venv/bin/activate    # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-streamlit run app.py
-```
-
-Demo mode works without an API key. It uses requirements I labeled by hand, so it shows the Python checks and the interface without calling Claude.
-
-To review your own PDF with Claude, paste a key into the app, or copy `.env.example` to `.env` and add your [Claude API key](https://platform.claude.com/). Keep this file private. It is listed in `.gitignore`, so Git leaves it out. Reviews use API credits, and the PDF text is sent to the Claude API.
 
 ## Website
 
