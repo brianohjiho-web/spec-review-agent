@@ -38,12 +38,7 @@ def test_follows_pages_and_sends_key(monkeypatch):
     items = api_catalog.fetch_items("https://api.example.com/v1/products", key="k123")
     assert [i["sku"] for i in items] == ["A", "B"]
     assert seen[1][0] == "https://api.example.com/v1/products?page=2"
-    assert all(h.startswith("Bearer ") and h.endswith("k123") for _, h in seen)
-
-
-def test_off_by_default(monkeypatch):
-    monkeypatch.delenv("PRODUCT_API_URL", raising=False)
-    assert not api_catalog.enabled()
+    assert all(h == "Bearer k123" for _, h in seen)
 
 
 def test_refuses_cross_origin_pagination_with_key(monkeypatch):
@@ -55,3 +50,8 @@ def test_refuses_cross_origin_pagination_with_key(monkeypatch):
     monkeypatch.setattr(api_catalog.urllib.request, "urlopen", lambda *a, **k: Resp())
     with pytest.raises(ValueError, match="changed origin"):
         api_catalog.fetch_items("https://api.example.com/v1/products", key="secret")
+
+
+def test_off_by_default(monkeypatch):
+    monkeypatch.delenv("PRODUCT_API_URL", raising=False)
+    assert not api_catalog.enabled()

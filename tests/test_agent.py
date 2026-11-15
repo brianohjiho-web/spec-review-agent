@@ -153,7 +153,8 @@ def test_second_plain_text_answer_stops():
 
 @pytest.mark.parametrize("stop_reason", ["max_tokens", "refusal"])
 def test_early_stop_is_an_error(stop_reason):
-    agent, _ = make_agent([reply(stop_reason, {"type": "text", "text": "..."})])
+    # max_tokens is retried once with a shorter list, so a second cut-off is the error.
+    agent, _ = make_agent([reply(stop_reason, {"type": "text", "text": "..."}) for _ in range(2)])
     with pytest.raises(AgentError, match=stop_reason):
         agent.run(SPEC_TEXT)
 
@@ -183,3 +184,15 @@ def test_strict_tool_schemas_are_well_formed():
 def test_prompt_explains_addenda():
     from speccheck.agent import SYSTEM_PROMPT
     assert "addendum" in SYSTEM_PROMPT and "newest value" in SYSTEM_PROMPT
+
+
+def test_cut_off_reply_is_retried_shorter():
+    """A long spec can hit max_tokens once; the agent asks for a shorter list and keeps going."""
+    from speccheck.agent import SHORTER
+    cut = reply("max_tokens", tool("save_requirements", {}))
+    agent, requests = make_agent([cut] + happy_path())
+    review = agent.run(SPEC_TEXT)
+    assert review.recommended_id == "MVA-15-3000"
+    second = requests[1]["messages"]
+    assert second[0]["content"][-1]["text"] == SHORTER
+    assert len(second) == 1
