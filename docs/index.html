@@ -525,12 +525,20 @@ th{padding:9px 10px;background:color-mix(in srgb,var(--line) 35%,var(--surface))
 .sec-questions>.qcols{margin-bottom:18px!important}.sec-spec>details{margin-bottom:18px!important}
 @media (max-width:600px){.sec-questions>.qcols,.sec-spec>details{margin-inline:14px!important}.sec-questions>.sec-desc,.sec-spec>.sec-desc{padding-inline:14px!important}.sec>h2 .sec-art{width:96px!important}}
 
-/* Sample picker: plain tabs, one ink color */
-.main #tabs button{border-color:var(--line-strong)!important;background:var(--surface)!important;color:var(--fg)!important;font-weight:500}
-.main #tabs button .tab-ic{color:var(--muted)!important}
-.main #tabs button:hover{border-color:var(--fg)!important}
-.main #tabs button[aria-pressed="true"]{background:var(--fg)!important;border-color:var(--fg)!important;color:var(--bg)!important}
-.main #tabs button[aria-pressed="true"] .tab-ic{color:var(--bg)!important}
+/* Sample picker: one muted ink color per equipment type */
+#tabs button[data-group="Utility"]{--c:#2a5d8f}
+#tabs button[data-group="Transformer"]{--c:#9a6418}
+#tabs button[data-group="Bus"]{--c:#5d4f8c}
+#tabs button[data-group="Switchgear"]{--c:#2f6f6a}
+#tabs button[data-group="UPS"]{--c:#3f7344}
+#tabs button[data-group="Server racks"]{--c:#8a3b52}
+.main #tabs button{border-color:color-mix(in srgb,var(--c) 40%,var(--line))!important;background:color-mix(in srgb,var(--c) 5%,var(--surface))!important;color:color-mix(in srgb,var(--c) 70%,var(--fg))!important;font-weight:500;box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--c) 55%,transparent)}
+.main #tabs button .tab-ic{color:var(--c)!important}
+.main #tabs button:hover{border-color:var(--c)!important;background:color-mix(in srgb,var(--c) 10%,var(--surface))!important}
+.main #tabs button[aria-pressed="true"]{background:var(--c)!important;border-color:var(--c)!important;color:#fff!important;box-shadow:none}
+.main #tabs button[aria-pressed="true"] .tab-ic{color:#fff!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .main #tabs button:not([aria-pressed="true"]){color:var(--fg)!important}}
+:root[data-theme="dark"] .main #tabs button:not([aria-pressed="true"]){color:var(--fg)!important}
 
 /* OK / Not OK: small and quiet until needed */
 .mark{gap:2px;margin-top:4px}
@@ -548,6 +556,50 @@ th{padding:9px 10px;background:color-mix(in srgb,var(--line) 35%,var(--surface))
 .qcols h3{background:transparent!important;color:var(--fg)!important;border-bottom:1px solid var(--line)!important;box-shadow:inset 3px 0 0 var(--qc);font-size:.94rem}
 .qcols h4,.qcols h4:nth-of-type(2){background:none!important;padding:0!important;border-radius:0!important;font:600 .7rem var(--mono)!important;text-transform:uppercase!important;letter-spacing:.06em!important;color:var(--muted)!important;display:block}
 .qcols li::marker,.qcols .q-spec li::marker{color:var(--muted)!important;font-weight:500}
+
+/* Page background: light blue-gray drafting paper with a faint grid, so the white cards stand out */
+body{background-color:#e8edf0;background-image:linear-gradient(rgba(42,93,143,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(42,93,143,.06) 1px,transparent 1px);background-size:24px 24px;background-attachment:fixed}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body{background-color:var(--bg);background-image:linear-gradient(rgba(127,178,229,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(127,178,229,.05) 1px,transparent 1px)}}
+:root[data-theme="dark"] body{background-color:var(--bg);background-image:linear-gradient(rgba(127,178,229,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(127,178,229,.05) 1px,transparent 1px)}
+.sec,.sec-result{box-shadow:0 1px 3px rgba(20,40,60,.08)!important}
+
+/* More color: group rows, result chips, compare cells, price charts, question cards */
+.matrix tr.grp{--g:#2a5d8f}
+.matrix tr.grp[data-g="Construction"]{--g:#9a6418}
+.matrix tr.grp[data-g="Standards"]{--g:#5d4f8c}
+.matrix tr.grp[data-g="Site and size"]{--g:#2f6f6a}
+.matrix tr.grp[data-g="Delivery and price"]{--g:#3f7344}
+.matrix tr.grp[data-g="Other"]{--g:#6b7280}
+.matrix tr.grp td,.sec-table .matrix tr.grp td{background:color-mix(in srgb,var(--g) 10%,var(--surface))!important;color:var(--g)!important;box-shadow:inset 4px 0 0 var(--g);font-weight:600}
+.matrix tr.grp td span{color:color-mix(in srgb,var(--g) 70%,var(--muted))!important}
+.chip{padding:2px 9px 2px 7px;border-radius:999px}
+.chip.PASS{background:color-mix(in srgb,var(--pass) 13%,transparent)}
+.chip.REVIEW{background:color-mix(in srgb,var(--review) 15%,transparent)}
+.chip.FAIL{background:color-mix(in srgb,var(--fail) 13%,transparent)}
+.cmp td.c-PASS{background:color-mix(in srgb,var(--pass) 6%,var(--surface))}
+.cmp td.c-REVIEW{background:color-mix(in srgb,var(--review) 7%,var(--surface))}
+.cmp td.c-PASS.best,.cmp td.c-REVIEW.best{box-shadow:inset 2px 0 0 var(--accent),inset -2px 0 0 var(--accent)}
+.trend{--m:#2f6f6a}
+.trend[data-m="Copper"]{--m:#b5652b}
+.trend[data-m="Aluminum"]{--m:#5b7c99}
+.trend[data-m="Lead"]{--m:#5e6470}
+.trend[data-m="Nickel"]{--m:#4f7f5a}
+.trend[data-m="Steel"]{--m:#46566b}
+.trend[data-m="Electrical steel"]{--m:#6d5a8f}
+.trend[data-m="Transformer oil"]{--m:#a07a1f}
+.trend[data-m="Brent crude oil"]{--m:#3b3b3b}
+.trend{box-shadow:inset 3px 0 0 var(--m)}
+.trend .trend-name{color:var(--m)}
+.trend .spark .ln{stroke:var(--m)}
+.trend .spark .area{fill:var(--m);opacity:.14}
+.trend .spark .endpt,.trend .spark .hov{fill:var(--m)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .trend .trend-name{color:var(--fg)}}
+:root[data-theme="dark"] .trend .trend-name{color:var(--fg)}
+.qcols h3{background:color-mix(in srgb,var(--qc) 10%,var(--surface))!important;color:var(--qc)!important;box-shadow:inset 4px 0 0 var(--qc)}
+.qcols h4{color:var(--qc)!important}
+.qcols h4:nth-of-type(2){color:#9a6418!important}
+.qcols li::marker{color:var(--qc)!important;font-weight:600}
+.qcols .q-spec li::marker{color:#9a6418!important}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -704,7 +756,7 @@ function showProduct(i){
  let num=0;
  for(const g of [...Object.keys(GROUPS_ORDER),"Other"]){
   const items=shown.filter(([,r])=>(LABEL_GROUP[r.item]||"Other")===g);if(!items.length)continue;
-  const gr=el("tr",undefined,"grp"),gt=el("td",g);gt.colSpan=6;gt.append(el("span",items.filter(([,,st])=>st==="PASS").length+" of "+items.length+" pass"));gr.append(gt);rows.append(gr);
+  const gr=el("tr",undefined,"grp"),gt=el("td",g);gr.dataset.g=g;gt.colSpan=6;gt.append(el("span",items.filter(([,,st])=>st==="PASS").length+" of "+items.length+" pass"));gr.append(gt);rows.append(gr);
   for(const [k,r,st] of items){const n=++num,mine=r.status==="REVIEW"&&st!=="REVIEW";
    const tr=el("tr",undefined,"row-"+st);
    const req=el("td");const nm=el("div",SHORT[r.item]||r.item,"req-name");if(!r.must)nm.append(el("span","Preferred","pref"));req.append(nm);
@@ -813,7 +865,7 @@ function buildCharts(){
   if(kind==="none"){const c=el("div",undefined,"trend");c.append(el("div",name,"trend-name"),el("p",note+". Enter your own price in the calculator.","small"));grid.append(c);continue}
   const isIdx=kind==="index",isOil=kind==="barrel",h=PRICES[k].history.map(([d,v])=>[d,kind==="ton"?v/LB:v]);
   const vals=h.map(x=>x[1]),first=vals[0],last=vals[vals.length-1],chg=(last-first)/first*100;
-  const card=el("div",undefined,"trend");
+  const card=el("div",undefined,"trend");card.dataset.m=name;
   const head=el("div",undefined,"trend-head");head.append(el("div",name,"trend-name"));if(note)head.append(el("div",note,"req-tag"));
   const num=el("div",undefined,"trend-num");num.append(el("span",isIdx?"Index "+last.toFixed(1):"$"+last.toFixed(2)+(isOil?"/bbl":"/lb")),el("span",(chg>=0?"+":"\u2212")+Math.abs(chg).toFixed(0)+"% / 12 mo",chg>=0?"up":"down"));
   head.append(num);card.append(head);
