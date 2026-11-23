@@ -42,6 +42,7 @@ EXAMPLE_FILES = [
 ]
 EXAMPLE_CSS = """<style>
 .sc-ex-head{font-size:.86rem;color:#5f6c76;margin:0 0 8px}.sc-ex-head b{color:#1d2730;margin-right:4px}.sc-sub{color:#5f6c76;font-size:.95rem;margin:-4px 0 12px}.sc-words{text-align:right;font-size:.8rem;color:#5f6c76;margin:-6px 0 4px}
+[data-testid="stFileUploaderDropzoneInstructions"]{display:none!important}
 .st-key-exband{background:#f6f7f7;border:1px solid #e1e5e8;border-radius:12px;padding:14px 16px;margin:12px 0 14px}
 [class*="st-key-exc-"]{--ex:#2f6db0;position:relative;border:1px solid #dde2e6;border-left:3px solid var(--ex);border-radius:9px;background:#fff;padding:9px 34px 9px 12px;gap:0!important;transition:border-color .15s,box-shadow .15s,transform .15s}
 [class*="st-key-exc-lv"]{--ex:#1f8a7a}[class*="st-key-exc-ups"]{--ex:#c47a12}
