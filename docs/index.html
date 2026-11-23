@@ -1264,9 +1264,7 @@ async function startLive(){
  setMode=mode;
  if(!window.pdfjsLib)$("filerow").hidden=true;
  const tgl=$("txtToggle"),coll=$("txtCollapsed");
- const setText=open=>{box.hidden=!open;coll.hidden=open;tgl.setAttribute("aria-expanded",open);tgl.querySelector("span").textContent=open?"Hide":"Show";
-  if(!open){const first=(box.value.trim().split("\n").find(l=>l.trim())||"Empty").trim();coll.replaceChildren(el("b",first.slice(0,80)),document.createTextNode("Text hidden. Click to show and edit."))}};
- tgl.onclick=()=>setText(box.hidden);coll.onclick=()=>{setText(true);box.focus()};
+ const setText=()=>{box.hidden=false;coll.hidden=true;tgl.hidden=true};
  const words=()=>{const n=(box.value.trim().match(/\S+/g)||[]).length;$("wordCount").textContent=n?n.toLocaleString("en-US")+" words":""};box.addEventListener("input",words);words();setText(false);
  const list=$("fileList"),kb=b=>b<1048576?Math.max(1,Math.round(b/1024))+" KB":(b/1048576).toFixed(1)+" MB";
  async function handleFiles(files){
