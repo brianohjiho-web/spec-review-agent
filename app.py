@@ -24,6 +24,15 @@ from speccheck.theme import CSS, HEADER, icon, section_head
 ROOT = Path(__file__).parent
 SAMPLES = ROOT / "data" / "samples"
 EXAMPLES = ROOT / "data" / "examples"
+ORIGINALS = ROOT / "data" / "originals"
+# The unedited public specs each example is based on. Downloads give these.
+ORIGINAL_FILES = {
+    "example_va_mv_switchgear": "VA_26_13_13.pdf",
+    "example_va_lv_switchgear": "VA_26_23_00.pdf",
+    "example_university_lv_switchgear": "NU_26_23_00_low_voltage_switchgear.pdf",
+    "example_va_ups": "VA_26_33_53.pdf",
+    "example_university_ups": "WSU_26_33_53_static_UPS.pdf",
+}
 EXAMPLE_FILES = [
     ("example_va_mv_switchgear", "mv", "MV switchgear", "15 kV", "26 13 13", "Veterans Affairs"),
     ("example_va_lv_switchgear", "lv", "LV switchgear", "480 V", "26 23 00", "Veterans Affairs"),
@@ -32,24 +41,24 @@ EXAMPLE_FILES = [
     ("example_university_ups", "ups", "UPS", "100 kVA", "26 33 53", "Washington State Univ."),
 ]
 EXAMPLE_CSS = """<style>
-[class*="st-key-exc-"]{--ex:#2a5d8f;border:1px solid color-mix(in srgb,var(--ex) 28%,#dde2e6);border-radius:10px;background:color-mix(in srgb,var(--ex) 7%,#fff);padding:12px 12px 10px;gap:6px!important;transition:border-color .15s,box-shadow .15s}
-[class*="st-key-exc-lv"]{--ex:#2f6f6a}[class*="st-key-exc-ups"]{--ex:#9a6418}
-[class*="st-key-exc-"]:hover{border-color:var(--ex);box-shadow:0 4px 14px -6px color-mix(in srgb,var(--ex) 45%,transparent)}
-[class*="st-key-exc-"].on,[class*="st-key-exc-"]:has(.sc-ex.on){border-color:var(--ex);box-shadow:inset 0 0 0 1px var(--ex)}
-.sc-ex{display:grid;gap:2px;line-height:1.3;padding-bottom:8px}
-[class*="st-key-exc-"] [data-testid="stMarkdownContainer"]{margin-bottom:0!important}
-[class*="st-key-exc-"] [data-testid="stElementContainer"]:has(.sc-ex){height:auto!important;margin-bottom:4px}
-.sc-ex .t{font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ex);white-space:nowrap}
-.sc-ex b{font-size:1.2rem;font-weight:600;color:#1d2730}
-.sc-ex .o{font-size:.7rem;color:#5f6c76}
-.sc-ex .s{font-family:ui-monospace,Consolas,monospace;font-size:.66rem;color:#5f6c76}
 .sc-ex-head{font-size:.86rem;color:#5f6c76;margin:4px 0 8px}.sc-ex-head b{color:#1d2730}
-html:root body [class*="st-key-exc-"] button,html:root body [class*="st-key-exc-"] [data-testid="stDownloadButton"] button{min-height:30px!important;padding:2px 8px!important;font-size:.74rem!important;font-weight:600!important;border-radius:6px!important;text-transform:none!important;letter-spacing:0!important;color:var(--ex)!important;border:1px solid color-mix(in srgb,var(--ex) 35%,#dde2e6)!important;background:#fff!important}
-html:root body [class*="st-key-exc-"] button:hover{background:var(--ex)!important;color:#fff!important}
-[class*="st-key-exc-"]{position:relative;cursor:pointer}
-[class*="st-key-try-"]{position:absolute!important;top:0;left:0;right:0;bottom:46px;z-index:2;margin:0!important}
-html:root body [class*="st-key-try-"] button{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
-[class*="st-key-exc-"] [data-testid="stHorizontalBlock"]{gap:6px!important;flex-wrap:nowrap!important}
+[class*="st-key-exc-"]{--ex:#2f6db0;position:relative;border:1px solid #dde2e6;border-left:3px solid var(--ex);border-radius:9px;background:#fff;padding:9px 34px 9px 12px;gap:0!important;transition:border-color .15s,box-shadow .15s,transform .15s}
+[class*="st-key-exc-lv"]{--ex:#1f8a7a}[class*="st-key-exc-ups"]{--ex:#c47a12}
+[class*="st-key-exc-"]:hover{transform:translateY(-1px);border-color:color-mix(in srgb,var(--ex) 45%,#dde2e6);border-left-color:var(--ex);box-shadow:0 6px 16px -10px color-mix(in srgb,var(--ex) 60%,transparent)}
+[class*="st-key-exc-"]:has(.sc-ex.on){border-color:var(--ex);box-shadow:0 0 0 2px color-mix(in srgb,var(--ex) 20%,transparent)}
+[class*="st-key-exc-"] [data-testid="stElementContainer"],[class*="st-key-exc-"] [data-testid="stMarkdownContainer"],[class*="st-key-exc-"] [data-testid="stMarkdown"]{margin:0!important;height:auto!important;overflow:visible!important}
+.sc-ex{display:grid;gap:1px;line-height:1.35;padding:1px 0 2px}
+.sc-ex .l1{display:flex;align-items:baseline;gap:5px;white-space:nowrap;overflow:hidden}
+.sc-ex .l1 b{font-size:.9rem;font-weight:600;color:#1d2730}
+.sc-ex .l1 span{font-size:.68rem;color:#5f6c76;overflow:hidden;text-overflow:ellipsis}
+.sc-ex .o{font-size:.66rem;color:#5f6c76;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sc-ex .o b{color:var(--ex);font-weight:700;margin-right:4px}
+.sc-ex .s{font-family:ui-monospace,Consolas,monospace;font-size:.62rem;color:#5f6c76}
+[class*="st-key-exc-"] [class*="st-key-try-"]{position:absolute!important;inset:0;z-index:1;width:auto!important}
+[class*="st-key-exc-"] [class*="st-key-try-"] *{width:100%!important;height:100%!important}
+html:root body [class*="st-key-exc-"] [class*="st-key-try-"] button{opacity:0!important;cursor:pointer!important;min-height:0!important;border:0!important;background:transparent!important}
+[class*="st-key-exc-"] [class*="st-key-pdf-"]{position:absolute!important;top:50%;right:6px;transform:translateY(-50%);z-index:2;width:auto!important}
+html:root body [class*="st-key-exc-"] [class*="st-key-pdf-"] button{min-height:26px!important;width:26px!important;padding:0!important;border-radius:7px!important;border:1px solid transparent!important;background:transparent!important;color:#5f6c76!important;font-size:.9rem!important;text-transform:none!important;letter-spacing:0!important}
+html:root body [class*="st-key-exc-"] [class*="st-key-pdf-"] button:hover{color:var(--ex)!important;border-color:color-mix(in srgb,var(--ex) 40%,#dde2e6)!important;background:color-mix(in srgb,var(--ex) 8%,#fff)!important}
 </style>"""
 EQUIPMENT = {
     "Utility": (":material/electric_bolt:", {"Utility service": "mill_creek_utility"}),
@@ -146,6 +155,12 @@ def review_counter() -> DailyCounter:
 
 
 @st.cache_data
+def download_file(sample: str) -> Path:
+    """The PDF to hand out: the original public spec for real-spec examples, else the sample itself."""
+    original = ORIGINALS / ORIGINAL_FILES.get(sample, "")
+    return original if sample in ORIGINAL_FILES and original.exists() else sample_folder(sample) / f"{sample}.pdf"
+
+
 def sample_folder(sample: str) -> Path:
     return EXAMPLES if (EXAMPLES / f"{sample}.pdf").exists() else SAMPLES
 
@@ -667,19 +682,20 @@ def example_picker() -> str | None:
         return None
     picked = st.session_state.get("example")
     html(EXAMPLE_CSS)
-    html('<p class="sc-ex-head"><b>Try an example.</b> Each one is based on a real public spec, '
-         "with the blanks filled in.</p>")
+    html('<p class="sc-ex-head"><b>Try an example.</b> Each one is a real public spec. Click to load it with the blanks filled in. '
+         "The arrow downloads the original.</p>")
     cols = st.columns(len(files))
+    short = {"Veterans Affairs": "VA", "Northwestern Univ.": "NU", "Washington State Univ.": "WSU"}
     for col, (name, kind, kind_label, rating, section, org) in zip(cols, files):
         with col, st.container(key=f"exc-{kind}-{name}"):
             on = " on" if picked == name else ""
-            html(f'<div class="sc-ex{on}"><span class="t">{kind_label}</span><b>{escape(rating)}</b>'
-                 f'<span class="o">{escape(org)}</span><span class="s">Sec {section}</span></div>')
-            if st.button("Use this example", key=f"try-{name}", use_container_width=True):
+            html(f'<div class="sc-ex{on}"><span class="l1"><b>{escape(rating)}</b><span>{kind_label}</span></span>'
+                 f'<span class="o"><b>{short.get(org, "")}</b>{escape(org)}</span><span class="s">Sec {section}</span></div>')
+            if st.button("Load this example", key=f"try-{name}"):
                 st.session_state["example"] = name
                 st.rerun()
-            st.download_button("Spec PDF", (EXAMPLES / f"{name}.pdf").read_bytes(), file_name=f"{name}.pdf",
-                               mime="application/pdf", key=f"pdf-{name}", use_container_width=True)
+            st.download_button(":material/download:", download_file(name).read_bytes(), file_name=download_file(name).name,
+                               mime="application/pdf", key=f"pdf-{name}", help="Download the original PDF")
     return picked if any(picked == e[0] for e in files) else None
 
 
@@ -771,9 +787,9 @@ with st.container(key="band-demo"):
     sample_review, sample_text = saved_review(sample)
     type_box(sample_review.equipment_type)
     st.download_button(
-        "Download this sample PDF",
-        (sample_folder(sample) / f"{sample}.pdf").read_bytes(),
-        file_name=f"{sample}.pdf",
+        "Download the original PDF" if sample in ORIGINAL_FILES else "Download this sample PDF",
+        download_file(sample).read_bytes(),
+        file_name=download_file(sample).name,
         mime="application/pdf",
     )
     claude_panel()

@@ -24,3 +24,8 @@ def test_example_requirements_quote_the_pdf():
         text = re.sub(r"\s+", " ", read_pdf((EXAMPLES / f.name.replace(".requirements.json", ".pdf")).read_bytes()))
         for r in json.loads(f.read_text())["requirements"]:
             assert r["source_quote"] in text, (f.name, r["source_quote"])
+
+
+def test_original_pdfs_are_kept_for_download():
+    originals = Path(__file__).parent.parent / "data" / "originals"
+    assert len(list(originals.glob("*.pdf"))) == 5
