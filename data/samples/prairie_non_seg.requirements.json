@@ -3,7 +3,7 @@
   "requirements": [
     {
       "id": "R1",
-      "section": "2",
+      "section": "2.01",
       "parameter": "voltage_kv",
       "source_quote": "rated 15 kV maximum",
       "value_number": 15,
@@ -13,7 +13,7 @@
     },
     {
       "id": "R2",
-      "section": "2",
+      "section": "2.01",
       "parameter": "bil_kv",
       "source_quote": "BIL of 95 kV",
       "value_number": 95,
@@ -23,7 +23,7 @@
     },
     {
       "id": "R3",
-      "section": "2",
+      "section": "2.01",
       "parameter": "bus_current_a",
       "source_quote": "Continuous current shall be 6000 A",
       "value_number": 6000,
@@ -33,7 +33,7 @@
     },
     {
       "id": "R4",
-      "section": "2",
+      "section": "2.01",
       "parameter": "short_circuit_ka",
       "source_quote": "Short-circuit rating shall be 63 kA",
       "value_number": 63,
@@ -43,7 +43,7 @@
     },
     {
       "id": "R5",
-      "section": "2",
+      "section": "2.01",
       "parameter": "frequency_hz",
       "source_quote": "frequency is 60 Hz",
       "value_number": 60,
@@ -53,7 +53,7 @@
     },
     {
       "id": "R6",
-      "section": "3",
+      "section": "2.02",
       "parameter": "bus_material",
       "source_quote": "tin-plated copper",
       "value_number": null,
@@ -63,7 +63,7 @@
     },
     {
       "id": "R7",
-      "section": "3",
+      "section": "2.02",
       "parameter": "enclosure",
       "source_quote": "enclosure shall be NEMA 3R",
       "value_number": null,
@@ -73,7 +73,7 @@
     },
     {
       "id": "R8",
-      "section": "3",
+      "section": "2.02",
       "parameter": "enclosure_material",
       "source_quote": "made of aluminum",
       "value_number": null,
@@ -83,7 +83,7 @@
     },
     {
       "id": "R9",
-      "section": "3",
+      "section": "2.02",
       "parameter": "features",
       "source_quote": "Space heaters shall be provided",
       "value_number": null,
@@ -93,7 +93,7 @@
     },
     {
       "id": "R10",
-      "section": "3",
+      "section": "2.02",
       "parameter": "features",
       "source_quote": "Flexible connections shall be provided",
       "value_number": null,
@@ -103,7 +103,7 @@
     },
     {
       "id": "R11",
-      "section": "3",
+      "section": "2.02",
       "parameter": "standards",
       "source_quote": "comply with IEEE C37.23",
       "value_number": null,
@@ -113,7 +113,7 @@
     },
     {
       "id": "R12",
-      "section": "4",
+      "section": "1.02",
       "parameter": "lead_time_weeks",
       "source_quote": "within 30 weeks",
       "value_number": 30,

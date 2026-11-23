@@ -3,7 +3,7 @@
   "requirements": [
     {
       "id": "R1",
-      "section": "2",
+      "section": "2.01",
       "parameter": "voltage_kv",
       "source_quote": "Rated maximum voltage shall be 38 kV",
       "value_number": 38,
@@ -13,7 +13,7 @@
     },
     {
       "id": "R2",
-      "section": "2",
+      "section": "2.01",
       "parameter": "bil_kv",
       "source_quote": "BIL of 150 kV",
       "value_number": 150,
@@ -23,7 +23,7 @@
     },
     {
       "id": "R3",
-      "section": "2",
+      "section": "2.01",
       "parameter": "bus_current_a",
       "source_quote": "Main bus shall be 3000 A",
       "value_number": 3000,
@@ -33,7 +33,7 @@
     },
     {
       "id": "R4",
-      "section": "2",
+      "section": "2.01",
       "parameter": "short_circuit_ka",
       "source_quote": "short-circuit rating shall be 40 kA",
       "value_number": 40,
@@ -43,7 +43,7 @@
     },
     {
       "id": "R5",
-      "section": "2",
+      "section": "2.01",
       "parameter": "control_voltage_vdc",
       "source_quote": "Control power shall be 125 VDC",
       "value_number": 125,
@@ -53,7 +53,7 @@
     },
     {
       "id": "R6",
-      "section": "2",
+      "section": "2.01",
       "parameter": "frequency_hz",
       "source_quote": "at 60 Hz",
       "value_number": 60,
@@ -63,7 +63,7 @@
     },
     {
       "id": "R7",
-      "section": "3",
+      "section": "2.02",
       "parameter": "enclosure",
       "source_quote": "enclosure shall be NEMA 3R",
       "value_number": null,
@@ -73,7 +73,7 @@
     },
     {
       "id": "R8",
-      "section": "3",
+      "section": "2.02",
       "parameter": "arc_resistance",
       "source_quote": "accessibility Type 2B",
       "value_number": null,
@@ -83,7 +83,7 @@
     },
     {
       "id": "R9",
-      "section": "3",
+      "section": "2.02",
       "parameter": "features",
       "source_quote": "Remote racking shall be provided",
       "value_number": null,
@@ -93,7 +93,7 @@
     },
     {
       "id": "R10",
-      "section": "4",
+      "section": "1.02",
       "parameter": "max_altitude_m",
       "source_quote": "6,500 ft elevation",
       "value_number": 6500,
@@ -103,7 +103,7 @@
     },
     {
       "id": "R11",
-      "section": "4",
+      "section": "1.02",
       "parameter": "max_ambient_c",
       "source_quote": "rated for 113 F ambient",
       "value_number": 113,
@@ -113,7 +113,7 @@
     },
     {
       "id": "R12",
-      "section": "4",
+      "section": "1.02",
       "parameter": "lead_time_weeks",
       "source_quote": "within 64 weeks",
       "value_number": 64,

@@ -3,7 +3,7 @@
   "requirements": [
     {
       "id": "R1",
-      "section": "2",
+      "section": "2.01",
       "parameter": "power_kw",
       "source_quote": "rated 1.5 MW",
       "value_number": 1.5,
@@ -13,7 +13,7 @@
     },
     {
       "id": "R2",
-      "section": "2",
+      "section": "2.01",
       "parameter": "voltage_kv",
       "source_quote": "at 480 V",
       "value_number": 480,
@@ -23,7 +23,7 @@
     },
     {
       "id": "R3",
-      "section": "2",
+      "section": "2.01",
       "parameter": "frequency_hz",
       "source_quote": "60 Hz",
       "value_number": 60,
@@ -33,7 +33,7 @@
     },
     {
       "id": "R4",
-      "section": "2",
+      "section": "2.01",
       "parameter": "runtime_min",
       "source_quote": "10 minutes at full load",
       "value_number": 10,
@@ -43,7 +43,7 @@
     },
     {
       "id": "R5",
-      "section": "2",
+      "section": "2.01",
       "parameter": "efficiency_pct",
       "source_quote": "Efficiency shall be 97%",
       "value_number": 97,
@@ -53,7 +53,7 @@
     },
     {
       "id": "R6",
-      "section": "3",
+      "section": "2.02",
       "parameter": "battery_type",
       "source_quote": "lithium-ion",
       "value_number": null,
@@ -63,7 +63,7 @@
     },
     {
       "id": "R7",
-      "section": "3",
+      "section": "2.02",
       "parameter": "features",
       "source_quote": "maintenance bypass is required",
       "value_number": null,
@@ -73,7 +73,7 @@
     },
     {
       "id": "R8",
-      "section": "3",
+      "section": "2.02",
       "parameter": "features",
       "source_quote": "Hot-swappable modules are preferred",
       "value_number": null,
@@ -83,7 +83,7 @@
     },
     {
       "id": "R9",
-      "section": "3",
+      "section": "2.02",
       "parameter": "standards",
       "source_quote": "comply with UL 1778",
       "value_number": null,
@@ -93,7 +93,7 @@
     },
     {
       "id": "R10",
-      "section": "3",
+      "section": "2.02",
       "parameter": "location",
       "source_quote": "location is indoor",
       "value_number": null,
@@ -103,7 +103,7 @@
     },
     {
       "id": "R11",
-      "section": "4",
+      "section": "1.02",
       "parameter": "lead_time_weeks",
       "source_quote": "within 32 weeks",
       "value_number": 32,
@@ -113,7 +113,7 @@
     },
     {
       "id": "R12",
-      "section": "4",
+      "section": "1.02",
       "parameter": "price_usd",
       "source_quote": "budget for the UPS system is $700,000",
       "value_number": 700000,

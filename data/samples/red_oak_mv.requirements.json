@@ -3,7 +3,7 @@
   "requirements": [
     {
       "id": "R1",
-      "section": "2.1",
+      "section": "2.01",
       "parameter": "voltage_kv",
       "source_quote": "rated 15 kV maximum",
       "value_number": 15,
@@ -13,7 +13,7 @@
     },
     {
       "id": "R2",
-      "section": "2.1",
+      "section": "2.01",
       "parameter": "bil_kv",
       "source_quote": "BIL of 95 kV",
       "value_number": 95,
@@ -23,7 +23,7 @@
     },
     {
       "id": "R3",
-      "section": "2.1",
+      "section": "2.01",
       "parameter": "bus_current_a",
       "source_quote": "rated 3000 A continuous",
       "value_number": 3000,
@@ -33,7 +33,7 @@
     },
     {
       "id": "R4",
-      "section": "2.1",
+      "section": "2.01",
       "parameter": "short_circuit_ka",
       "source_quote": "40 kA symmetrical",
       "value_number": 40,
@@ -43,7 +43,7 @@
     },
     {
       "id": "R5",
-      "section": "2.1",
+      "section": "2.01",
       "parameter": "frequency_hz",
       "source_quote": "frequency is 60 Hz",
       "value_number": 60,
@@ -53,7 +53,7 @@
     },
     {
       "id": "R6",
-      "section": "2.1",
+      "section": "2.01",
       "parameter": "control_voltage_vdc",
       "source_quote": "control power shall be 125 VDC",
       "value_number": 125,
@@ -63,7 +63,7 @@
     },
     {
       "id": "R7",
-      "section": "2.2",
+      "section": "2.02",
       "parameter": "standards",
       "source_quote": "built to IEEE C37.20.2",
       "value_number": null,
@@ -73,7 +73,7 @@
     },
     {
       "id": "R8",
-      "section": "2.2",
+      "section": "2.02",
       "parameter": "enclosure",
       "source_quote": "enclosure shall be NEMA 1",
       "value_number": null,
@@ -83,7 +83,7 @@
     },
     {
       "id": "R9",
-      "section": "2.2",
+      "section": "2.02",
       "parameter": "phases",
       "source_quote": "3 phase, 3 wire",
       "value_number": 3,
@@ -93,7 +93,7 @@
     },
     {
       "id": "R10",
-      "section": "2.2",
+      "section": "2.02",
       "parameter": "height_in",
       "source_quote": "no more than 120 in. high",
       "value_number": 120,
@@ -103,7 +103,7 @@
     },
     {
       "id": "R11",
-      "section": "2.2",
+      "section": "2.02",
       "parameter": "arc_resistance",
       "source_quote": "accessibility Type 2B",
       "value_number": null,
@@ -113,7 +113,7 @@
     },
     {
       "id": "R12",
-      "section": "2.2",
+      "section": "2.02",
       "parameter": "standards",
       "source_quote": "tested to IEEE C37.20.7",
       "value_number": null,
@@ -123,7 +123,7 @@
     },
     {
       "id": "R13",
-      "section": "2.2",
+      "section": "2.02",
       "parameter": "breaker_type",
       "source_quote": "Circuit breakers shall be vacuum type",
       "value_number": null,
@@ -133,7 +133,7 @@
     },
     {
       "id": "R14",
-      "section": "2.2",
+      "section": "2.02",
       "parameter": "features",
       "source_quote": "Remote racking is required",
       "value_number": null,
@@ -143,7 +143,7 @@
     },
     {
       "id": "R15",
-      "section": "2.2",
+      "section": "2.02",
       "parameter": "features",
       "source_quote": "shall be seismic certified",
       "value_number": null,
@@ -153,7 +153,7 @@
     },
     {
       "id": "R16",
-      "section": "2.2",
+      "section": "2.02",
       "parameter": "features",
       "source_quote": "Infrared windows are preferred",
       "value_number": null,
@@ -163,7 +163,7 @@
     },
     {
       "id": "R17",
-      "section": "3.1",
+      "section": "1.02",
       "parameter": "max_ambient_c",
       "source_quote": "ambient temperature of 40 C",
       "value_number": 40,
@@ -173,7 +173,7 @@
     },
     {
       "id": "R18",
-      "section": "3.1",
+      "section": "1.02",
       "parameter": "max_altitude_m",
       "source_quote": "altitude is 300 m",
       "value_number": 300,
@@ -183,7 +183,7 @@
     },
     {
       "id": "R19",
-      "section": "4.1",
+      "section": "1.03",
       "parameter": "lead_time_weeks",
       "source_quote": "within 56 weeks",
       "value_number": 56,
@@ -193,7 +193,7 @@
     },
     {
       "id": "R20",
-      "section": "4.1",
+      "section": "1.03",
       "parameter": "other",
       "source_quote": "Owner shall witness factory acceptance testing",
       "value_number": null,

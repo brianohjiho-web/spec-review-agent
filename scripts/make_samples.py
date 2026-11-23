@@ -1,9 +1,13 @@
-"""Creates the sample spec PDFs. All projects and companies in them are made up."""
+"""Creates the sample spec PDFs, laid out like real CSI specs. All projects and companies in them are made up."""
 import json
+import re
 from pathlib import Path
 
+from reportlab.lib import colors
+from reportlab.lib.enums import TA_CENTER
+
 from reportlab.lib.pagesizes import letter
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 
 SAMPLES = Path(__file__).parent.parent / "data" / "samples"
@@ -438,22 +442,97 @@ EXPECTED = {
 }
 
 
-def make_pdf(path, title, sections):
-    styles = getSampleStyleSheet()
-    story = [Paragraph(title, styles["Title"]),
-             Paragraph("Sample document for a software demo. Fictional project.", styles["Italic"]),
-             Spacer(1, 12)]
+# Section number, section title, and project name for each sample, laid out like a CSI MasterFormat spec.
+META = {
+    "red_oak_mv": ("26 13 13", "Medium-Voltage Metal-Clad Switchgear", "Red Oak Data Center, Building 2"),
+    "harbor_lv": ("26 23 00", "Low-Voltage Switchgear", "Harbor Colo"),
+    "high_desert_mv": ("26 13 16", "Medium-Voltage Outdoor Switchgear", "High Desert Compute Campus"),
+    "ridgeline_cable_bus": ("26 25 00", "Cable Bus", "Ridgeline Data Center"),
+    "lakeshore_iso_bus": ("26 25 13", "Isolated Phase Bus", "Lakeshore Generating Station"),
+    "prairie_non_seg": ("26 25 16", "Non-Segregated Phase Bus", "Prairie Compute Campus"),
+    "mill_creek_utility": ("26 13 00", "Utility Service Section", "Mill Creek Data Center"),
+    "summit_transformer": ("26 12 13", "Liquid-Filled Power Transformer", "Summit Campus"),
+    "orion_ups": ("26 33 53", "Static Uninterruptible Power Supply", "Orion Data Hall"),
+    "atlas_server_racks": ("27 11 16", "Server Racks and Cabinets", "Atlas AI Hall"),
+    "maple_600v_lv": ("26 23 00", "Low-Voltage Switchgear", "Maple Ridge Plant"),
+}
+PART_NAMES = {1: "GENERAL", 2: "PRODUCTS", 3: "EXECUTION"}
+PART_1_WORDS = ("scope", "general", "overview", "site", "delivery", "schedule")
+EXECUTION = [("Installation", ["Install the equipment according to the manufacturer's written instructions and NECA 1."]),
+             ("Field quality control", ["Perform acceptance tests according to NETA ATS before energizing.",
+                                        "Submit test reports to the Engineer within 10 days of testing."])]
+
+
+def old_section_id(heading):
+    """The section id the saved requirements use, e.g. "2.1", "B" or "3"."""
+    return re.match(r"^([0-9.]+|[A-Z])\.?\s", heading).group(1).rstrip(".")
+
+
+def layout(sections):
+    """Groups the sample's sections into Parts 1 to 3 and numbers them 1.01, 2.01, ...
+
+    Returns (parts, id_map): parts is {part: [(number, title, paragraphs)]}, id_map maps old ids to new numbers.
+    """
+    parts, id_map = {1: [], 2: [], 3: []}, {}
     for heading, sentences in sections:
-        story.append(Paragraph(heading, styles["Heading3"]))
-        story.append(Paragraph(" ".join(sentences), styles["BodyText"]))
-    doc = SimpleDocTemplate(str(path), pagesize=letter, title=title, author="SpecCheck AI demo")
-    doc.build(story)
+        title = re.sub(r"^([0-9.]+|[A-Z])\.?\s+", "", heading)
+        part = 1 if title.lower().startswith(PART_1_WORDS) else 2
+        number = f"{part}.{len(parts[part]) + 1:02d}"
+        parts[part].append((number, title, sentences))
+        id_map[old_section_id(heading)] = number
+    for title, sentences in EXECUTION:
+        parts[3].append((f"3.{len(parts[3]) + 1:02d}", title, sentences))
+    return parts, id_map
+
+
+def renumber(labels, id_map):
+    out = json.loads(json.dumps(labels))
+    for r in out["requirements"]:
+        r["section"] = id_map.get(r["section"], r["section"])
+    return out
+
+
+def make_pdf(path, name, sections):
+    number, title, project = META[name]
+    styles = getSampleStyleSheet()
+    base = ParagraphStyle("base", parent=styles["Normal"], fontName="Times-Roman", fontSize=10.5, leading=13.5)
+    center = ParagraphStyle("center", parent=base, alignment=TA_CENTER, fontName="Times-Bold", fontSize=11.5, leading=15)
+    note = ParagraphStyle("note", parent=base, alignment=TA_CENTER, fontName="Times-Italic", fontSize=9, textColor=colors.HexColor("#444444"))
+    part = ParagraphStyle("part", parent=base, fontName="Times-Bold", spaceBefore=14, spaceAfter=6, keepWithNext=1)
+    article = ParagraphStyle("article", parent=base, fontName="Times-Bold", spaceBefore=8, spaceAfter=3, leftIndent=0, keepWithNext=1)
+    para = ParagraphStyle("para", parent=base, leftIndent=40, firstLineIndent=-22, spaceAfter=4)
+    parts, _ = layout(sections)
+
+    def frame(canvas, doc):
+        canvas.saveState()
+        canvas.setFont("Times-Roman", 8.5)
+        canvas.drawString(72, 750, project)
+        canvas.drawRightString(540, 750, "Issued for Construction")
+        canvas.line(72, 745, 540, 745)
+        canvas.line(72, 52, 540, 52)
+        canvas.drawString(72, 40, title.upper())
+        canvas.drawRightString(540, 40, f"{number} - {doc.page}")
+        canvas.restoreState()
+
+    story = [Paragraph(f"SECTION {number}", center), Paragraph(title.upper(), center), Spacer(1, 4),
+             Paragraph("Sample document. Project and owner are fictional.", note), Spacer(1, 6)]
+    for p in (1, 2, 3):
+        story.append(Paragraph(f"PART {p} - {PART_NAMES[p]}", part))
+        for art_number, art_title, sentences in parts[p]:
+            story.append(Paragraph(f"{art_number}&nbsp;&nbsp;&nbsp;{art_title.upper()}", article))
+            for mark, sentence in zip("ABCDEFGHIJKLMNOP", sentences):
+                story.append(Paragraph(f"{mark}.&nbsp;&nbsp;&nbsp;{sentence}", para))
+    story += [Spacer(1, 16), Paragraph("END OF SECTION", center)]
+    doc = SimpleDocTemplate(str(path), pagesize=letter, title=f"Section {number}: {title}", author="SpecCheck sample",
+                            leftMargin=72, rightMargin=72, topMargin=80, bottomMargin=72)
+    doc.build(story, onFirstPage=frame, onLaterPages=frame)
 
 
 if __name__ == "__main__":
     SAMPLES.mkdir(parents=True, exist_ok=True)
     for name, (title, sections) in SPECS.items():
-        make_pdf(SAMPLES / f"{name}.pdf", title, sections)
-        (SAMPLES / f"{name}.requirements.json").write_text(json.dumps(LABELS[name], indent=2), encoding="utf-8")
+        make_pdf(SAMPLES / f"{name}.pdf", name, sections)
+        labels = renumber(LABELS[name], layout(sections)[1])
+        (SAMPLES / f"{name}.requirements.json").write_text(json.dumps(labels, indent=2), encoding="utf-8")
         (SAMPLES / f"{name}.expected.json").write_text(json.dumps(EXPECTED[name], indent=2), encoding="utf-8")
     print(f"Wrote {len(SPECS)} samples to {SAMPLES}")

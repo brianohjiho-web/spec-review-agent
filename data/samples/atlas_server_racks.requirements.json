@@ -3,7 +3,7 @@
   "requirements": [
     {
       "id": "R1",
-      "section": "2",
+      "section": "2.01",
       "parameter": "rack_units",
       "source_quote": "48U high",
       "value_number": 48,
@@ -13,7 +13,7 @@
     },
     {
       "id": "R2",
-      "section": "2",
+      "section": "2.01",
       "parameter": "rack_width_mm",
       "source_quote": "600 mm wide",
       "value_number": 600,
@@ -23,7 +23,7 @@
     },
     {
       "id": "R3",
-      "section": "2",
+      "section": "2.01",
       "parameter": "rack_power_kw",
       "source_quote": "support 100 kW",
       "value_number": 100,
@@ -33,7 +33,7 @@
     },
     {
       "id": "R4",
-      "section": "2",
+      "section": "2.01",
       "parameter": "static_load_kg",
       "source_quote": "Static load shall be 3,300 lb",
       "value_number": 3300,
@@ -43,7 +43,7 @@
     },
     {
       "id": "R5",
-      "section": "2",
+      "section": "2.01",
       "parameter": "height_in",
       "source_quote": "no taller than 7.5 ft",
       "value_number": 7.5,
@@ -53,7 +53,7 @@
     },
     {
       "id": "R6",
-      "section": "2",
+      "section": "2.01",
       "parameter": "cooling",
       "source_quote": "direct-to-chip",
       "value_number": null,
@@ -63,7 +63,7 @@
     },
     {
       "id": "R7",
-      "section": "2",
+      "section": "2.01",
       "parameter": "standards",
       "source_quote": "comply with EIA-310",
       "value_number": null,
@@ -73,7 +73,7 @@
     },
     {
       "id": "R8",
-      "section": "2",
+      "section": "2.01",
       "parameter": "features",
       "source_quote": "seismic certified",
       "value_number": null,
@@ -83,7 +83,7 @@
     },
     {
       "id": "R9",
-      "section": "3",
+      "section": "1.02",
       "parameter": "lead_time_weeks",
       "source_quote": "within 16 weeks",
       "value_number": 16,

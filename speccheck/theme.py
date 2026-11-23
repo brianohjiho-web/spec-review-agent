@@ -79,11 +79,15 @@ h1,h2,h3,p{font-family:"IBM Plex Sans",-apple-system,"Segoe UI",sans-serif}
 .sc-trend{align-content:start;border:1px solid var(--line);border-radius:8px;padding:12px;background:#fff;min-width:0;display:grid;gap:6px}
 @media (max-width:900px){.sc-trends{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .sc-docwrap{background:#eaeef2;border-radius:6px;padding:24px 16px}
-.sc-docpage{background:#fff;color:#202124;max-width:720px;margin:0 auto;padding:56px 64px;box-shadow:0 1px 3px rgba(60,64,67,.3),0 4px 8px rgba(60,64,67,.15);font-family:Arial,"Helvetica Neue",Helvetica,sans-serif;font-size:11pt;line-height:1.5}
-.sc-docpage h1{font-family:Arial,sans-serif;font-size:20pt;font-weight:400;margin:0 0 6px;padding:0;line-height:1.25;color:#202124}
-.sc-docpage h2{font-family:Arial,sans-serif;font-size:13pt;font-weight:700;margin:18px 0 4px;padding:0;color:#202124}
-.sc-docpage p{margin:0 0 8px;font-family:Arial,sans-serif;color:#202124}
-.sc-docpage .sc-docnote{font-style:italic;color:#5f6368;margin-bottom:14px}
+.sc-docpage{background:#fff;color:#1a1a1a;max-width:720px;margin:0 auto;padding:56px 72px 48px;box-shadow:0 1px 3px rgba(60,64,67,.3),0 4px 8px rgba(60,64,67,.15);font-family:"Times New Roman",Times,Georgia,serif;font-size:11pt;line-height:1.45}
+.sc-docpage h1{font-family:"Times New Roman",Times,Georgia,serif;font-size:12pt;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:.02em;margin:0 0 4px;padding:0;line-height:1.5;color:#1a1a1a}
+.sc-docpage h2{font-family:"Times New Roman",Times,Georgia,serif;font-size:11pt;font-weight:700;margin:20px 0 6px;padding:0;color:#1a1a1a}
+.sc-docpage h3{font-family:"Times New Roman",Times,Georgia,serif;font-size:11pt;font-weight:700;margin:10px 0 4px;padding:0;color:#1a1a1a}
+.sc-docpage h4{font-family:"Times New Roman",Times,Georgia,serif;font-size:11pt;font-weight:700;text-align:center;margin:24px 0 0;padding:0;color:#1a1a1a}
+.sc-docpage p{margin:0 0 6px;font-family:"Times New Roman",Times,Georgia,serif;color:#1a1a1a}
+.sc-docpage p.sc-item{padding-left:52px;text-indent:-22px}
+.sc-docpage .sc-docnote{font-style:italic;color:#555;text-align:center;font-size:9.5pt;margin-bottom:10px}
+html:root body .sc-docpage,html:root body .sc-docpage h1,html:root body .sc-docpage h2,html:root body .sc-docpage h3,html:root body .sc-docpage h4,html:root body .sc-docpage p{font-family:"Times New Roman",Times,Georgia,serif!important;letter-spacing:0}
 @media (max-width:600px){.sc-docpage{padding:28px 20px}}
 .sc-split{display:grid;gap:8px;border:1px solid var(--line);border-radius:8px;padding:16px 18px;background:#fff;margin:10px 0}
 .sc-split-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,2fr) 7rem 3.2rem;gap:12px;align-items:center;font-size:.9rem;text-align:left}

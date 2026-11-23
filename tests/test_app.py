@@ -121,8 +121,10 @@ def test_samples_and_own_spec_on_one_page(monkeypatch):
 def test_spec_shows_as_document(monkeypatch):
     app = start(monkeypatch)
     text = page_text(app)
-    assert '<article class="sc-docpage"><h1>Mill Creek Data Center: Utility Service Section</h1>' in text
-    assert "<h2>2. Ratings</h2>" in text
+    assert '<article class="sc-docpage"><h1>SECTION 26 13 00<br>UTILITY SERVICE SECTION</h1>' in text
+    assert "<h2>PART 2 - PRODUCTS</h2>" in text
+    assert "<h3>2.01 RATINGS</h3>" in text
+    assert "Issued for Construction" not in text
 
 
 def test_price_split_adds_to_100(monkeypatch):

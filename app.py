@@ -514,32 +514,53 @@ def type_box(equipment_type: str) -> None:
          f'<b>{escape(name)}</b><p>{escape(text)}</p></div>')
 
 
+def spec_lines(text: str) -> list[str]:
+    """Spec text lines without the page header and footer that repeat on every page."""
+    lines = []
+    for line in (re.sub(r"\s+", " ", line).strip() for line in text.splitlines()):
+        if not line:
+            continue
+        if line == "Issued for Construction" or re.match(r"^\d\d \d\d \d\d - \d+$", line):
+            if lines:
+                lines.pop()  # the project name or section title printed beside it
+            continue
+        lines.append(line)
+    start = next((i for i, line in enumerate(lines) if line.startswith("SECTION ")), 0)
+    return lines[start:]
+
+
 def doc_html(text: str) -> str:
-    """Shows spec text like a page in a document editor: title, headings, and full paragraphs."""
-    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    """Shows spec text like a page of a printed spec: title, parts, articles, and lettered paragraphs."""
+    lines = spec_lines(text)
 
     def is_heading(line: str) -> bool:
+        if re.match(r"^PART \d+\s*-", line) or line == "END OF SECTION":
+            return True
         return bool(re.match(r"^(\d+(\.\d+)*\.?|[A-Z]\.)\s+\S", line)) and len(line) < 70 and not line.endswith((".", ":", ";"))
 
-    i, title = 1, lines[0] if lines else ""
-    while (i < len(lines) and not is_heading(lines[i]) and not title.endswith(".")
+    i, title = 1, [lines[0]] if lines else []
+    while (i < len(lines) and not is_heading(lines[i]) and not title[-1].endswith(".")
            and not lines[i].lower().startswith("sample document") and len(lines[i]) < 40):
-        title += " " + lines[i]
+        title.append(lines[i])
         i += 1
-    parts, paragraph = [f"<h1>{escape(title)}</h1>"] if title else [], []
+    parts, paragraph = [f"<h1>{'<br>'.join(escape(t) for t in title)}</h1>"] if title else [], []
 
     def flush():
         if paragraph:
             joined = " ".join(paragraph)
-            note = ' class="sc-docnote"' if joined.lower().startswith("sample document") else ""
+            note = ' class="sc-docnote"' if joined.lower().startswith("sample document") else (
+                ' class="sc-item"' if re.match(r"^[A-Z]\.\s", joined) else "")
             parts.append(f"<p{note}>{escape(joined)}</p>")
             paragraph.clear()
 
     for line in lines[i:]:
         if is_heading(line):
             flush()
-            parts.append(f"<h2>{escape(line)}</h2>")
+            tag = "h2" if line.startswith("PART ") else "h3" if line != "END OF SECTION" else "h4"
+            parts.append(f"<{tag}>{escape(line)}</{tag}>")
         else:
+            if re.match(r"^[A-Z]\.\s", line):
+                flush()
             paragraph.append(line)
             if line.lower().startswith("sample document"):
                 flush()
@@ -601,7 +622,7 @@ def show_review(review: Review, spec_text: str, show_type: bool = True) -> None:
         html('<span class="sc-anchor" id="sec-spec"></span>')
         label("Source")
         html(section_head("spec", "Original spec", 4))
-        html('<p class="sc-desc">A shortened sample spec. Real specs are usually much longer.</p>')
+        html('<p class="sc-desc">Short sample spec for a fictional project. A real section usually runs 10 to 25 pages.</p>')
         with st.expander("View original spec"):
             html(doc_html(spec_text))
 
@@ -684,8 +705,8 @@ def example_picker() -> str | None:
         return None
     picked = st.session_state.get("example")
     html(EXAMPLE_CSS)
-    html('<p class="sc-ex-head"><b>Try an example</b> Real public specs. Click one to load it with the blanks filled in, '
-         "or download the original.</p>")
+    html('<p class="sc-ex-head"><b>Try an example.</b> Real public specs, exactly as published. '
+         "Click one to load it, or use the arrow to download it.</p>")
     cols = st.columns(len(files))
     short = {"Veterans Affairs": "VA", "Northwestern Univ.": "NU", "Washington State Univ.": "WSU"}
     for col, (name, kind, kind_label, rating, section, org) in zip(cols, files):
@@ -696,7 +717,7 @@ def example_picker() -> str | None:
             if st.button("Load this example", key=f"try-{name}"):
                 st.session_state["example"] = name
                 try:
-                    st.session_state["pasted-spec"] = read_pdfs([(f"{name}.pdf", (EXAMPLES / f"{name}.pdf").read_bytes())])
+                    st.session_state["pasted-spec"] = read_pdfs([(download_file(name).name, download_file(name).read_bytes())])
                 except SpecFileError as error:
                     st.session_state["pasted-spec"] = ""
                     st.error(str(error))

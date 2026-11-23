@@ -3,7 +3,7 @@
   "requirements": [
     {
       "id": "R1",
-      "section": "2",
+      "section": "2.01",
       "parameter": "voltage_kv",
       "source_quote": "rated 15 kV maximum",
       "value_number": 15,
@@ -13,7 +13,7 @@
     },
     {
       "id": "R2",
-      "section": "2",
+      "section": "2.01",
       "parameter": "bil_kv",
       "source_quote": "BIL of 95 kV",
       "value_number": 95,
@@ -23,7 +23,7 @@
     },
     {
       "id": "R3",
-      "section": "2",
+      "section": "2.01",
       "parameter": "bus_current_a",
       "source_quote": "Continuous current shall be 1200 A",
       "value_number": 1200,
@@ -33,7 +33,7 @@
     },
     {
       "id": "R4",
-      "section": "2",
+      "section": "2.01",
       "parameter": "short_circuit_ka",
       "source_quote": "Short-circuit rating shall be 25 kA",
       "value_number": 25,
@@ -43,7 +43,7 @@
     },
     {
       "id": "R5",
-      "section": "2",
+      "section": "2.01",
       "parameter": "frequency_hz",
       "source_quote": "frequency is 60 Hz",
       "value_number": 60,
@@ -53,7 +53,7 @@
     },
     {
       "id": "R6",
-      "section": "3",
+      "section": "2.02",
       "parameter": "enclosure",
       "source_quote": "enclosure shall be NEMA 3R",
       "value_number": null,
@@ -63,7 +63,7 @@
     },
     {
       "id": "R7",
-      "section": "3",
+      "section": "2.02",
       "parameter": "location",
       "source_quote": "location is outdoor",
       "value_number": null,
@@ -73,7 +73,7 @@
     },
     {
       "id": "R8",
-      "section": "3",
+      "section": "2.02",
       "parameter": "features",
       "source_quote": "revenue metering",
       "value_number": null,
@@ -83,7 +83,7 @@
     },
     {
       "id": "R9",
-      "section": "3",
+      "section": "2.02",
       "parameter": "features",
       "source_quote": "utility disconnect",
       "value_number": null,
@@ -93,7 +93,7 @@
     },
     {
       "id": "R10",
-      "section": "3",
+      "section": "2.02",
       "parameter": "standards",
       "source_quote": "comply with IEEE C37.20.3",
       "value_number": null,
@@ -103,7 +103,7 @@
     },
     {
       "id": "R11",
-      "section": "3",
+      "section": "2.02",
       "parameter": "phases",
       "source_quote": "3 phase",
       "value_number": 3,
@@ -113,7 +113,7 @@
     },
     {
       "id": "R12",
-      "section": "3",
+      "section": "2.02",
       "parameter": "height_in",
       "source_quote": "no more than 96 in. high",
       "value_number": 96,
@@ -123,7 +123,7 @@
     },
     {
       "id": "R13",
-      "section": "3",
+      "section": "2.02",
       "parameter": "width_in",
       "source_quote": "84 in. wide",
       "value_number": 84,
@@ -133,7 +133,7 @@
     },
     {
       "id": "R14",
-      "section": "3",
+      "section": "2.02",
       "parameter": "depth_in",
       "source_quote": "100 in. deep",
       "value_number": 100,
@@ -143,7 +143,7 @@
     },
     {
       "id": "R15",
-      "section": "4",
+      "section": "1.02",
       "parameter": "lead_time_weeks",
       "source_quote": "within 26 weeks",
       "value_number": 26,
