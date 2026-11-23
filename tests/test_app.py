@@ -123,7 +123,7 @@ def test_spec_shows_as_document(monkeypatch):
     text = page_text(app)
     assert '<article class="sc-docpage"><h1>SECTION 26 13 00<br>UTILITY SERVICE SECTION</h1>' in text
     assert "<h2>PART 2 - PRODUCTS</h2>" in text
-    assert "<h3>2.01 RATINGS</h3>" in text
+    assert "<h3>2.1 RATINGS</h3>" in text
     assert "Issued for Construction" not in text
 
 

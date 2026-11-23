@@ -520,7 +520,7 @@ def spec_lines(text: str) -> list[str]:
     for line in (re.sub(r"\s+", " ", line).strip() for line in text.splitlines()):
         if not line:
             continue
-        if line == "Issued for Construction" or re.match(r"^\d\d \d\d \d\d - \d+$", line):
+        if line == "Issued for Construction" or re.match(r"^\d\d \d\d \d\d ?- ?\d+$", line):
             if lines:
                 lines.pop()  # the project name or section title printed beside it
             continue
@@ -534,7 +534,7 @@ def doc_html(text: str) -> str:
     lines = spec_lines(text)
 
     def is_heading(line: str) -> bool:
-        if re.match(r"^PART \d+\s*-", line) or line == "END OF SECTION":
+        if re.match(r"^PART \d+\s*-", line) or line in ("END OF SECTION", "---END---"):
             return True
         return bool(re.match(r"^(\d+(\.\d+)*\.?|[A-Z]\.)\s+\S", line)) and len(line) < 70 and not line.endswith((".", ":", ";"))
 
@@ -556,7 +556,7 @@ def doc_html(text: str) -> str:
     for line in lines[i:]:
         if is_heading(line):
             flush()
-            tag = "h2" if line.startswith("PART ") else "h3" if line != "END OF SECTION" else "h4"
+            tag = "h2" if line.startswith("PART ") else "h3" if line not in ("END OF SECTION", "---END---") else "h4"
             parts.append(f"<{tag}>{escape(line)}</{tag}>")
         else:
             if re.match(r"^[A-Z]\.\s", line):

@@ -3,7 +3,7 @@
   "requirements": [
     {
       "id": "R1",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "voltage_kv",
       "source_quote": "rated 15.5 kV maximum",
       "value_number": 15.5,
@@ -13,7 +13,7 @@
     },
     {
       "id": "R2",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "bil_kv",
       "source_quote": "BIL of 110 kV",
       "value_number": 110,
@@ -23,7 +23,7 @@
     },
     {
       "id": "R3",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "bus_current_a",
       "source_quote": "Continuous current shall be 12,000 A",
       "value_number": 12000,
@@ -33,7 +33,7 @@
     },
     {
       "id": "R4",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "cooling",
       "source_quote": "self-cooled",
       "value_number": null,
@@ -43,7 +43,7 @@
     },
     {
       "id": "R5",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "momentary_ka",
       "source_quote": "momentary rating shall be 350 kA",
       "value_number": 350,
@@ -53,7 +53,7 @@
     },
     {
       "id": "R6",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "frequency_hz",
       "source_quote": "frequency is 60 Hz",
       "value_number": 60,
@@ -63,7 +63,7 @@
     },
     {
       "id": "R7",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "bus_material",
       "source_quote": "Conductors shall be aluminum",
       "value_number": null,
@@ -73,7 +73,7 @@
     },
     {
       "id": "R8",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "enclosure_material",
       "source_quote": "the enclosure shall be aluminum",
       "value_number": null,
@@ -83,7 +83,7 @@
     },
     {
       "id": "R9",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "location",
       "source_quote": "The bus runs outdoor",
       "value_number": null,
@@ -93,7 +93,7 @@
     },
     {
       "id": "R10",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "features",
       "source_quote": "Seal-off bushings are required",
       "value_number": null,
@@ -103,7 +103,7 @@
     },
     {
       "id": "R11",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "features",
       "source_quote": "Expansion joints shall be provided",
       "value_number": null,
@@ -113,7 +113,7 @@
     },
     {
       "id": "R12",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "features",
       "source_quote": "Dry air pressurization is preferred",
       "value_number": null,
@@ -123,7 +123,7 @@
     },
     {
       "id": "R13",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "standards",
       "source_quote": "comply with IEEE C37.23",
       "value_number": null,
@@ -133,7 +133,7 @@
     },
     {
       "id": "R14",
-      "section": "1.02",
+      "section": "1.2",
       "parameter": "lead_time_weeks",
       "source_quote": "within 44 weeks",
       "value_number": 44,

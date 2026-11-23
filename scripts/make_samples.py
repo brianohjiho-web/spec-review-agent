@@ -477,11 +477,11 @@ def layout(sections):
     for heading, sentences in sections:
         title = re.sub(r"^([0-9.]+|[A-Z])\.?\s+", "", heading)
         part = 1 if title.lower().startswith(PART_1_WORDS) else 2
-        number = f"{part}.{len(parts[part]) + 1:02d}"
+        number = f"{part}.{len(parts[part]) + 1}"
         parts[part].append((number, title, sentences))
         id_map[old_section_id(heading)] = number
     for title, sentences in EXECUTION:
-        parts[3].append((f"3.{len(parts[3]) + 1:02d}", title, sentences))
+        parts[3].append((f"3.{len(parts[3]) + 1}", title, sentences))
     return parts, id_map
 
 
@@ -495,23 +495,19 @@ def renumber(labels, id_map):
 def make_pdf(path, name, sections):
     number, title, project = META[name]
     styles = getSampleStyleSheet()
-    base = ParagraphStyle("base", parent=styles["Normal"], fontName="Times-Roman", fontSize=10.5, leading=13.5)
-    center = ParagraphStyle("center", parent=base, alignment=TA_CENTER, fontName="Times-Bold", fontSize=11.5, leading=15)
-    note = ParagraphStyle("note", parent=base, alignment=TA_CENTER, fontName="Times-Italic", fontSize=9, textColor=colors.HexColor("#444444"))
-    part = ParagraphStyle("part", parent=base, fontName="Times-Bold", spaceBefore=14, spaceAfter=6, keepWithNext=1)
-    article = ParagraphStyle("article", parent=base, fontName="Times-Bold", spaceBefore=8, spaceAfter=3, leftIndent=0, keepWithNext=1)
-    para = ParagraphStyle("para", parent=base, leftIndent=40, firstLineIndent=-22, spaceAfter=4)
+    base = ParagraphStyle("base", parent=styles["Normal"], fontName="Courier", fontSize=10, leading=12.5)
+    center = ParagraphStyle("center", parent=base, alignment=TA_CENTER, fontName="Courier-Bold", fontSize=10, leading=12.5)
+    note = ParagraphStyle("note", parent=base, alignment=TA_CENTER, fontName="Courier-Oblique", fontSize=8.5, textColor=colors.HexColor("#444444"))
+    part = ParagraphStyle("part", parent=base, fontName="Courier-Bold", spaceBefore=14, spaceAfter=6, keepWithNext=1)
+    article = ParagraphStyle("article", parent=base, fontName="Courier-Bold", spaceBefore=10, spaceAfter=3, leftIndent=0, keepWithNext=1)
+    para = ParagraphStyle("para", parent=base, leftIndent=36, firstLineIndent=-24, spaceAfter=5)
     parts, _ = layout(sections)
 
     def frame(canvas, doc):
         canvas.saveState()
-        canvas.setFont("Times-Roman", 8.5)
-        canvas.drawString(72, 750, project)
+        canvas.setFont("Courier", 9)
         canvas.drawRightString(540, 750, "Issued for Construction")
-        canvas.line(72, 745, 540, 745)
-        canvas.line(72, 52, 540, 52)
-        canvas.drawString(72, 40, title.upper())
-        canvas.drawRightString(540, 40, f"{number} - {doc.page}")
+        canvas.drawCentredString(306, 40, f"{number}- {doc.page}")
         canvas.restoreState()
 
     story = [Paragraph(f"SECTION {number}", center), Paragraph(title.upper(), center), Spacer(1, 4),
@@ -519,10 +515,10 @@ def make_pdf(path, name, sections):
     for p in (1, 2, 3):
         story.append(Paragraph(f"PART {p} - {PART_NAMES[p]}", part))
         for art_number, art_title, sentences in parts[p]:
-            story.append(Paragraph(f"{art_number}&nbsp;&nbsp;&nbsp;{art_title.upper()}", article))
+            story.append(Paragraph(f"{art_number}&nbsp;&nbsp;{art_title.upper()}", article))
             for mark, sentence in zip("ABCDEFGHIJKLMNOP", sentences):
-                story.append(Paragraph(f"{mark}.&nbsp;&nbsp;&nbsp;{sentence}", para))
-    story += [Spacer(1, 16), Paragraph("END OF SECTION", center)]
+                story.append(Paragraph(f"{mark}.&nbsp;&nbsp;{sentence}", para))
+    story += [Spacer(1, 16), Paragraph("---END---", center)]
     doc = SimpleDocTemplate(str(path), pagesize=letter, title=f"Section {number}: {title}", author="SpecCheck sample",
                             leftMargin=72, rightMargin=72, topMargin=80, bottomMargin=72)
     doc.build(story, onFirstPage=frame, onLaterPages=frame)

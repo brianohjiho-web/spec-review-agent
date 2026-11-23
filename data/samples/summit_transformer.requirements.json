@@ -3,7 +3,7 @@
   "requirements": [
     {
       "id": "R1",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "power_kva",
       "source_quote": "rated 30 MVA",
       "value_number": 30,
@@ -13,7 +13,7 @@
     },
     {
       "id": "R2",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "voltage_kv",
       "source_quote": "Primary voltage shall be 34.5 kV",
       "value_number": 34.5,
@@ -23,7 +23,7 @@
     },
     {
       "id": "R3",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "bil_kv",
       "source_quote": "BIL of 150 kV",
       "value_number": 150,
@@ -33,7 +33,7 @@
     },
     {
       "id": "R4",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "secondary_voltage_kv",
       "source_quote": "Secondary voltage shall be 13.8 kV",
       "value_number": 13.8,
@@ -43,7 +43,7 @@
     },
     {
       "id": "R5",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "impedance_pct",
       "source_quote": "Impedance shall be 8%",
       "value_number": 8,
@@ -53,7 +53,7 @@
     },
     {
       "id": "R6",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "frequency_hz",
       "source_quote": "frequency is 60 Hz",
       "value_number": 60,
@@ -63,7 +63,7 @@
     },
     {
       "id": "R7",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "cooling",
       "source_quote": "Cooling shall be ONAN",
       "value_number": null,
@@ -73,7 +73,7 @@
     },
     {
       "id": "R8",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "insulating_fluid",
       "source_quote": "natural ester",
       "value_number": null,
@@ -83,7 +83,7 @@
     },
     {
       "id": "R9",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "location",
       "source_quote": "location is outdoor",
       "value_number": null,
@@ -93,7 +93,7 @@
     },
     {
       "id": "R10",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "standards",
       "source_quote": "comply with IEEE C57.12.00",
       "value_number": null,
@@ -103,7 +103,7 @@
     },
     {
       "id": "R11",
-      "section": "1.02",
+      "section": "1.2",
       "parameter": "lead_time_weeks",
       "source_quote": "within 80 weeks",
       "value_number": 80,

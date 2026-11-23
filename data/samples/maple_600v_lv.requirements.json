@@ -3,7 +3,7 @@
   "requirements": [
     {
       "id": "R1",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "voltage_kv",
       "source_quote": "rated 600 V",
       "value_number": 600,
@@ -13,7 +13,7 @@
     },
     {
       "id": "R2",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "frequency_hz",
       "source_quote": "three phase, 60 Hz",
       "value_number": 60,
@@ -23,7 +23,7 @@
     },
     {
       "id": "R3",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "bus_current_a",
       "source_quote": "Main bus shall be 4000 A",
       "value_number": 4000,
@@ -33,7 +33,7 @@
     },
     {
       "id": "R4",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "short_circuit_ka",
       "source_quote": "Short-circuit rating shall be 85 kA",
       "value_number": 85,
@@ -43,7 +43,7 @@
     },
     {
       "id": "R5",
-      "section": "2.01",
+      "section": "2.1",
       "parameter": "control_voltage_vdc",
       "source_quote": "Control voltage shall be 125 VDC",
       "value_number": 125,
@@ -53,7 +53,7 @@
     },
     {
       "id": "R6",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "breaker_type",
       "source_quote": "air type",
       "value_number": null,
@@ -63,7 +63,7 @@
     },
     {
       "id": "R7",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "features",
       "source_quote": "drawout breakers",
       "value_number": null,
@@ -73,7 +73,7 @@
     },
     {
       "id": "R8",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "enclosure",
       "source_quote": "enclosure shall be NEMA 3R",
       "value_number": null,
@@ -83,7 +83,7 @@
     },
     {
       "id": "R9",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "features",
       "source_quote": "Zone selective interlocking shall be provided",
       "value_number": null,
@@ -93,7 +93,7 @@
     },
     {
       "id": "R10",
-      "section": "2.02",
+      "section": "2.2",
       "parameter": "standards",
       "source_quote": "listed to UL 1558",
       "value_number": null,
@@ -103,7 +103,7 @@
     },
     {
       "id": "R11",
-      "section": "1.02",
+      "section": "1.2",
       "parameter": "lead_time_weeks",
       "source_quote": "within 36 weeks",
       "value_number": 36,
