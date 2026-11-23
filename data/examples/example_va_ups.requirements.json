@@ -1,0 +1,125 @@
+{
+  "equipment_type": "ups",
+  "requirements": [
+    {
+      "id": "R1",
+      "section": "2.3",
+      "parameter": "power_kva",
+      "source_quote": "not less than 500 kVA",
+      "value_number": 500,
+      "unit": "kVA",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R2",
+      "section": "2.3",
+      "parameter": "power_kw",
+      "source_quote": "500 kW",
+      "value_number": 500,
+      "unit": "kW",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R3",
+      "section": "2.1",
+      "parameter": "voltage_kv",
+      "source_quote": "Voltage 480 volts line-to-line",
+      "value_number": 480,
+      "unit": "V",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R4",
+      "section": "2.1",
+      "parameter": "frequency_hz",
+      "source_quote": "60 Hz",
+      "value_number": 60,
+      "unit": "Hz",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R5",
+      "section": "2.1",
+      "parameter": "phases",
+      "source_quote": "3-phase, 3-wire",
+      "value_number": 3,
+      "unit": "",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "2.3",
+      "parameter": "efficiency_pct",
+      "source_quote": "at least 96 percent",
+      "value_number": 96,
+      "unit": "%",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R7",
+      "section": "2.3",
+      "parameter": "runtime_min",
+      "source_quote": "full load for 10 minutes",
+      "value_number": 10,
+      "unit": "minutes",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R8",
+      "section": "2.3",
+      "parameter": "battery_type",
+      "source_quote": "Batteries shall be VRLA",
+      "value_number": null,
+      "unit": "",
+      "value_text": "VRLA",
+      "mandatory": true
+    },
+    {
+      "id": "R9",
+      "section": "2.3",
+      "parameter": "standards",
+      "source_quote": "listed to UL 1778",
+      "value_number": null,
+      "unit": "",
+      "value_text": "UL 1778",
+      "mandatory": true
+    },
+    {
+      "id": "R10",
+      "section": "2.3",
+      "parameter": "features",
+      "source_quote": "maintenance bypass shall be provided",
+      "value_number": null,
+      "unit": "",
+      "value_text": "maintenance bypass",
+      "mandatory": true
+    },
+    {
+      "id": "R11",
+      "section": "2.3",
+      "parameter": "enclosure",
+      "source_quote": "NEMA 1 enclosure",
+      "value_number": null,
+      "unit": "",
+      "value_text": "NEMA 1",
+      "mandatory": true
+    },
+    {
+      "id": "R12",
+      "section": "3.1",
+      "parameter": "lead_time_weeks",
+      "source_quote": "within 20 weeks",
+      "value_number": 20,
+      "unit": "weeks",
+      "value_text": null,
+      "mandatory": true
+    }
+  ]
+}

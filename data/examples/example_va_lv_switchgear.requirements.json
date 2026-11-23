@@ -1,0 +1,165 @@
+{
+  "equipment_type": "lv_switchgear",
+  "requirements": [
+    {
+      "id": "R1",
+      "section": "Schedule",
+      "parameter": "voltage_kv",
+      "source_quote": "480 V, 3 phase, 4 wire",
+      "value_number": 480,
+      "unit": "V",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R2",
+      "section": "Schedule",
+      "parameter": "frequency_hz",
+      "source_quote": "60 Hz",
+      "value_number": 60,
+      "unit": "Hz",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R3",
+      "section": "Schedule",
+      "parameter": "phases",
+      "source_quote": "3 phase",
+      "value_number": 3,
+      "unit": "",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R4",
+      "section": "Schedule",
+      "parameter": "bus_current_a",
+      "source_quote": "4000 A",
+      "value_number": 4000,
+      "unit": "A",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R5",
+      "section": "Schedule",
+      "parameter": "bus_material",
+      "source_quote": "copper",
+      "value_number": null,
+      "unit": "",
+      "value_text": "copper",
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "2.1",
+      "parameter": "short_circuit_ka",
+      "source_quote": "not be less than 100 kA",
+      "value_number": 100,
+      "unit": "kA",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R7",
+      "section": "2.1",
+      "parameter": "standards",
+      "source_quote": "comply with IEEE C37.20.1",
+      "value_number": null,
+      "unit": "",
+      "value_text": "IEEE C37.20.1",
+      "mandatory": true
+    },
+    {
+      "id": "R8",
+      "section": "2.1",
+      "parameter": "standards",
+      "source_quote": "listed to UL 1558",
+      "value_number": null,
+      "unit": "",
+      "value_text": "UL 1558",
+      "mandatory": true
+    },
+    {
+      "id": "R9",
+      "section": "2.1",
+      "parameter": "location",
+      "source_quote": "indoor type switchgear assembly",
+      "value_number": null,
+      "unit": "",
+      "value_text": "indoor",
+      "mandatory": true
+    },
+    {
+      "id": "R10",
+      "section": "2.2",
+      "parameter": "breaker_type",
+      "source_quote": "air type",
+      "value_number": null,
+      "unit": "",
+      "value_text": "air",
+      "mandatory": true
+    },
+    {
+      "id": "R11",
+      "section": "2.2",
+      "parameter": "features",
+      "source_quote": "drawout breakers",
+      "value_number": null,
+      "unit": "",
+      "value_text": "drawout breakers",
+      "mandatory": true
+    },
+    {
+      "id": "R12",
+      "section": "2.2",
+      "parameter": "features",
+      "source_quote": "arc flash maintenance mode",
+      "value_number": null,
+      "unit": "",
+      "value_text": "arc flash maintenance mode",
+      "mandatory": true
+    },
+    {
+      "id": "R13",
+      "section": "Schedule",
+      "parameter": "enclosure",
+      "source_quote": "NEMA 1, indoor",
+      "value_number": null,
+      "unit": "",
+      "value_text": "NEMA 1",
+      "mandatory": true
+    },
+    {
+      "id": "R14",
+      "section": "Schedule",
+      "parameter": "cable_entry",
+      "source_quote": "bottom",
+      "value_number": null,
+      "unit": "",
+      "value_text": "bottom",
+      "mandatory": true
+    },
+    {
+      "id": "R15",
+      "section": "2.3",
+      "parameter": "max_ambient_c",
+      "source_quote": "ambient temperature of 40 C",
+      "value_number": 40,
+      "unit": "C",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R16",
+      "section": "3.1",
+      "parameter": "lead_time_weeks",
+      "source_quote": "within 30 weeks",
+      "value_number": 30,
+      "unit": "weeks",
+      "value_text": null,
+      "mandatory": true
+    }
+  ]
+}

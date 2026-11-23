@@ -23,6 +23,31 @@ from speccheck.theme import CSS, HEADER, icon, section_head
 
 ROOT = Path(__file__).parent
 SAMPLES = ROOT / "data" / "samples"
+EXAMPLES = ROOT / "data" / "examples"
+EXAMPLE_FILES = [
+    ("example_va_mv_switchgear", "mv", "MV switchgear", "15 kV", "26 13 13", "Veterans Affairs"),
+    ("example_va_lv_switchgear", "lv", "LV switchgear", "480 V", "26 23 00", "Veterans Affairs"),
+    ("example_university_lv_switchgear", "lv", "LV switchgear", "480/277 V", "26 23 00", "Northwestern Univ."),
+    ("example_va_ups", "ups", "UPS", "500 kVA", "26 33 53", "Veterans Affairs"),
+    ("example_university_ups", "ups", "UPS", "100 kVA", "26 33 53", "Washington State Univ."),
+]
+EXAMPLE_CSS = """<style>
+[class*="st-key-exc-"]{--ex:#2a5d8f;border:1px solid color-mix(in srgb,var(--ex) 28%,#dde2e6);border-radius:10px;background:color-mix(in srgb,var(--ex) 7%,#fff);padding:12px 12px 10px;gap:6px!important;transition:border-color .15s,box-shadow .15s}
+[class*="st-key-exc-lv"]{--ex:#2f6f6a}[class*="st-key-exc-ups"]{--ex:#9a6418}
+[class*="st-key-exc-"]:hover{border-color:var(--ex);box-shadow:0 4px 14px -6px color-mix(in srgb,var(--ex) 45%,transparent)}
+[class*="st-key-exc-"].on,[class*="st-key-exc-"]:has(.sc-ex.on){border-color:var(--ex);box-shadow:inset 0 0 0 1px var(--ex)}
+.sc-ex{display:grid;gap:2px;line-height:1.3;padding-bottom:8px}
+[class*="st-key-exc-"] [data-testid="stMarkdownContainer"]{margin-bottom:0!important}
+[class*="st-key-exc-"] [data-testid="stElementContainer"]:has(.sc-ex){height:auto!important;margin-bottom:4px}
+.sc-ex .t{font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ex);white-space:nowrap}
+.sc-ex b{font-size:1.2rem;font-weight:600;color:#1d2730}
+.sc-ex .o{font-size:.7rem;color:#5f6c76}
+.sc-ex .s{font-family:ui-monospace,Consolas,monospace;font-size:.66rem;color:#5f6c76}
+.sc-ex-head{font-size:.86rem;color:#5f6c76;margin:4px 0 8px}.sc-ex-head b{color:#1d2730}
+html:root body [class*="st-key-exc-"] button,html:root body [class*="st-key-exc-"] [data-testid="stDownloadButton"] button{min-height:30px!important;padding:2px 8px!important;font-size:.74rem!important;font-weight:600!important;border-radius:6px!important;text-transform:none!important;letter-spacing:0!important;color:var(--ex)!important;border:1px solid color-mix(in srgb,var(--ex) 35%,#dde2e6)!important;background:#fff!important}
+html:root body [class*="st-key-exc-"] button:hover{background:var(--ex)!important;color:#fff!important}
+[class*="st-key-exc-"] [data-testid="stHorizontalBlock"]{gap:6px!important;flex-wrap:nowrap!important}
+</style>"""
 EQUIPMENT = {
     "Utility": (":material/electric_bolt:", {"Utility service": "mill_creek_utility"}),
     "Transformer": (":material/settings_input_component:", {"Transformer": "summit_transformer"}),
@@ -34,6 +59,15 @@ EQUIPMENT = {
     "Switchgear": (":material/dashboard:", {"Switchgear": None}),
     "UPS": (":material/battery_charging_full:", {"UPS": "orion_ups"}),
     "Server racks": (":material/dns:", {"Server racks": "atlas_server_racks"}),
+    "Real specs": (":material/description:", {"Real specs": None}),
+}
+# Examples built from real public specs. Picked in a second row like switchgear.
+REAL_SPECS = {
+    "MV switchgear 15 kV · VA": "example_va_mv_switchgear",
+    "LV switchgear 480 V · VA": "example_va_lv_switchgear",
+    "LV switchgear 480/277 V · Northwestern": "example_university_lv_switchgear",
+    "UPS 500 kVA · VA": "example_va_ups",
+    "UPS 100 kVA · Washington State": "example_university_ups",
 }
 # The switchgear samples share one button; the voltage is picked in a second row.
 SWITCHGEAR = {
@@ -109,9 +143,14 @@ def review_counter() -> DailyCounter:
 
 
 @st.cache_data
+def sample_folder(sample: str) -> Path:
+    return EXAMPLES if (EXAMPLES / f"{sample}.pdf").exists() else SAMPLES
+
+
 def saved_spec(sample: str) -> tuple[dict, str]:
-    text = read_pdf((SAMPLES / f"{sample}.pdf").read_bytes())
-    data = json.loads((SAMPLES / f"{sample}.requirements.json").read_text(encoding="utf-8"))
+    folder = sample_folder(sample)
+    text = read_pdf((folder / f"{sample}.pdf").read_bytes())
+    data = json.loads((folder / f"{sample}.requirements.json").read_text(encoding="utf-8"))
     return data, text
 
 
@@ -618,9 +657,34 @@ def equipment_panel() -> dict[str, str]:
     return {spec: file for _, specs in EQUIPMENT.values() for spec, file in specs.items()}
 
 
+def example_picker() -> str | None:
+    """Example spec PDFs based on real public specs, with the template blanks filled in."""
+    files = [e for e in EXAMPLE_FILES if (EXAMPLES / f"{e[0]}.pdf").exists()]
+    if not files:
+        return None
+    picked = st.session_state.get("example")
+    html(EXAMPLE_CSS)
+    html('<p class="sc-ex-head"><b>Try an example.</b> Each one is based on a real public spec, '
+         "with the blanks filled in.</p>")
+    cols = st.columns(len(files))
+    for col, (name, kind, kind_label, rating, section, org) in zip(cols, files):
+        with col, st.container(key=f"exc-{kind}-{name}"):
+            on = " on" if picked == name else ""
+            html(f'<div class="sc-ex{on}"><span class="t">{kind_label}</span><b>{escape(rating)}</b>'
+                 f'<span class="o">{escape(org)}</span><span class="s">Sec {section}</span></div>')
+            left, right = st.columns(2)
+            if left.button("Try it", key=f"try-{name}", use_container_width=True):
+                st.session_state["example"] = name
+                st.rerun()
+            right.download_button("PDF", (EXAMPLES / f"{name}.pdf").read_bytes(), file_name=f"{name}.pdf",
+                                  mime="application/pdf", key=f"pdf-{name}", use_container_width=True)
+    return picked if any(picked == e[0] for e in files) else None
+
+
 def claude_panel() -> None:
     html('<span class="sc-anchor" id="sec-live"></span>')
     html(f'<div class="sc-h2" style="margin-top:28px">{icon("live", "#1f5f9e")}Check your own spec</div>')
+    example = example_picker()
     typed_key = ""
     if not has_api_key():
         typed_key = st.text_input(
@@ -641,12 +705,16 @@ def claude_panel() -> None:
         accept_multiple_files=True,
         help="Add the spec and any addenda.",
     )
-    if uploads and st.button("Run review", type="primary"):
+    if example and not uploads:
+        st.caption(f"Using the example: {example}.pdf. Upload a PDF above to use your own instead.")
+    if (uploads or example) and st.button("Run review", type="primary"):
         if not review_counter().take(daily_limit()):
             st.warning("Today's review limit has been reached. Please try again tomorrow.")
             return
         try:
-            spec_text = read_pdfs([(u.name, u.getvalue()) for u in uploads])
+            files = [(u.name, u.getvalue()) for u in uploads] if uploads else \
+                [(f"{example}.pdf", (EXAMPLES / f"{example}.pdf").read_bytes())]
+            spec_text = read_pdfs(files)
             with st.spinner("Claude is reading the spec. A long spec can take 1 to 3 minutes."):
                 client = Anthropic(api_key=typed_key) if typed_key else None
                 st.session_state["review"] = SpecAgent(catalog(), client=client).run(spec_text)
@@ -692,11 +760,17 @@ with st.container(key="band-demo"):
         voltage = st.segmented_control("Voltage", list(SWITCHGEAR), default=list(SWITCHGEAR)[0],
                                        key="switchgear-voltage", on_change=show_samples) or list(SWITCHGEAR)[0]
         sample = SWITCHGEAR[voltage]
+    if name == "Real specs":
+        real = st.segmented_control("Real spec", list(REAL_SPECS), default=list(REAL_SPECS)[0],
+                                    key="real-spec", on_change=show_samples) or list(REAL_SPECS)[0]
+        sample = REAL_SPECS[real]
+        st.caption("Based on real public specs from the VA and two universities. The originals are templates "
+                   "with blanks, so these copies fill in the values. For testing only.")
     sample_review, sample_text = saved_review(sample)
     type_box(sample_review.equipment_type)
     st.download_button(
         "Download this sample PDF",
-        (SAMPLES / f"{sample}.pdf").read_bytes(),
+        (sample_folder(sample) / f"{sample}.pdf").read_bytes(),
         file_name=f"{sample}.pdf",
         mime="application/pdf",
     )

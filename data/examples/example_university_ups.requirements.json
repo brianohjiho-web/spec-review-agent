@@ -1,0 +1,85 @@
+{
+  "equipment_type": "ups",
+  "requirements": [
+    {
+      "id": "R1",
+      "section": "2.2",
+      "parameter": "power_kva",
+      "source_quote": "rated 100 kVA",
+      "value_number": 100,
+      "unit": "kVA",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R2",
+      "section": "2.2",
+      "parameter": "voltage_kv",
+      "source_quote": "480 V",
+      "value_number": 480,
+      "unit": "V",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R3",
+      "section": "2.2",
+      "parameter": "phases",
+      "source_quote": "3 phase",
+      "value_number": 3,
+      "unit": "",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R4",
+      "section": "2.2",
+      "parameter": "frequency_hz",
+      "source_quote": "60 Hz",
+      "value_number": 60,
+      "unit": "Hz",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R5",
+      "section": "2.2",
+      "parameter": "runtime_min",
+      "source_quote": "at least 15 minutes",
+      "value_number": 15,
+      "unit": "minutes",
+      "value_text": null,
+      "mandatory": true
+    },
+    {
+      "id": "R6",
+      "section": "2.2",
+      "parameter": "standards",
+      "source_quote": "listed to UL 1778",
+      "value_number": null,
+      "unit": "",
+      "value_text": "UL 1778",
+      "mandatory": true
+    },
+    {
+      "id": "R7",
+      "section": "2.3",
+      "parameter": "features",
+      "source_quote": "maintenance bypass shall be provided",
+      "value_number": null,
+      "unit": "",
+      "value_text": "maintenance bypass",
+      "mandatory": true
+    },
+    {
+      "id": "R8",
+      "section": "2.3",
+      "parameter": "battery_type",
+      "source_quote": "Lithium-ion batteries are preferred",
+      "value_number": null,
+      "unit": "",
+      "value_text": "lithium-ion",
+      "mandatory": false
+    }
+  ]
+}
