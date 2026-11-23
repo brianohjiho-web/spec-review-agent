@@ -6,7 +6,7 @@ An AI agent that does the first pass on equipment spec reviews.
 
 A customer spec can run many pages, and someone has to check every requirement against the product line. I built SpecCheck AI to do that first pass. It pulls out each requirement, checks it against a catalog, ranks the products, and flags what an engineer needs to look at.
 
-![SpecCheck AI screenshot](docs/screenshot.png)
+![SpecCheck AI screenshot](docs/speccheck-screenshot.png)
 
 > All specs, products, and prices in this repo are made up for this demo. They are not real ratings or prices from any manufacturer, and this project is not connected to any company.
 
