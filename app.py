@@ -41,7 +41,8 @@ EXAMPLE_FILES = [
     ("example_university_ups", "ups", "UPS", "100 kVA", "26 33 53", "Washington State Univ."),
 ]
 EXAMPLE_CSS = """<style>
-.sc-ex-head{font-size:.86rem;color:#5f6c76;margin:4px 0 8px}.sc-ex-head b{color:#1d2730}
+.sc-ex-head{font-size:.86rem;color:#5f6c76;margin:0 0 8px}.sc-ex-head b{color:#1d2730;margin-right:4px}.sc-sub{color:#5f6c76;font-size:.95rem;margin:-4px 0 12px}.sc-words{text-align:right;font-size:.8rem;color:#5f6c76;margin:-6px 0 4px}
+.st-key-exband{background:#f6f7f7;border:1px solid #e1e5e8;border-radius:12px;padding:14px 16px;margin:12px 0 14px}
 [class*="st-key-exc-"]{--ex:#2f6db0;position:relative;border:1px solid #dde2e6;border-left:3px solid var(--ex);border-radius:9px;background:#fff;padding:9px 34px 9px 12px;gap:0!important;transition:border-color .15s,box-shadow .15s,transform .15s}
 [class*="st-key-exc-lv"]{--ex:#1f8a7a}[class*="st-key-exc-ups"]{--ex:#c47a12}
 [class*="st-key-exc-"]:hover{transform:translateY(-1px);border-color:color-mix(in srgb,var(--ex) 45%,#dde2e6);border-left-color:var(--ex);box-shadow:0 6px 16px -10px color-mix(in srgb,var(--ex) 60%,transparent)}
@@ -682,8 +683,8 @@ def example_picker() -> str | None:
         return None
     picked = st.session_state.get("example")
     html(EXAMPLE_CSS)
-    html('<p class="sc-ex-head"><b>Try an example.</b> Each one is a real public spec. Click to load it with the blanks filled in. '
-         "The arrow downloads the original.</p>")
+    html('<p class="sc-ex-head"><b>Try an example</b> Real public specs. Click one to load it with the blanks filled in, '
+         "or download the original.</p>")
     cols = st.columns(len(files))
     short = {"Veterans Affairs": "VA", "Northwestern Univ.": "NU", "Washington State Univ.": "WSU"}
     for col, (name, kind, kind_label, rating, section, org) in zip(cols, files):
@@ -693,6 +694,11 @@ def example_picker() -> str | None:
                  f'<span class="o"><b>{short.get(org, "")}</b>{escape(org)}</span><span class="s">Sec {section}</span></div>')
             if st.button("Load this example", key=f"try-{name}"):
                 st.session_state["example"] = name
+                try:
+                    st.session_state["pasted-spec"] = read_pdfs([(f"{name}.pdf", (EXAMPLES / f"{name}.pdf").read_bytes())])
+                except SpecFileError as error:
+                    st.session_state["pasted-spec"] = ""
+                    st.error(str(error))
                 st.rerun()
             st.download_button(":material/download:", download_file(name).read_bytes(), file_name=download_file(name).name,
                                mime="application/pdf", key=f"pdf-{name}", help="Download the original PDF")
@@ -702,7 +708,7 @@ def example_picker() -> str | None:
 def claude_panel() -> None:
     html('<span class="sc-anchor" id="sec-live"></span>')
     html(f'<div class="sc-h2" style="margin-top:28px">{icon("live", "#1f5f9e")}Check your own spec</div>')
-    example = example_picker()
+    html('<p class="sc-sub">Upload a PDF or paste the text.</p>')
     typed_key = ""
     if not has_api_key():
         typed_key = st.text_input(
@@ -721,22 +727,30 @@ def claude_panel() -> None:
         "Spec PDFs",
         type="pdf",
         accept_multiple_files=True,
-        help="Add the spec and any addenda.",
+        help="Add the spec and any addenda. Scanned pages without text won't work.",
     )
-    pasted = st.text_area("Or paste the spec text", height=200, key="pasted-spec").strip()
-    if example and not uploads and not pasted:
-        st.caption(f"Using the example: {example}.pdf. Upload a PDF or paste text to use your own instead.")
-    if (uploads or pasted or example) and st.button("Run review", type="primary"):
+    if uploads:
+        sig = [(u.name, u.size) for u in uploads]
+        if st.session_state.get("upload-sig") != sig:
+            st.session_state["upload-sig"] = sig
+            try:
+                st.session_state["pasted-spec"] = read_pdfs([(u.name, u.getvalue()) for u in uploads])
+            except SpecFileError as error:
+                st.error(str(error))
+    with st.container(key="exband"):
+        example_picker()
+    st.markdown("**Spec text**")
+    pasted = st.text_area("Spec text", height=220, key="pasted-spec", label_visibility="collapsed",
+                          placeholder="Paste the spec text here, or upload a PDF or click an example above.").strip()
+    n = len(pasted.split())
+    if n:
+        html(f'<div class="sc-words">{n:,} words</div>')
+    if pasted and st.button("Run review", type="primary"):
         if not review_counter().take(daily_limit()):
             st.warning("Today's review limit has been reached. Please try again tomorrow.")
             return
         try:
-            if uploads:
-                spec_text = read_pdfs([(u.name, u.getvalue()) for u in uploads])
-            elif pasted:
-                spec_text = pasted
-            else:
-                spec_text = read_pdfs([(f"{example}.pdf", (EXAMPLES / f"{example}.pdf").read_bytes())])
+            spec_text = pasted
             with st.spinner("Claude is reading the spec. A long spec can take 1 to 3 minutes."):
                 client = Anthropic(api_key=typed_key) if typed_key else None
                 st.session_state["review"] = SpecAgent(catalog(), client=client).run(spec_text)
