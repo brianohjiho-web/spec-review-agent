@@ -152,6 +152,8 @@ def product_facts(product: dict, short: bool = False) -> str:
         text += f'<br><span class="sc-small">{escape(product.get("source_note", ""))}</span>'
     return text
 
+RAIL = """<nav class="sc-rail" aria-label="Sections"><a target="_self" href="#top" title="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg><span>Top</span></a><a target="_self" href="#sec-samples" title="Sample specs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Sample specs</span></a><a target="_self" href="#sec-live" title="Check your own spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></svg><span>Check your own spec</span></a><a target="_self" href="#sec-result" title="Best match"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg><span>Best match</span></a><a target="_self" href="#sec-check" title="Requirement check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg><span>Requirement check</span></a><a target="_self" href="#sec-compare" title="Compare products"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v16"/></svg><span>Compare products</span></a><a target="_self" href="#sec-cost" title="Material cost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg><span>Material cost</span></a><a target="_self" href="#sec-questions" title="Questions to ask"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/></svg><span>Questions to ask</span></a><a target="_self" href="#sec-spec" title="Original spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg><span>Original spec</span></a></nav>"""
+
 JUMP = """<details class="sc-jump"><summary>Sections</summary><nav>
 <a href="#sec-samples">Sample specs</a><a href="#sec-check">Requirement check</a>
 <a href="#sec-compare">Compare products</a><a href="#sec-cost">Material cost</a><a href="#sec-questions">Questions to ask</a><a href="#sec-spec">Original spec</a></nav></details>"""
@@ -192,7 +194,7 @@ def reason(result: CheckResult) -> str:
         ("value was not found in the source quote", "Number doesn't match the spec text"),
         ("outside the automatic checks", "The tool can't check this. An engineer should read it."),
         ("public page", "Not mentioned on the maker's page"),
-        ("no value", "Not in the product data"),
+        ("no value", "Not listed in the product data"),
         ("Unknown unit", "Unknown unit. Check by hand."),
         ("not one the tool knows", "Unknown value. Check by hand."),
         ("No required value", "Spec has no clear value. Ask the customer."),
@@ -227,7 +229,7 @@ def compare_table(review: Review) -> str:
         cells = ""
         for n, c in enumerate(products):
             r = c.results[k]
-            if r.status == "REVIEW" and r.product_value in ("Not checked", "Not listed"):
+            if r.status == "REVIEW" and (r.product_value in ("Not checked", "Not listed") or r.requirement.parameter == "features"):
                 body = NOT_LISTED
             else:
                 mark = {"PASS": "✓", "FAIL": "✗", "REVIEW": "?"}[r.status]
@@ -238,8 +240,8 @@ def compare_table(review: Review) -> str:
         pdf = f'<td class="mine">{escape(usd(first.required.replace("at least ", "").replace("at most ", "")))}</td>' if mine else ""
         rows += f'<tr><th><div class="sc-ci-name">{escape(item_name(first))}</div>{need}</th>{pdf}{cells}</tr>'
     return (
-        '<p class="sc-small"><span class="sc-mk PASS">✓</span> meets it &nbsp; <span class="sc-mk FAIL">✗</span> doesn\'t &nbsp; '
-        '<span class="sc-mk REVIEW">?</span> check it &nbsp; <span class="sc-na">—</span> not listed by the maker</p>'
+        '<p class="sc-small"><span class="sc-mk PASS">✓</span> meets &nbsp; <span class="sc-mk FAIL">✗</span> doesn\'t meet &nbsp; '
+        '<span class="sc-mk REVIEW">?</span> needs a look &nbsp; <span class="sc-na">—</span> not listed</p>'
         f'<div class="sc-scroll"><table class="sc-cmp"><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
     )
 
@@ -422,7 +424,7 @@ def result_panel(review: Review) -> str:
     kicker = f'{"Best match" if match else "No full match"} · {kind}'
     title = best.product_name if match else "No product meets every must-have item"
     if match and best.reviews:
-        verdict, tone = f"No must-have item failed, but {best.reviews} items need a check", "warn"
+        verdict, tone = f"Meets every required item. {best.reviews} still need a check", "warn"
     elif match:
         verdict, tone = "Meets every must-have item", "ok"
     else:
@@ -433,11 +435,11 @@ def result_panel(review: Review) -> str:
     summary = f"<p>{escape(review.summary)}</p>" if review.summary else ""
     questions = "".join(f"<li>{escape(q)}</li>" for q in review.customer_questions)
     questions = f'<p class="sc-small">Questions for the customer:</p><ul>{questions}</ul>' if questions else ""
-    source = "Claude read this spec. Pass and fail came from the catalog rules." if review.source == "claude" else "Prepared sample. Claude didn't run."
+    source = "Claude read this spec. Pass and fail came from the catalog rules." if review.source == "claude" else "Saved sample result. Upload your own spec to run Claude live."
     total = len(best.results)
     counts = {s: sum(r.status == s for r in best.results) for s in ("PASS", "REVIEW", "FAIL")}
     bar = "".join(f'<span class="sc-bar-{s}" style="flex:{counts[s]}"></span>' for s in counts if counts[s])
-    score = (f'<aside class="sc-score"><div class="sc-score-lbl">Items that pass</div>'
+    score = (f'<aside class="sc-score"><div class="sc-score-lbl">Passed</div>'
              f'<div class="sc-score-num"><b>{counts["PASS"]}</b> of {total}</div><div class="sc-bar">{bar}</div>'
              f'<div class="sc-score-det"><span class="{"bad" if counts["FAIL"] else ""}">{counts["FAIL"]} fail</span>'
              f'<span class="{"warn" if counts["REVIEW"] else ""}">{counts["REVIEW"]} to check</span></div></aside>')
@@ -449,7 +451,7 @@ def result_panel(review: Review) -> str:
 
 def type_box(equipment_type: str) -> None:
     name, text = TYPE_INFO[equipment_type]
-    html(f'<div class="sc-type"><div class="sc-type-kicker">What this equipment is</div>'
+    html(f'<div class="sc-type"><div class="sc-type-kicker">About this equipment</div>'
          f'<b>{escape(name)}</b><p>{escape(text)}</p></div>')
 
 
@@ -489,6 +491,7 @@ def doc_html(text: str) -> str:
 def show_review(review: Review, spec_text: str, show_type: bool = True) -> None:
     band = "band-match" if review.recommended_id else "band-gap"
     with st.container(key=band):
+        html('<span class="sc-anchor" id="sec-result"></span>')
         label("Result")
         html(result_panel(review))
 
@@ -496,9 +499,9 @@ def show_review(review: Review, spec_text: str, show_type: bool = True) -> None:
         html('<span class="sc-anchor" id="sec-check"></span>')
         label("Details")
         html(section_head("check", "Requirement check", 1) +
-             '<p class="sc-legend"><span class="sc-chip PASS">Pass</span> product has it '
+             '<p class="sc-legend"><span class="sc-chip PASS">Pass</span> meets the spec '
              '<span class="sc-chip FAIL">Fail</span> product doesn\'t '
-             '<span class="sc-chip REVIEW">Review</span> a person should check</p>')
+             '<span class="sc-chip REVIEW">Review</span> not enough info, check by hand</p>')
         names = {c.product_name: c for c in review.ranked}
         by_name = {p["name"]: p for p in catalog()}
         pick_col, show_col = st.columns([3, 2], vertical_alignment="bottom")
@@ -525,7 +528,7 @@ def show_review(review: Review, spec_text: str, show_type: bool = True) -> None:
         html('<span class="sc-anchor" id="sec-compare"></span>')
         label("Compare")
         html(section_head("compare", "Compare products", 2) +
-             '<p class="sc-desc">Every product of this type against the same spec. Best match first.</p>')
+             '<p class="sc-desc">All products of this type, best fit first.</p>')
         html(compare_table(review))
 
     with st.container(key="band-products"):
@@ -539,7 +542,7 @@ def show_review(review: Review, spec_text: str, show_type: bool = True) -> None:
         html('<span class="sc-anchor" id="sec-spec"></span>')
         label("Source")
         html(section_head("spec", "Original spec", 4))
-        html('<p class="sc-desc">A short version of the spec with only the important parts. Real specs run many pages.</p>')
+        html('<p class="sc-desc">A shortened sample spec. Real specs are usually much longer.</p>')
         with st.expander("View original spec"):
             html(doc_html(spec_text))
 
@@ -553,10 +556,10 @@ def show_review(review: Review, spec_text: str, show_type: bool = True) -> None:
         label("Next steps")
         html(section_head("questions", "Questions to ask", 5) +
              '<div class="sc-qcols">'
-             f'<div><h3>For the customer</h3><h4>Every job</h4><ol>{listing("customer_fixed")}</ol>'
-             f'<h4>From this spec</h4><ol class="sc-qspec">{listing("customer")}</ol></div>'
-             f'<div><h3>For your engineers</h3><h4>Every job</h4><ol>{listing("engineer_fixed")}</ol>'
-             f'<h4>From this spec</h4><ol class="sc-qspec">{listing("engineer")}</ol></div></div>')
+             f'<div><h3>For the customer</h3><h4>Always ask</h4><ol>{listing("customer_fixed")}</ol>'
+             f'<h4>For this spec</h4><ol class="sc-qspec">{listing("customer")}</ol></div>'
+             f'<div><h3>For your engineers</h3><h4>Always ask</h4><ol>{listing("engineer_fixed")}</ol>'
+             f'<h4>For this spec</h4><ol class="sc-qspec">{listing("engineer")}</ol></div></div>')
 
 
 TYPE_INFO = {
@@ -616,6 +619,7 @@ def equipment_panel() -> dict[str, str]:
 
 
 def claude_panel() -> None:
+    html('<span class="sc-anchor" id="sec-live"></span>')
     html(f'<div class="sc-h2" style="margin-top:28px">{icon("live", "#1f5f9e")}Check your own spec</div>')
     typed_key = ""
     if not has_api_key():
@@ -672,7 +676,7 @@ def show_samples() -> None:
 with st.container(key="band-demo"):
     html('<span class="sc-anchor" id="sec-samples"></span>')
     label("Demo")
-    html(f'<div class="sc-h2">Pick a sample spec</div>')
+    html(f'<div class="sc-h2">Try a sample spec</div>')
     names = list(sample_names)
     name = st.segmented_control(
         "Sample spec",
@@ -704,3 +708,4 @@ else:
     show_review(sample_review, sample_text, show_type=False)
 
 html(JUMP)
+html(RAIL)

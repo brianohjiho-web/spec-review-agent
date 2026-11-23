@@ -38,8 +38,8 @@ def make_questions(review: Review) -> dict[str, list[str]]:
         elif "no value" in r.note or "public page" in r.note:
             # The spec is clear; our own product data is missing. Ask our side, not the customer.
             need = r.required.replace("at least ", "").replace("at most ", "")
-            engineer.append(f"{item}: the spec asks for {need}, but our product data doesn't say. "
-                            "Can we confirm ours meets it?")
+            engineer.append(f"{item}: spec asks for {need}. Our data doesn't list it. "
+                            "Can we confirm?")
         else:
             customer.append(f"{item}: the spec says \u201c{quote}\u201d. Can you confirm the exact value you need?")
     customer += QUESTIONS["customer"].get(family, [])

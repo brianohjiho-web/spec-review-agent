@@ -114,7 +114,7 @@ def test_streamlit_secret_is_used(monkeypatch):
 def test_samples_and_own_spec_on_one_page(monkeypatch):
     app = start(monkeypatch)
     text = page_text(app)
-    assert "Pick a sample spec" in text and "Check your own spec" in text
+    assert "Try a sample spec" in text and "Check your own spec" in text
     assert "confidential" not in text
 
 

@@ -169,7 +169,7 @@ def test_missing_product_data_goes_to_engineers():
                             if p["equipment_type"] == spec.equipment_type])
     q = make_questions(Review(equipment_type=spec.equipment_type, ranked=ranked))
     assert not any("confirm the exact value" in x for x in q["customer"])
-    assert any("our product data doesn't say" in x for x in q["engineer"])
+    assert any("Our data doesn't list it" in x for x in q["engineer"])
 
 
 def test_pdf_export_is_a_pdf():
