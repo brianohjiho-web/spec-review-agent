@@ -46,6 +46,9 @@ EXAMPLE_CSS = """<style>
 .sc-ex-head{font-size:.86rem;color:#5f6c76;margin:4px 0 8px}.sc-ex-head b{color:#1d2730}
 html:root body [class*="st-key-exc-"] button,html:root body [class*="st-key-exc-"] [data-testid="stDownloadButton"] button{min-height:30px!important;padding:2px 8px!important;font-size:.74rem!important;font-weight:600!important;border-radius:6px!important;text-transform:none!important;letter-spacing:0!important;color:var(--ex)!important;border:1px solid color-mix(in srgb,var(--ex) 35%,#dde2e6)!important;background:#fff!important}
 html:root body [class*="st-key-exc-"] button:hover{background:var(--ex)!important;color:#fff!important}
+[class*="st-key-exc-"]{position:relative;cursor:pointer}
+[class*="st-key-try-"]{position:absolute!important;top:0;left:0;right:0;bottom:46px;z-index:2;margin:0!important}
+html:root body [class*="st-key-try-"] button{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
 [class*="st-key-exc-"] [data-testid="stHorizontalBlock"]{gap:6px!important;flex-wrap:nowrap!important}
 </style>"""
 EQUIPMENT = {
@@ -672,12 +675,11 @@ def example_picker() -> str | None:
             on = " on" if picked == name else ""
             html(f'<div class="sc-ex{on}"><span class="t">{kind_label}</span><b>{escape(rating)}</b>'
                  f'<span class="o">{escape(org)}</span><span class="s">Sec {section}</span></div>')
-            left, right = st.columns(2)
-            if left.button("Try it", key=f"try-{name}", use_container_width=True):
+            if st.button("Use this example", key=f"try-{name}", use_container_width=True):
                 st.session_state["example"] = name
                 st.rerun()
-            right.download_button("PDF", (EXAMPLES / f"{name}.pdf").read_bytes(), file_name=f"{name}.pdf",
-                                  mime="application/pdf", key=f"pdf-{name}", use_container_width=True)
+            st.download_button("Spec PDF", (EXAMPLES / f"{name}.pdf").read_bytes(), file_name=f"{name}.pdf",
+                               mime="application/pdf", key=f"pdf-{name}", use_container_width=True)
     return picked if any(picked == e[0] for e in files) else None
 
 
