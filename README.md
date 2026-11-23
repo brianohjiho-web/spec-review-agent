@@ -67,25 +67,6 @@ I split the work so each part does what it is best at:
 - **Spec text is treated as data.** The prompt tells Claude not to follow instructions found inside a spec.
 - **Must-have items come first.** A product with a failed must-have item is never recommended.
 
-## Run it
-
-You need Python 3.11 or newer.
-
-On Windows, you can double-click `run_windows.bat` to set up and start the app. Or use these commands:
-
-```bash
-git clone https://github.com/YOUR_USERNAME/spec-review-agent.git
-cd spec-review-agent
-python -m venv .venv
-source .venv/bin/activate    # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-streamlit run app.py
-```
-
-Demo mode works without an API key. It uses requirements I labeled by hand, so it shows the Python checks and the interface without calling Claude.
-
-To review your own PDF with Claude, paste a key into the app, or copy `.env.example` to `.env` and add your [Claude API key](https://platform.claude.com/). Keep this file private. It is listed in `.gitignore`, so Git leaves it out. Reviews use API credits, and the PDF text is sent to the Claude API.
-
 ## Website
 
 `docs/index.html` is a product page with the sample results built in. It works with GitHub Pages and needs no Python or API key. It shows sample results only. Live Claude reviews use the Python app.
