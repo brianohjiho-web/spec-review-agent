@@ -50,8 +50,8 @@ def to_pdf(check: ProductCheck, document_name: str | None = None) -> bytes:
     buf = BytesIO()
     doc = SimpleDocTemplate(buf, pagesize=landscape(letter), leftMargin=40, rightMargin=40,
                             topMargin=36, bottomMargin=36, title=f"Compliance list: {check.product_name}")
-    cell = ParagraphStyle("cell", fontName="Helvetica", fontSize=8.5, leading=10.5)
-    quote = ParagraphStyle("quote", parent=cell, fontName="Helvetica-Oblique")
+    cell = ParagraphStyle("cell", fontName="Courier", fontSize=7.5, leading=9.5)
+    quote = ParagraphStyle("quote", parent=cell, fontName="Courier-Oblique")
     color = {"PASS": "#1f7a3d", "FAIL": "#b22222", "REVIEW": "#a06e00"}
     p = lambda s, st=cell: Paragraph(escape(str(s or "")), st)
 
@@ -61,24 +61,31 @@ def to_pdf(check: ProductCheck, document_name: str | None = None) -> bytes:
     for i, r in enumerate(check.results, 1):
         rule = RULES.get(r.requirement.parameter)
         rows.append([str(i), p(rule.label if rule else "Other"), p(r.required), p(r.product_value),
-                     Paragraph(f'<font color="{color[r.status]}"><b>{r.status.title()}</b></font>', cell),
+                     Paragraph(f'<font color="{color[r.status]}"><b>{r.status.upper()}</b></font>', cell),
                      p(r.note if r.status != "PASS" else ""), p(r.requirement.section), p(r.requirement.source_quote, quote)])
     table = Table(rows, colWidths=[22, 92, 90, 90, 48, 140, 50, 180], repeatRows=1)
     table.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#2b4a6f")),
-        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
-        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-        ("FONTSIZE", (0, 0), (-1, -1), 8.5),
+        ("LINEBELOW", (0, 0), (-1, 0), 0.8, colors.black),
+        
+        ("FONTNAME", (0, 0), (-1, 0), "Courier-Bold"),
+        ("FONTSIZE", (0, 0), (-1, -1), 7.5),
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
         ("ALIGN", (0, 1), (0, -1), "RIGHT"),
-        ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#d6dae0")),
-        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f5f6f8")]),
+        ("LINEBELOW", (0, 1), (-1, -1), 0.25, colors.HexColor("#999999")),
     ]))
-    title = ParagraphStyle("t", fontName="Helvetica-Bold", fontSize=15, leading=19)
-    sub = ParagraphStyle("s", fontName="Helvetica", fontSize=10, leading=13, textColor=colors.HexColor("#505050"))
+    title = ParagraphStyle("t", fontName="Courier-Bold", fontSize=11, leading=14)
+    sub = ParagraphStyle("s", fontName="Courier", fontSize=9, leading=12)
     lines = [escape(check.product_name)]
     if document_name:
         lines.append("Spec: " + escape(document_name))
     lines.append(f"{date.today():%b %d, %Y} &nbsp;·&nbsp; {counts['PASS']} pass, {counts['FAIL']} fail, {counts['REVIEW']} to check")
-    doc.build([Paragraph("Compliance list", title), Spacer(1, 4), Paragraph("<br/>".join(lines), sub), Spacer(1, 10), table])
+    def page(canvas, d):
+        canvas.saveState()
+        canvas.setFont("Courier", 9)
+        canvas.drawRightString(d.pagesize[0] - 40, d.pagesize[1] - 24, f"{date.today():%m-%d-%y}")
+        canvas.drawCentredString(d.pagesize[0] / 2, 20, f"Compliance list- {d.page}")
+        canvas.restoreState()
+
+    story = [Paragraph("COMPLIANCE LIST", title), Spacer(1, 4), Paragraph("<br/>".join(lines), sub), Spacer(1, 10), table]
+    doc.build(story, onFirstPage=page, onLaterPages=page)
     return buf.getvalue()
