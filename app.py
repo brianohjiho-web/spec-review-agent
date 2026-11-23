@@ -723,16 +723,20 @@ def claude_panel() -> None:
         accept_multiple_files=True,
         help="Add the spec and any addenda.",
     )
-    if example and not uploads:
-        st.caption(f"Using the example: {example}.pdf. Upload a PDF above to use your own instead.")
-    if (uploads or example) and st.button("Run review", type="primary"):
+    pasted = st.text_area("Or paste the spec text", height=200, key="pasted-spec").strip()
+    if example and not uploads and not pasted:
+        st.caption(f"Using the example: {example}.pdf. Upload a PDF or paste text to use your own instead.")
+    if (uploads or pasted or example) and st.button("Run review", type="primary"):
         if not review_counter().take(daily_limit()):
             st.warning("Today's review limit has been reached. Please try again tomorrow.")
             return
         try:
-            files = [(u.name, u.getvalue()) for u in uploads] if uploads else \
-                [(f"{example}.pdf", (EXAMPLES / f"{example}.pdf").read_bytes())]
-            spec_text = read_pdfs(files)
+            if uploads:
+                spec_text = read_pdfs([(u.name, u.getvalue()) for u in uploads])
+            elif pasted:
+                spec_text = pasted
+            else:
+                spec_text = read_pdfs([(f"{example}.pdf", (EXAMPLES / f"{example}.pdf").read_bytes())])
             with st.spinner("Claude is reading the spec. A long spec can take 1 to 3 minutes."):
                 client = Anthropic(api_key=typed_key) if typed_key else None
                 st.session_state["review"] = SpecAgent(catalog(), client=client).run(spec_text)
