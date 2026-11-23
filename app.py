@@ -739,12 +739,12 @@ def claude_panel() -> None:
                 st.error(str(error))
     with st.container(key="exband"):
         example_picker()
-    st.markdown("**Spec text**")
-    pasted = st.text_area("Spec text", height=220, key="pasted-spec", label_visibility="collapsed",
-                          placeholder="Paste the spec text here, or upload a PDF or click an example above.").strip()
-    n = len(pasted.split())
-    if n:
-        html(f'<div class="sc-words">{n:,} words</div>')
+    current = st.session_state.get("pasted-spec", "").strip()
+    first = escape(next((ln.strip() for ln in current.splitlines() if ln.strip()), "Nothing loaded yet")[:80])
+    html(f'<div class="sc-words" style="text-align:left;margin:0 0 4px"><b>Spec text</b> · {len(current.split()):,} words · {first}</div>')
+    with st.expander("Show or hide the spec text", expanded=False):
+        pasted = st.text_area("Spec text", height=220, key="pasted-spec", label_visibility="collapsed",
+                              placeholder="Paste the spec text here, or upload a PDF or click an example above.").strip()
     if pasted and st.button("Run review", type="primary"):
         if not review_counter().take(daily_limit()):
             st.warning("Today's review limit has been reached. Please try again tomorrow.")
