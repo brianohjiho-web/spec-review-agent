@@ -2,7 +2,7 @@
 
 CSS = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@300;400;500&family=Instrument+Serif&display=swap');
 :root{--ink:#14212e;--muted:#566575;--line:#dfe5ea;--navy:#102a3f;--navy-muted:#b6c6d2;--accent:#0b6e76}
 html,body,.stApp{background:#fff;color:var(--ink);font-family:"IBM Plex Sans",-apple-system,"Segoe UI",sans-serif}
 header[data-testid="stHeader"],[data-testid="stToolbar"],[data-testid="stDecoration"],[data-testid="stStatusWidget"]{display:none!important}
@@ -288,9 +288,13 @@ HEADER = f"""
 <header class="sc-top"><div class="sc-wrap sc-top-in"><div class="sc-brand">{LOGO}<span>SpecCheck AI</span></div><span class="sc-by">Brian Oh</span></div></header>
 <section class="sc-hx"><div class="sc-wrap sc-hx-in">
 <div class="sc-hx-copy">
-<h1>Check a customer spec against your catalog</h1>
-<p class="sc-hx-lede">Upload a spec. SpecCheck finds each requirement, checks it against your products, and marks it pass, fail, or review.</p></div>
+<p class="sc-kicker-serif">Spec review for power equipment</p>
+<h1>Check a customer spec in minutes</h1>
+<p class="sc-hx-lede">SpecCheck reads a power-equipment spec and checks every item against real products, so you see which one fits and what is missing.</p>
+<p class="sc-cta"><a class="sc-cta-main" href="#sec-samples" target="_self">Try a sample spec</a></p>
+<p class="sc-cta-note"><span>Real products from 30 companies</span><span>Pass, fail, or review for every item</span></p></div>
 <div class="sc-hx-visual">{HERO_ART}</div>
+<ol class="sc-hsteps"><li><b>Step 1: Add the spec</b>Upload the customer's spec PDF.</li><li><b>Step 2: Claude reads it</b>Finds each requirement and copies the exact words.</li><li><b>Step 3: Rules check it</b>Each item is marked pass, fail, or review against your catalog.</li><li><b>Step 4: Get the answer</b>The best product, the gaps, and questions for the customer.</li></ol>
 </div></section>
 """
 
@@ -371,8 +375,8 @@ CSS += """<style>
 .st-key-sample button:nth-of-type(3),.st-key-sample button:nth-of-type(4),.st-key-sample button:nth-of-type(5){--c:#5d4f8c}
 .st-key-sample button:nth-of-type(6){--c:#2f6f6a}.st-key-sample button:nth-of-type(7){--c:#3f7344}.st-key-sample button:nth-of-type(8){--c:#8a3b52}
 .st-key-sample button:hover{border-color:var(--c)!important}
-.st-key-sample button[kind$="Active"],.st-key-sample button[aria-checked="true"],.st-key-sample button[aria-pressed="true"]{background:var(--c)!important;border-color:var(--c)!important;color:#fff!important;box-shadow:none}
-.st-key-sample button[kind$="Active"] *,.st-key-sample button[aria-checked="true"] *,.st-key-sample button[aria-pressed="true"] *{color:#fff!important}
+.st-key-sample button[aria-checked="true"],.st-key-sample button[aria-pressed="true"]{background:var(--c)!important;border-color:var(--c)!important;color:#fff!important;box-shadow:none}
+.st-key-sample button[aria-checked="true"] *,.st-key-sample button[aria-pressed="true"] *{color:#fff!important}
 
 /* Requirement table: colored group bands and result pills */
 .sc-matrix tr.sc-grp{--g:#2a5d8f}
@@ -407,3 +411,70 @@ CSS += """<style>
 .sc-qcols ol{margin:0 14px 10px 14px!important}
 .sc-qcols li::marker{color:var(--qc)!important;font-weight:600}.sc-qcols .sc-qspec li::marker{color:#9a6418!important}
 </style>"""
+
+
+# ---- Bright studio look (matches the website): warm cream page, pastel hero glow, thin headline,
+# ---- white cards, soft pastel step cards, dark text everywhere for easy reading.
+CSS += """<style>
+html,body,.stApp,[data-testid="stAppViewContainer"],[data-testid="stMain"]{background:#faf7f2!important;background-image:none!important;color:#1f2328!important;font-family:"Inter",-apple-system,"Segoe UI",sans-serif!important}
+.stApp p,.stApp li,.stApp label,.stApp button,.stApp input,.stApp select,.stApp td,.stApp th{font-family:"Inter",-apple-system,"Segoe UI",sans-serif}
+
+
+.sc-top{background:transparent!important;border-bottom:0!important;position:relative;z-index:2;margin-bottom:-70px}
+.sc-brand,.sc-by{background:rgba(255,255,255,.75);border:1px solid rgba(31,35,40,.08);border-radius:999px;box-shadow:0 2px 10px rgba(31,35,40,.06);backdrop-filter:blur(12px)}
+.sc-brand{padding:8px 20px 8px 10px;display:flex;align-items:center;gap:10px}
+.sc-brand span,.sc-by{font:600 .8rem "Inter",sans-serif!important;text-transform:uppercase;letter-spacing:.04em;color:#1f2328!important}
+.sc-by{padding:12px 22px}
+
+
+.sc-hx{background:radial-gradient(110% 85% at 75% 0%,#ffd9c4 0%,#ffe9d6 22%,#f3ecff 52%,#e8f3ff 78%,#faf7f2 100%)!important;border-bottom:0!important}
+.sc-hx::before{display:none!important}
+.sc-hx-in{display:flex!important;flex-direction:column;align-items:center;text-align:center;gap:18px!important;padding-block:110px 56px!important}
+.sc-hx-copy{display:flex;flex-direction:column;align-items:center;gap:14px}
+.sc-kicker-serif{margin:0;font:400 1.2rem "Instrument Serif",Georgia,serif;color:#4a4440}
+.sc-hx h1{font-family:"Inter Tight","Inter",sans-serif!important;font-weight:300!important;font-size:clamp(2.4rem,6vw,4.6rem)!important;line-height:1.04!important;letter-spacing:-.045em!important;color:#1f2328!important;max-width:15ch;margin:0!important}
+.sc-hx-lede{color:#4d5157!important;max-width:48ch;margin:0!important}
+.sc-cta{margin:12px 0 0}
+.sc-cta-main{display:inline-block;background:#1f2328;color:#fff!important;text-decoration:none!important;font:500 .82rem "Inter",sans-serif;text-transform:uppercase;letter-spacing:.03em;padding:20px 28px;border-radius:4px}
+.sc-cta-main:hover{background:#3a3f47}
+.sc-cta-note{display:flex;gap:8px 26px;justify-content:center;flex-wrap:wrap;margin:0;font-size:.86rem;color:#4d5157}
+.sc-cta-note span::before{content:"✓";color:#1c7c49;margin-right:6px}
+.sc-hx-visual{width:min(760px,100%);background:rgba(255,255,255,.65);border:1px solid rgba(31,35,40,.08);border-radius:12px;padding:26px 24px 18px!important;margin-top:28px;box-shadow:0 24px 60px rgba(120,90,60,.14)}
+.sc-hx-visual svg{width:100%;height:auto}
+.sc-hsteps{list-style:none;padding:0;margin:40px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;width:100%;text-align:left}
+.sc-hsteps li{border-radius:10px;padding:22px 20px 26px;min-height:140px;border:1px solid rgba(31,35,40,.06);color:#4d5157;font-size:.9rem;box-shadow:0 6px 18px rgba(31,35,40,.05)}
+.sc-hsteps li b{display:block;font:500 1.08rem/1.25 "Inter Tight","Inter",sans-serif;color:#1f2328;margin-bottom:8px}
+.sc-hsteps li:nth-child(1){background:linear-gradient(165deg,#dbeeff,#f2f8ff)}
+.sc-hsteps li:nth-child(2){background:linear-gradient(165deg,#e9e2ff,#f6f2ff)}
+.sc-hsteps li:nth-child(3){background:linear-gradient(165deg,#ffe8c7,#fff5e6)}
+.sc-hsteps li:nth-child(4){background:linear-gradient(165deg,#d9f2e1,#f0faf3)}
+@media (max-width:860px){.sc-hsteps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.sc-hsteps{grid-template-columns:1fr}.sc-hsteps li{min-height:0}.sc-hx-in{padding-top:90px!important}}
+
+
+.st-key-band-about{display:none!important}
+.sc-hx-visual .s-ln{stroke:#2f3740!important}.sc-hx-visual .s-thin{stroke:#56606b!important}.sc-hx-visual .s-dim{stroke:#0b6e76!important}
+.sc-hx-visual .s-dot{fill:#2f3740!important;stroke:#2f3740!important}.sc-hx-visual text{fill:#2f3740!important}.sc-hx-visual text.dimt{fill:#0b6e76!important}
+.sc-hx-visual svg rect[fill]{fill-opacity:.55}
+.sc-cta-note span{margin:0 12px}
+.stApp [data-testid="stButtonGroup"] button[aria-checked="true"]{background:#1f2328!important;border-color:#1f2328!important;color:#fff!important}
+.stApp [data-testid="stButtonGroup"] button[aria-checked="true"] p,.stApp [data-testid="stButtonGroup"] button[aria-checked="true"] span{color:#fff!important}
+
+
+""" + _CARDS + """{background:#fff!important;border:1px solid #ebe5db!important;border-top:1px solid #ebe5db!important;border-radius:10px!important;box-shadow:0 8px 24px rgba(31,35,40,.05)!important}
+.sc-sh{background:transparent!important;border-bottom:0!important;color:#1f2328!important;font:300 2rem/1.15 "Inter Tight","Inter",sans-serif!important;letter-spacing:-.035em;padding:26px 20px 6px!important;min-height:0}
+.sc-shn{display:none!important}
+.sc-sh .sec-art{opacity:.7}
+.st-key-band-match,.st-key-band-gap{background:linear-gradient(160deg,#e3f5e9,#f4fbf6)!important;border:1px solid #cbe8d5!important;border-left:1px solid #cbe8d5!important;border-radius:10px!important}
+.st-key-band-gap{background:linear-gradient(160deg,#fde6e3,#fff4f2)!important;border-color:#f3cfca!important}
+.st-key-band-demo .sc-h2,.st-key-band-demo .sc-h2 span{font-family:"Inter Tight","Inter",sans-serif!important;font-weight:400!important;color:#1f2328!important}
+
+
+.stApp [data-testid="stBaseButton-primary"],.stApp [data-testid="stDownloadButton"] button{background:#1f2328!important;border-color:#1f2328!important;color:#fff!important;border-radius:4px!important;text-transform:uppercase;font-size:.8rem!important;letter-spacing:.03em}
+.st-key-sample button{border-radius:999px!important;box-shadow:none!important}
+.sc-matrix thead th,.sc-cmp thead th{background:#f5f0e8!important}
+.sc-jump>summary,.sc-jump summary{background:rgba(31,35,40,.88)!important;color:#fff!important;border-radius:999px!important}
+</style>"""
+
+# Streamlit treats a blank line as the end of an HTML block, so keep the styles free of blank lines.
+CSS = "\n".join(line for line in CSS.splitlines() if line.strip())
