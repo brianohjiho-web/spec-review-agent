@@ -433,7 +433,7 @@ def result_panel(review: Review) -> str:
     summary = f"<p>{escape(review.summary)}</p>" if review.summary else ""
     questions = "".join(f"<li>{escape(q)}</li>" for q in review.customer_questions)
     questions = f'<p class="sc-small">Questions for the customer:</p><ul>{questions}</ul>' if questions else ""
-    source = "" if review.source == "claude" else "Prepared sample. Claude didn't run."
+    source = "Claude read this spec. Pass and fail came from the catalog rules." if review.source == "claude" else "Prepared sample. Claude didn't run."
     total = len(best.results)
     counts = {s: sum(r.status == s for r in best.results) for s in ("PASS", "REVIEW", "FAIL")}
     bar = "".join(f'<span class="sc-bar-{s}" style="flex:{counts[s]}"></span>' for s in counts if counts[s])
@@ -643,7 +643,7 @@ def claude_panel() -> None:
             return
         try:
             spec_text = read_pdfs([(u.name, u.getvalue()) for u in uploads])
-            with st.spinner("Reading your spec. A long spec can take 1 to 3 minutes."):
+            with st.spinner("Claude is reading the spec. A long spec can take 1 to 3 minutes."):
                 client = Anthropic(api_key=typed_key) if typed_key else None
                 st.session_state["review"] = SpecAgent(catalog(), client=client).run(spec_text)
                 st.session_state["review_text"] = spec_text

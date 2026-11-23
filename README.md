@@ -6,8 +6,6 @@ An AI agent that does the first pass on equipment spec reviews.
 
 A customer spec can run many pages, and someone has to check every requirement against the product line. I built SpecCheck AI to do that first pass. It pulls out each requirement, checks it against a catalog, ranks the products, and flags what an engineer needs to look at.
 
-SpecCheck uses the Claude API to read uploaded specs and find requirements. Python rules check the products and decide Pass, Fail, or Review.
-
 ![SpecCheck AI screenshot](docs/screenshot.png)
 
 > All specs, products, and prices in this repo are made up for this demo. They are not real ratings or prices from any manufacturer, and this project is not connected to any company.
@@ -25,13 +23,11 @@ SpecCheck uses the Claude API to read uploaded specs and find requirements. Pyth
 
 ## Product catalog
 
-SpecCheck uses public product info from 86 product lines at 30 companies, including Eaton, Siemens, ABB, Schneider Electric, GE Vernova, Mitsubishi Electric, Vertiv, Hitachi Energy, Toshiba, Huawei, Rittal, Legrand, Panduit, S&C Electric, and nVent. I copied this info from their websites on Nov 13, 2026. Each product links to its source. If a website does not give a detail, SpecCheck marks it Review instead of guessing.
+The tool checks specs against 86 real product lines from 30 companies, including Eaton, Siemens, ABB, Schneider Electric, GE Vernova, Mitsubishi Electric, Vertiv, Hitachi Energy, Toshiba, Huawei, Rittal, Legrand, Panduit, S&C Electric, and nVent. Ratings were copied from each maker's public web page on Nov 13, 2026, and each product links to its source. Anything a page doesn't state is left blank, so it shows as Review. An option a page doesn't mention is also Review, not Fail, because public pages often leave options out. A company would swap in its own catalog (`data/catalog_public.json` format).
 
-Sales and solutions engineers can use SpecCheck to compare a customer's spec with the products their company sells. A company can connect its own product API or use a private product file. This demo uses public product info to show how the tool works without sharing a company's private data.
+`data/catalog.json` is a fixed, made-up catalog used only by the tests, so their results don't change when public data changes.
 
-`data/catalog.json` has made-up products for tests only. It keeps test results the same.
-
-This project is not connected to or endorsed by any manufacturer. Check the source link before using a rating.
+This project is not affiliated with or endorsed by any manufacturer. Check the source page before quoting any rating.
 
 
 ## Use a company's own product data
@@ -70,6 +66,25 @@ I split the work so each part does what it is best at:
 - **Unknown items are not guessed.** Unknown units, unknown values, and items outside the rules go to Review.
 - **Spec text is treated as data.** The prompt tells Claude not to follow instructions found inside a spec.
 - **Must-have items come first.** A product with a failed must-have item is never recommended.
+
+## Run it
+
+You need Python 3.11 or newer.
+
+On Windows, you can double-click `run_windows.bat` to set up and start the app. Or use these commands:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/spec-review-agent.git
+cd spec-review-agent
+python -m venv .venv
+source .venv/bin/activate    # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+Demo mode works without an API key. It uses requirements I labeled by hand, so it shows the Python checks and the interface without calling Claude.
+
+To review your own PDF with Claude, paste a key into the app, or copy `.env.example` to `.env` and add your [Claude API key](https://platform.claude.com/). Keep this file private. It is listed in `.gitignore`, so Git leaves it out. Reviews use API credits, and the PDF text is sent to the Claude API.
 
 ## Website
 
@@ -113,23 +128,29 @@ The sample specs are short and clean. Real specs are harder, so these results do
 }
 ```
 
-## Main files and data
+## Project layout
 
-These are the main files behind the app:
-
-| File | What it does |
-|---|---|
-| `app.py` | Runs the app you open in Streamlit. |
-| `speccheck/agent.py` | Uses the Claude API to read a spec and list its requirements. |
-| `speccheck/checks.py` | Uses Python rules to compare requirements with products and mark Pass, Fail, or Review. |
-| `speccheck/review.py` | Picks the best match and makes the review reports. |
-| `speccheck/api_catalog.py` | Optional: gets products from a company's product API. |
-| `data/catalog_public.json` | Product details from public manufacturer pages. The app can check products in this file. |
-| `data/catalog.json` | Made-up product data used by tests. It keeps test results steady; it is not the public product list. |
-| `data/samples/` | Made-up specs used for the app's sample mode. |
-| `.env.example` | Shows example settings. Add your own API keys in `.env`, and keep it private. |
-
-Claude reads uploaded specs through its API. A company product API is a separate, optional source for product data. More test files and app details are in the folders beside these files.
+```text
+app.py                  Web app
+run_windows.bat         One-click start for Windows
+upload_to_github.bat    One-click GitHub upload for Windows
+mcp_server.py           MCP server
+speccheck/agent.py      Claude agent and tools
+speccheck/checks.py     Pass or fail rules and quote checks
+speccheck/review.py     Ranking and PDF export
+speccheck/api_catalog.py  Optional: load products from a company product API
+speccheck/settings.py   API key check and demo limits
+speccheck/metals.py     Material prices and price history
+speccheck/theme.py      Page design
+speccheck/pdf.py        PDF reading
+docs/index.html         GitHub Pages site
+data/catalog.json       Made-up catalog used only by the tests
+data/catalog_public.json  Ratings from public manufacturer pages, with a source link for each product
+data/samples/           Made-up specs and labels
+data/test_specs/        Harder made-up specs to try with Claude
+scripts/evaluate.py     Scoring
+tests/                  Automated tests
+```
 
 ## Limits
 

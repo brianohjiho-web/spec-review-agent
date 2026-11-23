@@ -3,7 +3,7 @@
 </head><body>
 <title>SpecCheck AI</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Lexend:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@200;300;400;500&family=Instrument+Serif&display=swap">
 <style>
 /* SpecCheck page styles.
    Laid out like an internal engineering tool: a drawing title block on top,
@@ -600,6 +600,170 @@ body{background-color:#e8edf0;background-image:linear-gradient(rgba(42,93,143,.0
 .qcols h4:nth-of-type(2){color:#9a6418!important}
 .qcols li::marker{color:var(--qc)!important;font-weight:600}
 .qcols .q-spec li::marker{color:#9a6418!important}
+
+/* ===== Studio dark style (Squarespace-like): charcoal page, warm gray gradient, thin type, glass pills ===== */
+:root,:root[data-theme="light"],:root[data-theme="dark"],:root:not([data-theme="light"]){--paper:#22211f;--paper-grid:transparent;--ink-line:#e9e4dc;
+ --bg:#171615;--surface:#22211f;--fg:#f1eee9;--muted:#a8a29a;--line:#34322f;--line-strong:#4a4743;
+ --accent:#f1eee9;--on-accent:#141312;--soft:#2b2926;
+ --pass:#8fdcae;--fail:#ffaca4;--review:#f2c86f;--fail-row:#2a1716;--review-row:#2a2312;
+ --t-match:#1c2620;--t-gap:#2a1c1a;--t-table:#22211f;--t-cost:#22211f;--t-q:#22211f;--t-live:#22211f;--t-spec:#22211f;
+ --sans:"Inter",-apple-system,"Segoe UI",sans-serif;--disp:"Inter Tight","Inter",sans-serif;color-scheme:dark}
+html body{background:#171615!important;background-image:none!important;color:var(--fg)!important;font-family:var(--sans)!important}
+
+/* Hero: warm gray gradient, floating glass pills, thin centered headline */
+html .sheet{background:radial-gradient(120% 90% at 72% 0%,#9a9184 0%,#6d675f 26%,#3b3834 55%,#1b1a18 85%,#171615 100%)!important;border:0!important;color:#fff}
+html .sheet::before,html .sheet::after{display:none!important}
+html .sheet-in{display:flex!important;flex-direction:column;align-items:center;text-align:center;gap:20px!important;padding-block:18px 64px!important}
+html .brand-row{align-self:stretch;display:flex;justify-content:space-between;align-items:center;padding:0 0 64px}
+html .brand,html .byline{background:rgba(28,27,25,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:999px;color:#fff}
+html .brand{padding:8px 20px 8px 10px;display:flex;align-items:center;gap:10px}
+html .brand span{font:600 .8rem var(--sans);text-transform:uppercase;letter-spacing:.04em;color:#fff}
+html .byline{padding:12px 22px;font:600 .8rem var(--sans);text-transform:uppercase;letter-spacing:.04em}
+html .sheet-text{display:contents}
+html .kicker-serif{order:0;font:400 1.2rem "Instrument Serif",Georgia,serif;color:rgba(255,255,255,.92);margin:0}
+html .sheet h1{order:1;font-family:var(--disp)!important;font-weight:300!important;font-size:clamp(2.5rem,6.2vw,4.8rem)!important;line-height:1.04!important;letter-spacing:-.045em!important;color:#fff!important;max-width:15ch;margin:0!important}
+html .sheet .lede{order:2;font-size:1.02rem;color:rgba(255,255,255,.72);max-width:48ch;margin:4px 0 0}
+html .sheet .credit{order:3;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:18px 0 0}
+html .cta-main,html .cta-alt{display:inline-block;font:500 .82rem var(--sans);text-transform:uppercase;letter-spacing:.03em;padding:20px 28px;border-radius:4px;text-decoration:none;cursor:pointer}
+html .cta-main{background:#fff;color:#111!important;border:1px solid #fff}
+html .cta-main:hover{background:#e9e4dc}
+html .cta-alt{background:transparent;color:#fff!important;border:1px solid rgba(255,255,255,.6)!important}
+html .cta-alt:hover{background:rgba(255,255,255,.08)}
+html .cta-note{order:4;display:flex!important;gap:8px 26px;justify-content:center;flex-wrap:wrap;margin:6px 0 0;font-size:.85rem;color:rgba(255,255,255,.65)}
+html .cta-note span::before{content:"✓";margin-right:6px;color:#fff}
+html .sheet-art{order:5;align-self:center;width:min(760px,100%);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:12px;padding:26px 24px 18px;margin-top:34px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+html .sheet-art svg{width:100%;height:auto}
+html .sketch rect[fill]{fill-opacity:.25}
+
+/* Steps: dark cards, "Step 1:" titles */
+html .steps{order:6;align-self:stretch;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px!important;margin:46px 0 0!important;text-align:left;counter-reset:step;font-size:.9rem!important}
+html .steps li{display:block!important;counter-increment:step;border-radius:10px;padding:22px 20px 26px;min-height:140px;background:linear-gradient(165deg,#3b3733 0%,#272523 70%);border:1px solid rgba(255,255,255,.07);color:rgba(241,238,233,.72)}
+html .steps li::before{content:none!important;display:none!important}
+html .steps li b{display:block;font:500 1.08rem/1.25 var(--disp);letter-spacing:-.01em;color:#fff;margin-bottom:8px}
+html .steps li b::before{content:"Step " counter(step) ": "}
+@media (max-width:860px){html .steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){html .steps{grid-template-columns:1fr}html .steps li{min-height:0}html .brand-row{padding-bottom:36px}}
+
+/* Sections: dark cards, thin large titles, no colored rules */
+html .app{padding-top:28px!important}
+html .sec,html .sec-live,html .sec-table,html .sec-compare,html .sec-products,html .sec-questions,html .sec-spec{background:#1f1e1c!important;border:1px solid rgba(255,255,255,.06)!important;border-top:1px solid rgba(255,255,255,.06)!important;border-radius:10px!important;box-shadow:none!important;padding-bottom:12px}
+html .sec>h2,html .sec-live>h2,html .sec-table>h2,html .sec-compare>h2,html .sec-products>h2,html .sec-questions>h2,html .sec-spec>h2{background:transparent!important;border-bottom:0!important;color:#f1eee9!important;font:300 2rem/1.15 var(--disp)!important;letter-spacing:-.035em!important;padding:28px 26px 8px!important;min-height:0}
+html .sec>h2::before{display:none!important}
+html .sec>h2 .sec-art{color:rgba(241,238,233,.55)!important;opacity:1!important;width:130px!important}
+html .sec>*:not(h2){padding-inline:26px}
+html .sec>.tools,html .sec>.scroll,html .sec>.market,html .sec>.qcols,html .sec>details,html .sec>.panel,html .sec>.export,html .sec>.trends{margin-inline:26px!important;padding-inline:0!important}
+html .sec>.tools{padding:14px 18px!important}
+html .tools,html .scroll,html .trend-grid,html .split,html .docwrap{background:#282725!important;border:1px solid rgba(255,255,255,.06)!important;border-radius:8px!important;overflow:hidden}
+html table th,html .matrix thead th,html .cmp thead th{background:#2d2b29!important;color:var(--muted)}
+html .matrix td,html .cmp td,html .cmp th{border-color:var(--line)!important}
+html .sec-desc,html .muted{color:var(--muted)!important}
+
+/* Result band */
+html .sec-result{background:linear-gradient(160deg,#25302a,#1d211f)!important;border:1px solid rgba(143,220,174,.18)!important;border-left:1px solid rgba(143,220,174,.18)!important;border-radius:10px!important;box-shadow:none!important;padding:26px!important}
+html .sec-result.gap{background:linear-gradient(160deg,#352422,#211c1b)!important;border-color:rgba(255,172,164,.2)!important}
+html .sec-result .panel,html #result{background:transparent!important}
+html #result h2{font:300 1.9rem/1.15 var(--disp)!important;letter-spacing:-.03em;color:#fff!important}
+html .score{border-left-color:rgba(255,255,255,.1)!important}
+
+/* Pills and buttons */
+html .main #tabs button{border-radius:999px!important;padding:8px 16px!important;background:rgba(255,255,255,.04)!important;border:1px solid rgba(255,255,255,.14)!important;color:#e9e4dc!important;box-shadow:none!important;font-weight:400}
+html .main #tabs button .tab-ic{color:color-mix(in srgb,var(--c) 50%,#fff)!important}
+html .main #tabs button:hover{border-color:rgba(255,255,255,.4)!important}
+html .main #tabs button[aria-pressed="true"]{background:#f1eee9!important;border-color:#f1eee9!important;color:#141312!important}
+html .main #tabs button[aria-pressed="true"] .tab-ic{color:#141312!important}
+html #filters button{background:transparent!important;border-color:rgba(255,255,255,.16)!important;color:#e9e4dc!important}
+html #filters button[aria-pressed="true"]{background:#f1eee9!important;border-color:#f1eee9!important;color:#141312!important}
+html #filters button:first-child{border-radius:999px 0 0 999px!important}html #filters button:last-child{border-radius:0 999px 999px 0!important}
+html #exportBtn,html #run{background:#f1eee9!important;color:#141312!important;border:0!important;border-radius:4px!important;padding:14px 22px!important;font:500 .78rem var(--sans)!important;text-transform:uppercase;letter-spacing:.03em}
+html .mark button{background:transparent!important;border-color:rgba(255,255,255,.2)!important;color:var(--muted)!important;border-radius:999px!important}
+html select,html textarea,html input{background:#1f1e1c!important;color:var(--fg)!important;border-color:rgba(255,255,255,.14)!important;border-radius:6px!important}
+html .jump>summary{background:rgba(28,27,25,.7)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff!important;border:1px solid rgba(255,255,255,.12);border-radius:999px!important;padding:11px 18px!important;font:600 .76rem var(--sans)!important;text-transform:uppercase;letter-spacing:.04em}
+html .jump nav,html .jump>div{background:#22211f!important;color:var(--fg)}
+
+/* Color accents adjusted for dark */
+html .matrix tr.grp td{background:color-mix(in srgb,var(--g) 22%,#22211f)!important;color:color-mix(in srgb,var(--g) 40%,#fff)!important}
+html .matrix tr.grp td span{color:color-mix(in srgb,var(--g) 30%,#bbb)!important}
+html .trend .trend-name{color:color-mix(in srgb,var(--m) 40%,#fff)!important}
+html .trend .spark .ln{stroke:color-mix(in srgb,var(--m) 45%,#fff)!important}
+html .trend .spark .area{fill:color-mix(in srgb,var(--m) 45%,#fff)!important;opacity:.12}
+html .trend .spark .endpt{fill:color-mix(in srgb,var(--m) 45%,#fff)!important;stroke:#22211f}
+html .trend{background:#282725!important}
+html .qcols>div{background:#282725!important;border:1px solid rgba(255,255,255,.06)!important;border-radius:8px!important}
+html .qcols h3{background:color-mix(in srgb,var(--qc) 22%,#22211f)!important;color:color-mix(in srgb,var(--qc) 35%,#fff)!important;box-shadow:none!important;border-bottom:0!important}
+html .qcols h4{color:color-mix(in srgb,var(--qc) 35%,#fff)!important}
+html .qcols h4:nth-of-type(2){color:#f2c86f!important}
+html .qcols li::marker{color:color-mix(in srgb,var(--qc) 40%,#fff)!important}
+html .qcols .q-spec li::marker{color:#f2c86f!important}
+html .info,html #typeInfo{color:var(--fg)}
+html a{color:#e9d9b8}
+
+html body .sec-result,html body .sec-result.match{background:linear-gradient(160deg,#25302a,#1d211f)!important;border:1px solid rgba(143,220,174,.18)!important}
+html body .sec-result.gap{background:linear-gradient(160deg,#352422,#211c1b)!important;border:1px solid rgba(255,172,164,.2)!important}
+html body .sec-table .matrix tr.grp td{background:color-mix(in srgb,var(--g) 22%,#22211f)!important;color:color-mix(in srgb,var(--g) 40%,#fff)!important}
+html body .sec-table .matrix tr.grp td span{color:color-mix(in srgb,var(--g) 30%,#bbb)!important}
+
+/* ===== Bright studio: same layout, light warm colors and soft pastels for easy reading ===== */
+html:root,:root[data-theme="light"],:root[data-theme="dark"],:root:not([data-theme="light"]){}
+:root,:root[data-theme="light"],:root[data-theme="dark"],:root:not([data-theme="light"]){--paper:#ffffff;--ink-line:#3a3f47;
+ --bg:#faf7f2;--surface:#ffffff;--fg:#1f2328;--muted:#5d6168;--line:#e8e2d8;--line-strong:#d4ccbf;
+ --accent:#1f2328;--on-accent:#ffffff;--soft:#f3eee6;
+ --pass:#1c7c49;--fail:#b3261e;--review:#9a6200;--fail-row:#fdf0ee;--review-row:#fdf6e6;
+ --t-match:#eaf6ee;--t-gap:#fdeceb;color-scheme:light}
+html body{background:#faf7f2!important;color:#1f2328!important}
+html body .sheet{background:radial-gradient(110% 85% at 75% 0%,#ffd9c4 0%,#ffe9d6 22%,#f3ecff 52%,#e8f3ff 78%,#faf7f2 100%)!important;color:#1f2328}
+html body .brand,html body .byline{background:rgba(255,255,255,.7);border:1px solid rgba(31,35,40,.08);color:#1f2328;box-shadow:0 2px 10px rgba(31,35,40,.06)}
+html body .brand span,html body .byline{color:#1f2328}
+html body .kicker-serif{color:#4a4440}
+html body .sheet h1{color:#1f2328!important;font-weight:300!important}
+html body .sheet .lede{color:#4d5157}
+html body .cta-main{background:#1f2328;color:#fff!important;border-color:#1f2328}
+html body .cta-main:hover{background:#3a3f47}
+html body .cta-alt{color:#1f2328!important;border-color:#1f2328!important}
+html body .cta-note{color:#4d5157}
+html body .cta-note span::before{color:#1c7c49}
+html body .sheet-art{background:rgba(255,255,255,.65);border-color:rgba(31,35,40,.08);box-shadow:0 24px 60px rgba(120,90,60,.14)}
+html body .sketch rect[fill]{fill-opacity:.55}
+html body .steps li{background:#fff;border:1px solid rgba(31,35,40,.06);color:#4d5157;box-shadow:0 6px 18px rgba(31,35,40,.05)}
+html body .steps li:nth-child(1){background:linear-gradient(165deg,#dbeeff,#f2f8ff)}
+html body .steps li:nth-child(2){background:linear-gradient(165deg,#e9e2ff,#f6f2ff)}
+html body .steps li:nth-child(3){background:linear-gradient(165deg,#ffe8c7,#fff5e6)}
+html body .steps li:nth-child(4){background:linear-gradient(165deg,#d9f2e1,#f0faf3)}
+html body .steps li b{color:#1f2328}
+html body .sec,html body .sec-live,html body .sec-table,html body .sec-compare,html body .sec-products,html body .sec-questions,html body .sec-spec{background:#fff!important;border:1px solid #ebe5db!important;box-shadow:0 8px 24px rgba(31,35,40,.05)!important}
+html body .sec>h2,html body .sec-table>h2,html body .sec-compare>h2,html body .sec-products>h2,html body .sec-questions>h2,html body .sec-spec>h2,html body .sec-live>h2{color:#1f2328!important}
+html body .sec>h2 .sec-art{color:var(--sc,#5d6168)!important;opacity:.75!important}
+html body .tools,html body .scroll,html body .trend-grid,html body .split,html body .docwrap{background:#fdfbf8!important;border:1px solid #ece6dc!important}
+html body table th,html body .matrix thead th,html body .cmp thead th{background:#f5f0e8!important;color:#5d6168}
+html body .sec-result,html body .sec-result.match{background:linear-gradient(160deg,#e3f5e9,#f4fbf6)!important;border:1px solid #cbe8d5!important}
+html body .sec-result.gap{background:linear-gradient(160deg,#fde6e3,#fff4f2)!important;border:1px solid #f3cfca!important}
+html body #result h2{color:#1f2328!important}
+html body .score{border-left-color:#d5e9dc!important}
+html body .main #tabs button{background:color-mix(in srgb,var(--c) 9%,#fff)!important;border:1px solid color-mix(in srgb,var(--c) 30%,#fff)!important;color:color-mix(in srgb,var(--c) 75%,#1f2328)!important}
+html body .main #tabs button .tab-ic{color:var(--c)!important}
+html body .main #tabs button:hover{border-color:var(--c)!important}
+html body .main #tabs button[aria-pressed="true"]{background:var(--c)!important;border-color:var(--c)!important;color:#fff!important}
+html body .main #tabs button[aria-pressed="true"] .tab-ic{color:#fff!important}
+html body #filters button{background:#fff!important;border-color:#d4ccbf!important;color:#1f2328!important}
+html body #filters button[aria-pressed="true"]{background:#1f2328!important;border-color:#1f2328!important;color:#fff!important}
+html body #exportBtn,html body #run{background:#1f2328!important;color:#fff!important}
+html body .mark button{background:#fff!important;border-color:#d4ccbf!important;color:#5d6168!important}
+html body select,html body textarea,html body input{background:#fff!important;color:#1f2328!important;border-color:#d4ccbf!important}
+html body .jump>summary{background:rgba(31,35,40,.88)!important;color:#fff!important}
+html body .jump nav,html body .jump>div{background:#fff!important;color:#1f2328}
+html body .sec-table .matrix tr.grp td,html body .matrix tr.grp td{background:color-mix(in srgb,var(--g) 11%,#fff)!important;color:color-mix(in srgb,var(--g) 85%,#000)!important}
+html body .sec-table .matrix tr.grp td span,html body .matrix tr.grp td span{color:color-mix(in srgb,var(--g) 60%,#5d6168)!important}
+html body .trend{background:#fff!important}
+html body .trend .trend-name{color:var(--m)!important}
+html body .trend .spark .ln{stroke:var(--m)!important}
+html body .trend .spark .area{fill:var(--m)!important;opacity:.14}
+html body .trend .spark .endpt{fill:var(--m)!important;stroke:#fff}
+html body .qcols>div{background:#fff!important;border:1px solid #ece6dc!important}
+html body .qcols h3{background:color-mix(in srgb,var(--qc) 10%,#fff)!important;color:var(--qc)!important}
+html body .qcols h4{color:var(--qc)!important}
+html body .qcols h4:nth-of-type(2),html body .qcols .q-spec li::marker{color:#9a6418!important}
+html body .qcols li::marker{color:var(--qc)!important}
+html body a{color:#1d5fa8}
+html body .info,html body #typeInfo{color:#1f2328}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -609,10 +773,12 @@ body{background-color:#e8edf0;background-image:linear-gradient(rgba(42,93,143,.0
 <div class="brand-row"><div class="brand"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#5fd0cd"/><path d="M9 6h10l5 5v15H9z" fill="#08242a"/><path d="M19 6v5h5" stroke="#5fd0cd" stroke-width="1.6" stroke-linejoin="round"/><path d="M12.5 18l2.8 2.8 5.2-6" stroke="#5fd0cd" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SpecCheck AI</span></div><span class="byline">Brian Oh</span></div>
 <div class="sheet-text">
 
-<h1>Spec review for power equipment</h1>
-<p>A customer sends a spec that lists what they need. SpecCheck reads it and checks each item against your products, so you see fast which product fits and what is missing.</p>
-<ol class="steps"><li>Add the customer's spec PDF.</li><li>Claude finds each requirement and copies the exact words from the spec.</li><li>Simple rules compare each one to your catalog: pass, fail, or review.</li><li>You get the best product, the gaps, and questions for the customer.</li></ol>
-<p class="credit"><button type="button" id="ctaClaude" hidden>Check your own spec</button></p>
+<p class="kicker-serif">Spec review for power equipment</p>
+<h1>Check a customer spec in minutes</h1>
+<p class="lede">SpecCheck reads a power-equipment spec and checks every item against real products, so you see which one fits and what is missing.</p>
+<p class="credit"><a class="cta-main" href="#demo">Try a sample spec</a><button type="button" id="ctaClaude" class="cta-alt" hidden>Check your own spec</button></p>
+<p class="cta-note"><span>Real products from 30 companies</span><span>Pass, fail, or review for every item</span></p>
+<ol class="steps"><li><b>Add the spec</b>Upload the customer's spec PDF.</li><li><b>Claude reads it</b>Finds each requirement and copies the exact words.</li><li><b>Rules check it</b>Each item is marked pass, fail, or review against your catalog.</li><li><b>Get the answer</b>The best product, the gaps, and questions for the customer.</li></ol>
 </div>
 <div class="sheet-art"><svg class="sketch" viewBox="0 0 658 324" role="img" aria-label="Sketch of a 13.8 kV switchgear front view with dimensions and labels"><rect x="55.5" y="43.3" width="380.0" height="22.0" fill="#d98a4e" fill-opacity="0.55" transform="rotate(-0.09 54.0 40.0)"/><rect x="63.1" y="72.3" width="92.0" height="200.0" fill="#7fb3d5" fill-opacity="0.18" transform="rotate(0.46 60.0 70.0)"/><rect x="80.4" y="95.8" width="56.0" height="30.0" fill="#5cc3c0" fill-opacity="0.45" transform="rotate(-0.58 78.0 94.0)"/><rect x="70.6" y="176.8" width="76.0" height="86.0" fill="#a7b4bf" fill-opacity="0.22" transform="rotate(0.49 68.0 174.0)"/><rect x="153.7" y="72.7" width="92.0" height="200.0" fill="#7fb3d5" fill-opacity="0.18" transform="rotate(-0.15 152.0 70.0)"/><rect x="172.5" y="95.8" width="56.0" height="30.0" fill="#5cc3c0" fill-opacity="0.45" transform="rotate(-0.26 170.0 94.0)"/><rect x="162.5" y="177.4" width="76.0" height="86.0" fill="#a7b4bf" fill-opacity="0.22" transform="rotate(-0.47 160.0 174.0)"/><rect x="246.5" y="73.1" width="92.0" height="200.0" fill="#7fb3d5" fill-opacity="0.18" transform="rotate(0.56 244.0 70.0)"/><rect x="263.9" y="95.8" width="56.0" height="30.0" fill="#5cc3c0" fill-opacity="0.45" transform="rotate(0.53 262.0 94.0)"/><rect x="255.5" y="176.5" width="76.0" height="86.0" fill="#a7b4bf" fill-opacity="0.22" transform="rotate(-0.54 252.0 174.0)"/><rect x="339.4" y="72.3" width="92.0" height="200.0" fill="#7fb3d5" fill-opacity="0.18" transform="rotate(0.49 336.0 70.0)"/><rect x="356.7" y="97.1" width="56.0" height="30.0" fill="#5cc3c0" fill-opacity="0.45" transform="rotate(-0.41 354.0 94.0)"/><rect x="347.1" y="175.9" width="76.0" height="86.0" fill="#a7b4bf" fill-opacity="0.22" transform="rotate(-0.11 344.0 174.0)"/><rect x="457.2" y="267.2" width="190.0" height="20.0" fill="#f2cf6b" fill-opacity="0.55" transform="rotate(-0.38 454.0 264.0)"/><path class="s-thin" d="M117.3 39.2 L117.8 50.9 L117.3 62.5 M180.7 39.4 L180.5 50.9 L180.7 62.3 M244.0 39.5 L244.0 51.2 L244.0 62.9 M307.3 39.3 L307.0 51.1 L307.3 63.0 M370.7 39.3 L371.0 50.9 L370.7 62.5 M67.1 80.0 L105.8 80.1 L144.4 80.0 M144.0 79.9 L144.2 123.0 L144.0 166.2 M144.0 166.0 L105.9 165.6 L67.9 166.0 M68.0 166.1 L67.9 122.9 L68.0 79.7 M77.2 94.0 L105.8 93.6 L134.5 94.0 M134.0 93.7 L134.5 108.9 L134.0 124.2 M134.5 124.0 L106.0 123.5 L77.5 124.0 M78.0 124.7 L77.7 109.2 L78.0 93.6 M67.5 174.0 L105.9 174.5 L144.3 174.0 M144.0 173.2 L144.3 217.0 L144.0 260.7 M144.4 260.0 L106.2 259.8 L68.0 260.0 M68.0 260.4 L68.5 216.7 L68.0 173.0 M79.8 214.0 L106.0 214.4 L132.2 214.0 M79.2 222.0 L105.9 222.2 L132.7 222.0 M79.1 230.0 L105.9 230.3 L132.8 230.0 M79.7 238.0 L106.3 238.4 L133.0 238.0 M160.0 80.0 L198.1 80.1 L236.2 80.0 M236.0 79.5 L236.4 123.1 L236.0 166.8 M236.2 166.0 L197.7 165.7 L159.2 166.0 M160.0 166.4 L160.0 123.0 L160.0 79.5 M169.5 94.0 L198.0 94.4 L226.5 94.0 M226.0 93.7 L225.7 109.3 L226.0 124.9 M226.1 124.0 L198.0 123.8 L169.9 124.0 M170.0 124.9 L170.2 109.1 L170.0 93.3 M159.1 174.0 L197.7 174.0 L236.2 174.0 M236.0 173.2 L236.0 216.8 L236.0 260.4 M236.2 260.0 L197.7 260.1 L159.3 260.0 M160.0 260.3 L159.6 216.9 L160.0 173.5 M171.2 214.0 L197.7 214.3 L224.1 214.0 M171.7 222.0 L198.1 221.8 L224.4 222.0 M171.9 230.0 L198.2 229.6 L224.6 230.0 M171.3 238.0 L197.7 238.3 L224.1 238.0 M251.3 80.0 L289.8 79.6 L328.4 80.0 M328.0 79.3 L328.4 122.7 L328.0 166.2 M328.9 166.0 L290.3 166.0 L251.7 166.0 M252.0 166.4 L252.5 122.7 L252.0 79.0 M261.8 94.0 L290.0 93.9 L318.3 94.0 M318.0 93.5 L318.5 109.0 L318.0 124.5 M318.1 124.0 L290.0 124.3 L262.0 124.0 M262.0 124.5 L262.2 108.9 L262.0 93.3 M251.6 174.0 L290.3 174.1 L329.0 174.0 M328.0 173.2 L327.8 216.9 L328.0 260.6 M328.1 260.0 L289.8 259.7 L251.5 260.0 M252.0 260.9 L251.7 217.1 L252.0 173.3 M263.9 214.0 L290.0 214.1 L316.1 214.0 M263.4 222.0 L289.9 222.2 L316.5 222.0 M263.5 230.0 L290.1 229.8 L316.7 230.0 M263.9 238.0 L290.3 238.5 L316.7 238.0 M343.2 80.0 L382.0 80.4 L420.9 80.0 M420.0 80.0 L420.0 123.2 L420.0 166.5 M420.1 166.0 L381.9 165.7 L343.7 166.0 M344.0 166.1 L344.4 122.7 L344.0 79.3 M353.6 94.0 L382.3 93.9 L411.0 94.0 M410.0 94.0 L410.2 109.4 L410.0 124.8 M410.2 124.0 L381.9 123.5 L353.5 124.0 M354.0 124.8 L354.4 108.9 L354.0 93.1 M343.3 174.0 L382.0 174.1 L420.7 174.0 M420.0 174.0 L420.0 217.0 L420.0 260.1 M420.3 260.0 L381.7 260.2 L343.0 260.0 M344.0 260.4 L343.7 217.1 L344.0 173.8 M355.5 214.0 L382.2 213.6 L408.9 214.0 M355.8 222.0 L382.1 221.8 L408.3 222.0 M355.4 230.0 L382.1 230.0 L408.7 230.0 M355.6 238.0 L381.8 237.6 L408.1 238.0 M40.7 271.5 L35.1 276.0 L29.5 280.5 M68.0 271.5 L62.8 276.2 L57.8 280.6 M96.1 271.8 L91.0 276.5 L85.5 280.4 M124.4 271.6 L119.0 276.3 L113.7 280.1 M152.2 271.7 L146.5 276.1 L141.3 280.4 M180.2 271.8 L174.8 276.5 L169.2 280.4 M208.4 271.6 L202.9 275.5 L197.7 280.2 M236.2 272.0 L230.8 276.4 L225.7 280.3 M264.6 271.5 L258.8 276.0 L253.6 280.1 M292.6 271.9 L287.4 275.8 L281.8 280.5 M320.4 271.9 L315.0 275.7 L309.8 280.3 M348.1 271.8 L343.2 276.5 L337.8 280.6 M376.0 271.8 L370.5 275.8 L365.3 280.6 M404.7 271.8 L399.1 276.6 L393.9 280.6 M453.1 264.0 L501.0 264.3 L549.0 263.6 L596.9 264.1 L644.9 264.0 M644.0 263.6 L644.2 292.9 L644.0 322.2 M644.7 322.0 L597.0 322.3 L549.3 322.3 L501.7 322.0 L454.0 322.0 M454.0 322.1 L454.1 292.8 L454.0 263.4 M453.8 284.0 L501.5 284.5 L549.1 284.1 L596.8 283.9 L644.4 284.0 M574.0 283.0 L573.8 302.6 L574.0 322.2"/><path class="s-ln" d="M53.2 40.0 L95.7 39.8 L138.2 40.0 L180.7 39.9 L223.2 39.3 L265.7 40.6 L308.1 39.5 L350.6 40.8 L393.1 39.8 L435.6 40.0 M434.0 39.9 L434.6 51.3 L434.0 62.7 M434.8 62.0 L392.4 62.2 L350.1 62.8 L307.7 62.5 L265.3 62.1 L223.0 61.8 L180.6 62.4 L138.3 61.6 L95.9 61.9 L53.5 62.0 M54.0 64.2 L54.9 51.7 L54.0 39.3 M59.9 70.0 L106.1 70.7 L152.3 70.0 M152.0 68.9 L151.4 109.5 L152.4 150.2 L152.3 190.9 L151.2 231.5 L152.0 272.2 M152.4 270.0 L105.9 270.4 L59.4 270.0 M60.0 271.0 L60.8 230.6 L60.0 190.1 L60.3 149.6 L60.7 109.1 L60.0 68.6 M136.0 199.6 L135.3 210.0 L136.0 220.4 M151.6 70.0 L199.0 70.1 L246.5 70.0 M244.0 70.0 L244.0 110.3 L244.1 150.6 L243.4 191.0 L244.4 231.3 L244.0 271.6 M244.6 270.0 L198.0 269.3 L151.4 270.0 M152.0 271.1 L151.9 230.5 L152.0 189.8 L152.0 149.1 L151.9 108.4 L152.0 67.7 M228.0 197.9 L228.1 210.0 L228.0 222.2 M242.6 70.0 L289.6 69.5 L336.7 70.0 M336.0 69.6 L336.3 109.8 L335.5 150.0 L336.0 190.1 L336.3 230.3 L336.0 270.5 M336.6 270.0 L289.4 270.0 L242.2 270.0 M244.0 270.3 L244.0 230.0 L243.8 189.7 L244.3 149.5 L243.7 109.2 L244.0 68.9 M320.0 199.0 L319.5 210.4 L320.0 221.7 M334.4 70.0 L381.4 69.6 L428.4 70.0 M428.0 70.0 L427.7 110.1 L427.7 150.3 L428.0 190.4 L428.1 230.5 L428.0 270.7 M430.2 270.0 L381.9 270.1 L333.6 270.0 M336.0 272.4 L335.5 231.8 L335.5 191.2 L335.4 150.6 L336.8 109.9 L336.0 69.3 M412.0 198.4 L412.4 209.5 L412.0 220.5 M35.0 270.0 L76.9 269.1 L118.9 270.4 L160.8 270.0 L202.8 269.1 L244.7 270.8 L286.6 270.6 L328.6 269.5 L370.5 269.4 L412.4 270.3 L454.4 270.0"/><path class="s-dim" d="M59.3 304.0 L100.3 303.5 L141.3 303.9 L182.3 303.6 L223.4 303.7 L264.4 304.3 L305.4 303.9 L346.4 304.0 L387.4 304.4 L428.4 304.0 M60.0 297.6 L60.1 303.8 L60.0 310.0 M428.0 298.0 L427.6 304.0 L428.0 310.1 M59.3 304.3 L64.0 302.7 L68.3 300.9 M59.8 303.7 L64.2 305.7 L68.3 307.1 M428.9 304.2 L423.9 302.6 L419.1 301.0 M428.9 303.7 L424.3 305.4 L419.6 307.1 M30.0 69.8 L29.7 110.0 L29.9 150.2 L30.2 190.4 L29.7 230.6 L30.0 270.7 M23.8 70.0 L30.0 70.1 L36.2 70.0 M23.7 270.0 L30.3 269.6 L36.9 270.0 M30.0 69.5 L28.6 74.0 L26.8 78.4 M29.8 69.4 L31.4 73.9 L33.3 78.8 M30.3 270.3 L28.8 266.1 L26.8 261.7 M29.9 270.2 L31.6 265.6 L33.1 261.2 M381.6 110.0 L420.1 110.2 L458.5 110.0 M423.0 51.0 L440.7 51.4 L458.5 51.0 M382.0 230.0 L420.0 230.1 L458.1 230.0"/><circle class="s-dot" cx="81.8" cy="140.0" r="3.6"/><circle class="s-dot" cx="93.9" cy="140.0" r="3.6"/><circle class="s-dot" cx="106.0" cy="140.0" r="3.6"/><circle class="s-dot" cx="173.9" cy="140.0" r="3.6"/><circle class="s-dot" cx="185.8" cy="140.0" r="3.6"/><circle class="s-dot" cx="197.8" cy="140.0" r="3.6"/><circle class="s-dot" cx="266.1" cy="140.0" r="3.6"/><circle class="s-dot" cx="278.2" cy="140.0" r="3.6"/><circle class="s-dot" cx="289.7" cy="140.0" r="3.6"/><circle class="s-dot" cx="358.0" cy="140.0" r="3.6"/><circle class="s-dot" cx="370.2" cy="140.0" r="3.6"/><circle class="s-dot" cx="381.7" cy="140.0" r="3.6"/><circle class="s-dot" cx="382.2" cy="110.0" r="2.2"/><circle class="s-dot" cx="423.8" cy="51.0" r="2.2"/><circle class="s-dot" cx="382.1" cy="230.0" r="2.2"/><text class="num" x="106.0" y="284.0" text-anchor="middle">1</text><text class="num" x="198.0" y="284.0" text-anchor="middle">2</text><text class="num" x="290.0" y="284.0" text-anchor="middle">3</text><text class="num" x="382.0" y="284.0" text-anchor="middle">4</text><text class="dimt" x="244.0" y="298.0" text-anchor="middle">144 in.</text><text class="dimt" x="24.0" y="170.0" text-anchor="middle" transform="rotate(-90 24.0 170.0)">95 in.</text><text class="lbl" x="464.0" y="114.0" text-anchor="start">Main breaker, 3000 A</text><text class="lbl" x="464.0" y="55.0" text-anchor="start">Copper bus, 40 kA</text><text class="lbl" x="464.0" y="234.0" text-anchor="start">NEMA 1 enclosure</text><text class="tb" x="462.0" y="278.0" text-anchor="start">13.8 kV SWITCHGEAR · FRONT VIEW</text><text class="tb" x="462.0" y="300.0" text-anchor="start">SPECCHECK</text><text class="tbs" x="462.0" y="314.0" text-anchor="start">NOT TO SCALE</text><text class="tb" x="582.0" y="300.0" text-anchor="start">DWG SC-101</text><text class="tbs" x="582.0" y="314.0" text-anchor="start">REV A</text></svg></div>
 </div></header>
