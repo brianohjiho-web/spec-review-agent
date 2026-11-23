@@ -86,6 +86,10 @@ h1,h2,h3,p{font-family:"IBM Plex Sans",-apple-system,"Segoe UI",sans-serif}
 .sc-docpage h4{font-family:"Courier New",Courier,monospace;font-size:11pt;font-weight:700;text-align:center;margin:24px 0 0;padding:0;color:#1a1a1a}
 .sc-docpage p{margin:0 0 6px;font-family:"Courier New",Courier,monospace;color:#1a1a1a}
 .sc-docpage p.sc-item{padding-left:52px;text-indent:-22px}
+.sc-docpage .sc-note{margin:8px 0 8px 42%;font-size:9pt;line-height:1.3}
+.sc-docpage .sc-l1{padding-left:28px;text-indent:-18px}.sc-docpage .sc-l2{padding-left:56px;text-indent:-18px}.sc-docpage .sc-l3{padding-left:84px;text-indent:-18px}.sc-docpage .sc-l4{padding-left:112px;text-indent:-22px}
+.sc-docpage .sc-ref{display:grid;grid-template-columns:150px 1fr;gap:8px;padding-left:28px}.sc-docpage .sc-ref span:first-child{overflow:hidden;white-space:nowrap}.sc-docpage .sc-ref span:first-child::after{content:" ........................................"}
+.sc-docpage .sc-pg{display:flex;justify-content:center;border-top:1px dashed #bbb;margin:22px 0 14px;padding-top:6px;font-size:9pt;color:#666}
 .sc-docpage .sc-docnote{font-style:italic;color:#555;text-align:center;font-size:9.5pt;margin-bottom:10px}
 html:root body .sc-docpage,html:root body .sc-docpage h1,html:root body .sc-docpage h2,html:root body .sc-docpage h3,html:root body .sc-docpage h4,html:root body .sc-docpage p{font-family:"Courier New",Courier,monospace!important;letter-spacing:0}
 @media (max-width:600px){.sc-docpage{padding:28px 20px}}

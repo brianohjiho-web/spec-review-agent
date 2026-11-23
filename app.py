@@ -514,56 +514,102 @@ def type_box(equipment_type: str) -> None:
          f'<b>{escape(name)}</b><p>{escape(text)}</p></div>')
 
 
+PAGE_NUMBER = re.compile(r"^\d\d \d\d \d\d ?- ?(\d+)$")
+ITEM = re.compile(r"^(//)?([A-Z]\.|\d+\.|[a-z]\.|\d+\))\s+(.*)$")
+DOTTED = re.compile(r"^(\S.*?)\.{4,}(.*)$")
+END_MARKS = ("END OF SECTION", "---END---")
+
+
 def spec_lines(text: str) -> list[str]:
-    """Spec text lines without the page header and footer that repeat on every page."""
+    """Spec text lines. Each page header becomes a "\\f<page label>" marker; other repeated header lines are dropped."""
     lines = []
     for line in (re.sub(r"\s+", " ", line).strip() for line in text.splitlines()):
-        if not line:
+        if not line or line == "Issued for Construction" or re.match(r"^\d\d-\d\d-\d\d$", line):
             continue
-        if line == "Issued for Construction" or re.match(r"^\d\d \d\d \d\d ?- ?\d+$", line):
-            if lines:
-                lines.pop()  # the project name or section title printed beside it
-            continue
-        lines.append(line)
+        number = PAGE_NUMBER.match(line)
+        lines.append(f"\f{line}" if number else line)
     start = next((i for i, line in enumerate(lines) if line.startswith("SECTION ")), 0)
-    return lines[start:]
+    lines = lines[start:]
+    while lines and lines[0].startswith("\f"):
+        lines.pop(0)
+    return lines
 
 
 def doc_html(text: str) -> str:
-    """Shows spec text like a page of a printed spec: title, parts, articles, and lettered paragraphs."""
+    """Shows spec text like a printed spec: title, notes, parts, articles, nested items, and page breaks."""
     lines = spec_lines(text)
 
+    def level(marker: str) -> int:
+        return 1 if marker[0].isupper() else 2 if marker[0].isdigit() and marker.endswith(".") else 4 if marker.endswith(")") else 3
+
     def is_heading(line: str) -> bool:
-        if re.match(r"^PART \d+\s*-", line) or line in ("END OF SECTION", "---END---"):
+        if re.match(r"^(//)?PART \d+\s*-", line) or line in END_MARKS:
             return True
-        return bool(re.match(r"^(\d+(\.\d+)*\.?|[A-Z]\.)\s+\S", line)) and len(line) < 70 and not line.endswith((".", ":", ";"))
+        return bool(re.match(r"^(//)?\d+\.\d+(\.\d+)*\.?\s+\S", line)) and len(line) < 80 and line.split(maxsplit=1)[1][:1].isupper() and not line.endswith((".", ":", ";"))
+
+    def starts_block(line: str) -> bool:
+        return is_heading(line) or line.startswith("\f") or bool(ITEM.match(line)) or line.startswith("SPEC WRITER NOTE")
 
     i, title = 1, [lines[0]] if lines else []
-    while (i < len(lines) and not is_heading(lines[i]) and not title[-1].endswith(".")
-           and not lines[i].lower().startswith("sample document") and len(lines[i]) < 40):
+    while (i < len(lines) and not starts_block(lines[i]) and not title[-1].endswith(".")
+           and not lines[i].lower().startswith("sample document") and len(lines[i]) < 60):
         title.append(lines[i])
         i += 1
-    parts, paragraph = [f"<h1>{'<br>'.join(escape(t) for t in title)}</h1>"] if title else [], []
+    parts = [f"<h1>{'<br>'.join(escape(t) for t in title)}</h1>"] if title else []
+    kind, buffer = "", []
 
     def flush():
-        if paragraph:
-            joined = " ".join(paragraph)
-            note = ' class="sc-docnote"' if joined.lower().startswith("sample document") else (
-                ' class="sc-item"' if re.match(r"^[A-Z]\.\s", joined) else "")
-            parts.append(f"<p{note}>{escape(joined)}</p>")
-            paragraph.clear()
+        if buffer:
+            joined = " ".join(buffer)
+            if kind == "note":
+                parts.append(f'<p class="sc-note">{escape(joined)}</p>')
+            elif kind == "docnote":
+                parts.append(f'<p class="sc-docnote">{escape(joined)}</p>')
+            elif kind == "ref":
+                code, _, rest = joined.partition("\x00")
+                parts.append(f'<p class="sc-ref"><span>{escape(code)}</span><span>{escape(rest)}</span></p>')
+            elif kind.startswith("item"):
+                parts.append(f'<p class="sc-item sc-l{kind[4:]}">{escape(joined)}</p>')
+            else:
+                parts.append(f"<p>{escape(joined)}</p>")
+            buffer.clear()
 
     for line in lines[i:]:
-        if is_heading(line):
+        if line.startswith("\f"):
             flush()
-            tag = "h2" if line.startswith("PART ") else "h3" if line not in ("END OF SECTION", "---END---") else "h4"
+            kind = ""
+            parts.append(f'<div class="sc-pg"><span>{escape(line[1:])}</span></div>')
+        elif is_heading(line):
+            flush()
+            kind = ""
+            tag = "h2" if "PART " in line[:8] else "h4" if line in END_MARKS else "h3"
             parts.append(f"<{tag}>{escape(line)}</{tag}>")
+        elif line.startswith("SPEC WRITER NOTE"):
+            flush()
+            kind = "note"
+            buffer.append(line)
+        elif line.lower().startswith("sample document"):
+            flush()
+            kind = "docnote"
+            buffer.append(line)
+            flush()
+            kind = ""
+        elif kind.startswith("note") and not (ITEM.match(line) or DOTTED.match(line)):
+            buffer.append(line)
+        elif DOTTED.match(line):
+            flush()
+            kind = "ref"
+            code, rest = DOTTED.match(line).groups()
+            buffer.append(f"{code}\x00{rest.strip()}")
+        elif ITEM.match(line):
+            flush()
+            kind = f"item{level(ITEM.match(line).group(2))}"
+            buffer.append(line)
         else:
-            if re.match(r"^[A-Z]\.\s", line):
-                flush()
-            paragraph.append(line)
-            if line.lower().startswith("sample document"):
-                flush()
+            if kind == "ref" and buffer and "\x00" in buffer[0]:
+                buffer[0] += " " + line
+            else:
+                buffer.append(line)
     flush()
     return f'<div class="sc-docwrap"><article class="sc-docpage">{"".join(parts)}</article></div>'
 
