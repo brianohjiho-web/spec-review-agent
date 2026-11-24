@@ -6,6 +6,7 @@ from html import escape
 from pathlib import Path
 
 import streamlit as st
+import streamlit.components.v1 as components
 from anthropic import Anthropic, APIError
 from dotenv import load_dotenv
 
@@ -19,7 +20,7 @@ from speccheck.pdf import SpecFileError, read_pdf, read_pdfs
 from speccheck.review import build_review, to_pdf
 from speccheck.settings import DailyCounter, app_password, daily_limit, has_api_key, password_ok
 from speccheck.questions import make_questions
-from speccheck.theme import CSS, HEADER, icon, section_head
+from speccheck.theme import CSS, HEADER, REVEAL_JS, icon, section_head
 
 ROOT = Path(__file__).parent
 SAMPLES = ROOT / "data" / "samples"
@@ -896,3 +897,4 @@ else:
 
 html(JUMP)
 html(RAIL)
+components.html(REVEAL_JS, height=0)
