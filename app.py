@@ -47,7 +47,7 @@ html:root body .st-key-pasted-spec{background:#f1f3f4;padding:18px 12px;border-r
 html:root body .st-key-pasted-spec textarea{font-family:"Times New Roman",Times,serif!important;font-size:12pt!important;line-height:1.55!important;color:#1a1a1a!important;background:#fff!important;max-width:760px;margin:0 auto;padding:40px 56px!important;border:0!important;border-radius:2px!important;box-shadow:0 1px 3px rgba(60,64,67,.3),0 4px 8px rgba(60,64,67,.15)!important;text-align:left}
 html:root body .st-key-pasted-spec [data-baseweb="textarea"],html:root body .st-key-pasted-spec [data-baseweb="base-input"]{background:transparent!important;border:0!important;display:block;max-width:760px;margin:0 auto}
 .st-key-exband{background:#f6f7f7;border:1px solid #e1e5e8;border-radius:12px;padding:14px 16px;margin:12px 0 14px}
-[class*="st-key-exc-"]{--ex:#2f6db0;position:relative;border:1px solid #dde2e6;border-left:3px solid var(--ex);border-radius:9px;background:#fff;padding:9px 34px 9px 12px;gap:0!important;transition:border-color .15s,box-shadow .15s,transform .15s}
+[class*="st-key-exc-"]{--ex:#2f6db0;position:relative;border:1px solid #dde2e6;border-left:3px solid var(--ex);border-radius:9px;background:#fff;padding:9px 34px 9px 12px;gap:0!important;}
 [class*="st-key-exc-lv"]{--ex:#1f8a7a}[class*="st-key-exc-ups"]{--ex:#c47a12}
 [class*="st-key-exc-"]:hover{transform:translateY(-1px);border-color:color-mix(in srgb,var(--ex) 45%,#dde2e6);border-left-color:var(--ex);box-shadow:0 6px 16px -10px color-mix(in srgb,var(--ex) 60%,transparent)}
 [class*="st-key-exc-"]:has(.sc-ex.on){border-color:var(--ex);border-width:2px 2px 2px 5px;background:color-mix(in srgb,var(--ex) 12%,#fff);box-shadow:0 0 0 4px color-mix(in srgb,var(--ex) 22%,transparent),0 8px 18px -10px color-mix(in srgb,var(--ex) 70%,transparent)}
@@ -753,6 +753,13 @@ def equipment_panel() -> dict[str, str]:
     return {spec: file for _, specs in EQUIPMENT.values() for spec, file in specs.items()}
 
 
+def load_example(name: str) -> None:
+    st.session_state["example"] = name
+    try:
+        st.session_state["pasted-spec"] = read_pdfs([(download_file(name).name, file_bytes(download_file(name)))])
+    except SpecFileError:
+        st.session_state["pasted-spec"] = ""
+
 def example_picker() -> str | None:
     """Example spec PDFs based on real public specs, with the template blanks filled in."""
     files = [e for e in EXAMPLE_FILES if (EXAMPLES / f"{e[0]}.pdf").exists()]
@@ -769,14 +776,7 @@ def example_picker() -> str | None:
             on = " on" if picked == name else ""
             html(f'<div class="sc-ex{on}"><span class="l1"><b>{escape(rating)}</b><span>{kind_label}</span></span>'
                  f'<span class="o"><b>{short.get(org, "")}</b>{escape(org)}</span><span class="s">Sec {section}</span></div>')
-            if st.button("Load this example", key=f"try-{name}"):
-                st.session_state["example"] = name
-                try:
-                    st.session_state["pasted-spec"] = read_pdfs([(download_file(name).name, file_bytes(download_file(name)))])
-                except SpecFileError as error:
-                    st.session_state["pasted-spec"] = ""
-                    st.error(str(error))
-                st.rerun()
+            st.button("Load this example", key=f"try-{name}", on_click=load_example, args=(name,))
             st.download_button(":material/download:", file_bytes(download_file(name)), file_name=download_file(name).name,
                                mime="application/pdf", key=f"pdf-{name}", help="Download the original PDF")
     return picked if any(picked == e[0] for e in files) else None
