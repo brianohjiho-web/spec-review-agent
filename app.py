@@ -47,7 +47,8 @@ EXAMPLE_CSS = """<style>
 [class*="st-key-exc-"]{--ex:#2f6db0;position:relative;border:1px solid #dde2e6;border-left:3px solid var(--ex);border-radius:9px;background:#fff;padding:9px 34px 9px 12px;gap:0!important;transition:border-color .15s,box-shadow .15s,transform .15s}
 [class*="st-key-exc-lv"]{--ex:#1f8a7a}[class*="st-key-exc-ups"]{--ex:#c47a12}
 [class*="st-key-exc-"]:hover{transform:translateY(-1px);border-color:color-mix(in srgb,var(--ex) 45%,#dde2e6);border-left-color:var(--ex);box-shadow:0 6px 16px -10px color-mix(in srgb,var(--ex) 60%,transparent)}
-[class*="st-key-exc-"]:has(.sc-ex.on){border-color:var(--ex);box-shadow:0 0 0 2px color-mix(in srgb,var(--ex) 20%,transparent)}
+[class*="st-key-exc-"]:has(.sc-ex.on){border-color:var(--ex);border-width:2px 2px 2px 5px;background:color-mix(in srgb,var(--ex) 12%,#fff);box-shadow:0 0 0 4px color-mix(in srgb,var(--ex) 22%,transparent),0 8px 18px -10px color-mix(in srgb,var(--ex) 70%,transparent)}
+[class*="st-key-exc-"]:has(.sc-ex.on) .l1 b{color:var(--ex)}
 [class*="st-key-exc-"] [data-testid="stElementContainer"],[class*="st-key-exc-"] [data-testid="stMarkdownContainer"],[class*="st-key-exc-"] [data-testid="stMarkdown"]{margin:0!important;height:auto!important;overflow:visible!important}
 .sc-ex{display:grid;gap:1px;line-height:1.35;padding:1px 0 2px}
 .sc-ex .l1{display:flex;align-items:baseline;gap:5px;white-space:nowrap;overflow:hidden}
