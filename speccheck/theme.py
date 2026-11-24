@@ -517,25 +517,8 @@ html,body,.stApp,[data-testid="stAppViewContainer"],[data-testid="stMain"]{backg
 
 CSS += """<style>
 .sc-reveal-guard{display:block}
-.sc-reveal{opacity:0;transform:translateY(90px) scale(.92);filter:blur(8px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.34,1.45,.64,1),filter .8s ease}
-.sc-reveal.sc-in{opacity:1;transform:none;filter:none}
-.sc-reveal>div{opacity:0;transform:translateY(34px);transition:opacity .7s ease,transform .9s cubic-bezier(.34,1.5,.64,1)}
-.sc-reveal.sc-in>div{opacity:1;transform:none}
-.sc-reveal.sc-in>div:nth-child(1){transition-delay:.12s}.sc-reveal.sc-in>div:nth-child(2){transition-delay:.2s}.sc-reveal.sc-in>div:nth-child(3){transition-delay:.28s}.sc-reveal.sc-in>div:nth-child(4){transition-delay:.36s}.sc-reveal.sc-in>div:nth-child(5){transition-delay:.44s}.sc-reveal.sc-in>div:nth-child(n+6){transition-delay:.52s}
-.sc-reveal tbody tr{opacity:0;transform:translateX(-18px);transition:opacity .5s ease,transform .6s cubic-bezier(.34,1.5,.64,1)}
-.sc-reveal.sc-in tbody tr{opacity:1;transform:none}
-.sc-reveal.sc-in tbody tr:nth-child(1){transition-delay:.45s}.sc-reveal.sc-in tbody tr:nth-child(2){transition-delay:.5s}.sc-reveal.sc-in tbody tr:nth-child(3){transition-delay:.55s}.sc-reveal.sc-in tbody tr:nth-child(4){transition-delay:.6s}.sc-reveal.sc-in tbody tr:nth-child(5){transition-delay:.65s}.sc-reveal.sc-in tbody tr:nth-child(6){transition-delay:.7s}.sc-reveal.sc-in tbody tr:nth-child(7){transition-delay:.75s}.sc-reveal.sc-in tbody tr:nth-child(8){transition-delay:.8s}.sc-reveal.sc-in tbody tr:nth-child(n+9){transition-delay:.85s}
-.sc-hsteps.sc-reveal{opacity:1;transform:none;filter:none}
-.sc-hsteps.sc-reveal>li{opacity:0;transform:translateY(60px) scale(.9);transition:opacity .7s ease,transform 1s cubic-bezier(.34,1.6,.64,1)}
-.sc-hsteps.sc-reveal.sc-in>li{opacity:1;transform:none}
-.sc-hsteps.sc-reveal.sc-in>li:nth-child(2){transition-delay:.12s}.sc-hsteps.sc-reveal.sc-in>li:nth-child(3){transition-delay:.24s}.sc-hsteps.sc-reveal.sc-in>li:nth-child(4){transition-delay:.36s}
-.sc-reveal.sc-above:not(.sc-in){transform:translateY(-90px) scale(.92)}
-.sc-reveal.sc-above:not(.sc-in)>div{transform:translateY(-34px)}
-.sc-reveal.sc-above:not(.sc-in) tbody tr{transform:translateX(18px)}
-.sc-hsteps.sc-reveal.sc-above:not(.sc-in)>li{transform:translateY(-60px) scale(.9)}
-.sc-reveal.sc-in.sc-up tbody tr{transition-delay:.12s!important}
-.sc-reveal.sc-snap,.sc-reveal.sc-snap div,.sc-reveal.sc-snap tr,.sc-reveal.sc-snap li{transition:none!important}
-.sc-reveal:not(.sc-in),.sc-reveal:not(.sc-in) div,.sc-reveal:not(.sc-in) tr,.sc-reveal:not(.sc-in) li{transition-delay:0s!important}
+.sc-reveal{opacity:0;transform:translate3d(0,20px,0);transition:opacity .5s cubic-bezier(.25,.1,.25,1),transform .6s cubic-bezier(.22,.61,.36,1);will-change:opacity,transform}
+.sc-reveal.sc-in{opacity:1;transform:none;will-change:auto}
 [data-testid="stElementContainer"]:has(iframe[height="0"]){position:absolute!important;height:0!important;overflow:hidden!important;margin:0!important}
 @media (prefers-reduced-motion:reduce){.sc-reveal,.sc-reveal div,.sc-reveal tr{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}}
 </style>"""
@@ -544,12 +527,11 @@ REVEAL_JS = """<script>
 (()=>{const d=window.parent.document,w=window.parent;
 if(!("IntersectionObserver" in w)||w.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
 const keys=["band-about","band-demo","band-match","band-gap","band-table","band-compare","band-products","band-questions","band-spec"];
-const io=new w.IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting&&!e.target.classList.contains("sc-in")){const t=e.target,up=e.boundingClientRect.top<0;if(up!==t.classList.contains("sc-above")){t.classList.add("sc-snap");t.classList.toggle("sc-above",up);void t.offsetWidth;t.classList.remove("sc-snap");void t.offsetWidth}t.classList.toggle("sc-up",up);t.classList.add("sc-in")}},{threshold:.06,rootMargin:"-4% 0px -6% 0px"});
-const out=new w.IntersectionObserver(es=>{for(const e of es){const t=e.target;if(!e.isIntersecting){t.classList.remove("sc-in");t.classList.toggle("sc-above",e.boundingClientRect.top<0)}}},{threshold:0});
+const io=new w.IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){e.target.classList.add("sc-in");io.unobserve(e.target)}},{threshold:.03,rootMargin:"0px 0px -4% 0px"});
 const seen=new WeakSet();
 const scan=()=>{const els=[d.querySelector(".sc-hsteps"),...keys.map(k=>d.querySelector(".st-key-"+k))];
- for(const el of els){if(!el||seen.has(el))continue;seen.add(el);el.classList.add("sc-reveal");io.observe(el);out.observe(el)}};
-scan();new w.MutationObserver(scan).observe(d.body,{childList:true,subtree:true});
+ for(const el of els){if(!el||seen.has(el))continue;seen.add(el);el.classList.add("sc-reveal");io.observe(el)}};
+scan();let n=0;const iv=w.setInterval(()=>{scan();if(++n>20)w.clearInterval(iv)},500);
 d.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
  const t=d.querySelector(a.getAttribute("href"));const box=t&&t.closest(".sc-reveal");if(box)box.classList.add("sc-in")},true);
 })();
