@@ -286,7 +286,7 @@ async function startLive(){
  let ctl;stop.onclick=()=>ctl&&ctl.abort();
  run.onclick=async()=>{
   const text=box.value.trim();if(!text){status.textContent="Add spec text first.";return}
-  ctl=new AbortController();run.disabled=true;stop.hidden=false;status.textContent="Claude is reading the spec. This can take a minute...";
+  ctl=new AbortController();run.disabled=true;stop.hidden=false;status.textContent="Running...";
   try{
    const spec=cleanSpec(await sample.json(extractPrompt(text),{signal:ctl.signal}));
    const r=reviewSpec(spec,text);
