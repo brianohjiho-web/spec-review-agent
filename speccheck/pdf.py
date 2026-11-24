@@ -1,10 +1,13 @@
 """Reads text from one or more spec PDFs."""
+import re
 from io import BytesIO
 
 from pypdf import PdfReader
 
 # About 100,000 words. Longer specs cost more API credits per review.
 MAX_CHARACTERS = 600_000
+# Page-header dates such as 11-01-22 on a line by themselves.
+DATE_LINE = re.compile(r"^[ \t]*\d{1,2}[-/]\d{1,2}[-/]\d{2,4}[ \t]*\n?", re.M)
 
 
 class SpecFileError(ValueError):
@@ -24,6 +27,7 @@ def _extract(data: bytes, name: str = "this PDF") -> str:
         pages = [(page.extract_text() or "").strip() for page in reader.pages]
     except Exception as error:
         raise SpecFileError(f"I could not read {name}. It may be damaged or password protected.") from error
+    pages = [DATE_LINE.sub("", p).strip() for p in pages]
     text = "\n\n".join(p for p in pages if p)
     if not text:
         raise SpecFileError(f"{name[0].upper() + name[1:]} has no readable text. It may be a scan.")

@@ -43,6 +43,9 @@ EXAMPLE_FILES = [
 EXAMPLE_CSS = """<style>
 .sc-ex-head{font-size:.86rem;color:#5f6c76;margin:0 0 8px}.sc-ex-head b{color:#1d2730;margin-right:4px}.sc-sub{color:#5f6c76;font-size:.95rem;margin:-4px 0 12px}.sc-words{text-align:right;font-size:.8rem;color:#5f6c76;margin:-6px 0 4px}
 [data-testid="stFileUploaderDropzoneInstructions"]{display:none!important}
+html:root body .st-key-pasted-spec{background:#f1f3f4;padding:18px 12px;border-radius:8px}
+html:root body .st-key-pasted-spec textarea{font-family:"Times New Roman",Times,serif!important;font-size:12pt!important;line-height:1.55!important;color:#1a1a1a!important;background:#fff!important;max-width:760px;margin:0 auto;padding:40px 56px!important;border:0!important;border-radius:2px!important;box-shadow:0 1px 3px rgba(60,64,67,.3),0 4px 8px rgba(60,64,67,.15)!important;text-align:left}
+html:root body .st-key-pasted-spec [data-baseweb="textarea"],html:root body .st-key-pasted-spec [data-baseweb="base-input"]{background:transparent!important;border:0!important;display:block;max-width:760px;margin:0 auto}
 .st-key-exband{background:#f6f7f7;border:1px solid #e1e5e8;border-radius:12px;padding:14px 16px;margin:12px 0 14px}
 [class*="st-key-exc-"]{--ex:#2f6db0;position:relative;border:1px solid #dde2e6;border-left:3px solid var(--ex);border-radius:9px;background:#fff;padding:9px 34px 9px 12px;gap:0!important;transition:border-color .15s,box-shadow .15s,transform .15s}
 [class*="st-key-exc-lv"]{--ex:#1f8a7a}[class*="st-key-exc-ups"]{--ex:#c47a12}
@@ -163,10 +166,16 @@ def download_file(sample: str) -> Path:
     return original if sample in ORIGINAL_FILES and original.exists() else sample_folder(sample) / f"{sample}.pdf"
 
 
+@st.cache_data
+def file_bytes(path: Path) -> bytes:
+    return path.read_bytes()
+
+
 def sample_folder(sample: str) -> Path:
     return EXAMPLES if (EXAMPLES / f"{sample}.pdf").exists() else SAMPLES
 
 
+@st.cache_data(show_spinner=False)
 def saved_spec(sample: str) -> tuple[dict, str]:
     folder = sample_folder(sample)
     text = read_pdf((folder / f"{sample}.pdf").read_bytes())
@@ -535,6 +544,7 @@ def spec_lines(text: str) -> list[str]:
     return lines
 
 
+@st.cache_data(show_spinner=False)
 def doc_html(text: str) -> str:
     """Shows spec text like a printed spec: title, notes, parts, articles, nested items, and page breaks."""
     lines = spec_lines(text)
@@ -762,12 +772,12 @@ def example_picker() -> str | None:
             if st.button("Load this example", key=f"try-{name}"):
                 st.session_state["example"] = name
                 try:
-                    st.session_state["pasted-spec"] = read_pdfs([(download_file(name).name, download_file(name).read_bytes())])
+                    st.session_state["pasted-spec"] = read_pdfs([(download_file(name).name, file_bytes(download_file(name)))])
                 except SpecFileError as error:
                     st.session_state["pasted-spec"] = ""
                     st.error(str(error))
                 st.rerun()
-            st.download_button(":material/download:", download_file(name).read_bytes(), file_name=download_file(name).name,
+            st.download_button(":material/download:", file_bytes(download_file(name)), file_name=download_file(name).name,
                                mime="application/pdf", key=f"pdf-{name}", help="Download the original PDF")
     return picked if any(picked == e[0] for e in files) else None
 
@@ -873,7 +883,7 @@ with st.container(key="band-demo"):
     type_box(sample_review.equipment_type)
     st.download_button(
         "Download the original PDF" if sample in ORIGINAL_FILES else "Download this sample PDF",
-        download_file(sample).read_bytes(),
+        file_bytes(download_file(sample)),
         file_name=download_file(sample).name,
         mime="application/pdf",
     )
