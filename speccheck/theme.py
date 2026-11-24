@@ -79,19 +79,19 @@ h1,h2,h3,p{font-family:"IBM Plex Sans",-apple-system,"Segoe UI",sans-serif}
 .sc-trend{align-content:start;border:1px solid var(--line);border-radius:8px;padding:12px;background:#fff;min-width:0;display:grid;gap:6px}
 @media (max-width:900px){.sc-trends{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .sc-docwrap{background:#eaeef2;border-radius:6px;padding:24px 16px}
-.sc-docpage{background:#fff;color:#1a1a1a;max-width:720px;margin:0 auto;padding:56px 72px 48px;box-shadow:0 1px 3px rgba(60,64,67,.3),0 4px 8px rgba(60,64,67,.15);font-family:"Courier New",Courier,monospace;font-size:10pt;line-height:1.45}
-.sc-docpage h1{font-family:"Courier New",Courier,monospace;font-size:12pt;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:.02em;margin:0 0 4px;padding:0;line-height:1.5;color:#1a1a1a}
-.sc-docpage h2{font-family:"Courier New",Courier,monospace;font-size:11pt;font-weight:700;margin:20px 0 6px;padding:0;color:#1a1a1a}
-.sc-docpage h3{font-family:"Courier New",Courier,monospace;font-size:11pt;font-weight:700;margin:10px 0 4px;padding:0;color:#1a1a1a}
-.sc-docpage h4{font-family:"Courier New",Courier,monospace;font-size:11pt;font-weight:700;text-align:center;margin:24px 0 0;padding:0;color:#1a1a1a}
-.sc-docpage p{margin:0 0 6px;font-family:"Courier New",Courier,monospace;color:#1a1a1a}
+.sc-docpage{background:#fff;color:#1a1a1a;max-width:720px;margin:0 auto;padding:56px 72px 48px;box-shadow:0 1px 3px rgba(60,64,67,.3),0 4px 8px rgba(60,64,67,.15);font-family:"Times New Roman",Times,serif;font-size:12pt;line-height:1.5;text-align:justify}
+.sc-docpage h1{font-family:"Times New Roman",Times,serif;font-size:16pt;font-weight:700;text-align:center;text-transform:none;margin:0 0 10px;padding:0;line-height:1.5;color:#1a1a1a}
+.sc-docpage h2{font-family:"Times New Roman",Times,serif;font-size:14pt;font-weight:700;margin:24px 0 8px;padding:0;color:#1a1a1a}
+.sc-docpage h3{font-family:"Times New Roman",Times,serif;font-size:12.5pt;font-weight:700;margin:16px 0 4px;padding:0;color:#1a1a1a}
+.sc-docpage h4{font-family:"Times New Roman",Times,serif;font-size:11pt;font-weight:700;text-align:center;margin:24px 0 0;padding:0;color:#1a1a1a}
+.sc-docpage p{margin:0 0 6px;font-family:"Times New Roman",Times,serif;color:#1a1a1a}
 .sc-docpage p.sc-item{padding-left:52px;text-indent:-22px}
-.sc-docpage .sc-note{margin:8px 0 8px 42%;font-size:9pt;line-height:1.3}
+.sc-docpage .sc-note{margin:8px 0 8px 42%;font-style:italic;font-size:10.5pt;line-height:1.3}
 .sc-docpage .sc-l1{padding-left:28px;text-indent:-18px}.sc-docpage .sc-l2{padding-left:56px;text-indent:-18px}.sc-docpage .sc-l3{padding-left:84px;text-indent:-18px}.sc-docpage .sc-l4{padding-left:112px;text-indent:-22px}
 .sc-docpage .sc-ref{display:grid;grid-template-columns:150px 1fr;gap:8px;padding-left:28px}.sc-docpage .sc-ref span:first-child{overflow:hidden;white-space:nowrap}.sc-docpage .sc-ref span:first-child::after{content:" ........................................"}
 .sc-docpage .sc-pg{display:flex;justify-content:center;border-top:1px dashed #bbb;margin:22px 0 14px;padding-top:6px;font-size:9pt;color:#666}
 .sc-docpage .sc-docnote{font-style:italic;color:#555;text-align:center;font-size:9.5pt;margin-bottom:10px}
-html:root body .sc-docpage,html:root body .sc-docpage h1,html:root body .sc-docpage h2,html:root body .sc-docpage h3,html:root body .sc-docpage h4,html:root body .sc-docpage p{font-family:"Courier New",Courier,monospace!important;letter-spacing:0}
+html:root body .sc-docpage,html:root body .sc-docpage h1,html:root body .sc-docpage h2,html:root body .sc-docpage h3,html:root body .sc-docpage h4,html:root body .sc-docpage p{font-family:"Times New Roman",Times,serif!important;letter-spacing:0}
 @media (max-width:600px){.sc-docpage{padding:28px 20px}}
 .sc-split{display:grid;gap:8px;border:1px solid var(--line);border-radius:8px;padding:16px 18px;background:#fff;margin:10px 0}
 .sc-split-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,2fr) 7rem 3.2rem;gap:12px;align-items:center;font-size:.9rem;text-align:left}

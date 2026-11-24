@@ -667,7 +667,6 @@ def show_review(review: Review, spec_text: str, show_type: bool = True) -> None:
         html('<span class="sc-anchor" id="sec-spec"></span>')
         label("Source")
         html(section_head("spec", "Original spec", 4))
-        html('<p class="sc-desc">Short sample spec for a fictional project. A real section usually runs 10 to 25 pages.</p>')
         with st.expander("View original spec"):
             html(doc_html(spec_text))
 
