@@ -517,7 +517,7 @@ html,body,.stApp,[data-testid="stAppViewContainer"],[data-testid="stMain"]{backg
 
 CSS += """<style>
 .sc-reveal-guard{display:block}
-.sc-reveal{opacity:0;transform:translate3d(0,20px,0);transition:opacity .5s cubic-bezier(.25,.1,.25,1),transform .6s cubic-bezier(.22,.61,.36,1);will-change:opacity,transform}
+.sc-reveal{opacity:0;transform:translate3d(0,40px,0) scale(.94);transition:opacity .45s ease-out,transform .65s cubic-bezier(.34,1.3,.64,1);will-change:opacity,transform}
 .sc-reveal.sc-in{opacity:1;transform:none;will-change:auto}
 [data-testid="stElementContainer"]:has(iframe[height="0"]){position:absolute!important;height:0!important;overflow:hidden!important;margin:0!important}
 @media (prefers-reduced-motion:reduce){.sc-reveal,.sc-reveal div,.sc-reveal tr{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}}
