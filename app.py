@@ -73,7 +73,6 @@ EQUIPMENT = {
     "Switchgear": (":material/dashboard:", {"Switchgear": None}),
     "UPS": (":material/battery_charging_full:", {"UPS": "orion_ups"}),
     "Server racks": (":material/dns:", {"Server racks": "atlas_server_racks"}),
-    "Real specs": (":material/description:", {"Real specs": None}),
 }
 # Examples built from real public specs. Picked in a second row like switchgear.
 REAL_SPECS = {
