@@ -527,7 +527,7 @@ REVEAL_JS = """<script>
 (()=>{const d=window.parent.document,w=window.parent;
 if(!("IntersectionObserver" in w)||w.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
 const keys=["band-about","band-demo","band-match","band-gap","band-table","band-compare","band-products","band-questions","band-spec"];
-const io=new w.IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){e.target.classList.add("sc-in");io.unobserve(e.target)}},{threshold:.03,rootMargin:"0px 0px -4% 0px"});
+const io=new w.IntersectionObserver(es=>{for(const e of es)e.target.classList.toggle("sc-in",e.isIntersecting)},{threshold:.03,rootMargin:"0px 0px -4% 0px"});
 const seen=new WeakSet();
 const scan=()=>{const els=[d.querySelector(".sc-hsteps"),...keys.map(k=>d.querySelector(".st-key-"+k))];
  for(const el of els){if(!el||seen.has(el))continue;seen.add(el);el.classList.add("sc-reveal");io.observe(el)}};
