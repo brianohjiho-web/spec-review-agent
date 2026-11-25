@@ -516,6 +516,20 @@ html,body,.stApp,[data-testid="stAppViewContainer"],[data-testid="stMain"]{backg
 </style>"""
 
 CSS += """<style>
+.sc-cmp{table-layout:fixed;width:max-content;min-width:100%;font-size:.84rem}
+.sc-cmp th,.sc-cmp td{border:0!important;border-bottom:1px solid #ebe5da!important;padding:9px 12px;background:#fff!important;width:150px}
+.sc-cmp thead th{background:#fff!important;border-bottom:2px solid #1f2328!important;vertical-align:bottom;padding-bottom:10px}
+.sc-cmp thead th:first-child,.sc-cmp tbody th{width:170px;position:sticky;left:0;z-index:2;background:#fff!important;border-right:1px solid #ebe5da!important}
+.sc-cmp tbody th{font-weight:600}
+.sc-cmp-maker{font-size:.66rem;letter-spacing:.06em;color:#7a8791}
+.sc-cmp-name{font-size:.82rem;margin:2px 0 4px;color:#1f2328}
+.sc-cmp-sum{font-size:.72rem;font-weight:500}
+.sc-cmp-tag{background:none;color:#0b6e76;border:1px solid #0b6e76;border-radius:3px;padding:0 6px}
+.sc-cmp td.c-PASS,.sc-cmp td.c-REVIEW{background:#fff!important}
+.sc-cmp td.c-FAIL{background:#fbeeec!important}
+.sc-cmp td.best,.sc-cmp th.best{box-shadow:none;background:#f3f8f8!important}
+.sc-cmp td.best.c-FAIL{background:#fbeeec!important}
+.sc-cmp tbody tr:hover td,.sc-cmp tbody tr:hover th{background-color:#faf7f1!important}
 .sc-reveal-guard{display:block}
 .sc-reveal{opacity:0;transform:translate3d(0,40px,0) scale(.94);transition:opacity .45s ease-out,transform .65s cubic-bezier(.34,1.3,.64,1);will-change:opacity,transform}
 .sc-reveal.sc-in{opacity:1;transform:none;will-change:auto}
