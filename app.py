@@ -760,12 +760,21 @@ def equipment_panel() -> dict[str, str]:
 
 
 def load_example(name: str) -> None:
+    if st.session_state.get("example") == name:
+        # Clicking the selected example again cancels it.
+        st.session_state["example"] = None
+        st.session_state["pasted-spec"] = ""
+        st.session_state["example_text"] = None
+        st.session_state["showing"] = "sample"
+        return
     st.session_state["example"] = name
     try:
         folder = sample_folder(name)
         st.session_state["pasted-spec"] = read_pdf((folder / f"{name}.pdf").read_bytes())
         st.session_state["example_text"] = st.session_state["pasted-spec"].strip()
-        st.session_state["showing"] = "sample"
+        st.session_state["showing"] = "none"
+    except SpecFileError:
+        st.session_state["pasted-spec"] = ""
     except SpecFileError:
         st.session_state["pasted-spec"] = ""
 
@@ -908,7 +917,7 @@ with st.container(key="band-demo"):
 
 if st.session_state.get("showing") == "claude" and "review" in st.session_state:
     show_review(st.session_state["review"], st.session_state["review_text"])
-else:
+elif st.session_state.get("showing") != "none":
     show_review(sample_review, sample_text, show_type=False)
 
 html(JUMP)
