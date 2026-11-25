@@ -842,6 +842,8 @@ def claude_panel() -> None:
             if picked and spec_text == st.session_state.get("review_text", "").strip() and picked in ORIGINAL_FILES:
                 st.session_state["review"], st.session_state["review_text"] = saved_review(picked)
                 st.session_state["showing"] = "claude"
+                components.html("<script>setTimeout(()=>{const e=window.parent.document.getElementById('sec-result');"
+                                "if(e)e.scrollIntoView({behavior:'smooth'})},600)</script>", height=0)
                 return
             with st.spinner("Running..."):
                 client = Anthropic(api_key=typed_key) if typed_key else None
