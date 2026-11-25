@@ -832,19 +832,19 @@ def claude_panel() -> None:
     with st.expander("Show or hide the spec text", expanded=False):
         pasted = st.text_area("Spec text", height=220, key="pasted-spec", label_visibility="collapsed",
                               placeholder="Paste the spec text here, or upload a PDF or click an example above.").strip()
-    if pasted and st.button("Run review", type="primary"):
+    if pasted and st.button("Run review", type="primary", key="run-review"):
+        picked = st.session_state.get("example")
+        if picked in ORIGINAL_FILES and pasted == st.session_state.get("review_text", "").strip():
+            st.session_state["review"], st.session_state["review_text"] = saved_review(picked)
+            st.session_state["showing"] = "claude"
+            components.html("<script>setTimeout(()=>{const e=window.parent.document.getElementById('sec-result');"
+                            "if(e)e.scrollIntoView({behavior:'smooth'})},600)</script>", height=0)
+            return
         if not review_counter().take(daily_limit()):
             st.warning("Today's review limit has been reached. Please try again tomorrow.")
             return
         try:
             spec_text = pasted
-            picked = st.session_state.get("example")
-            if picked and spec_text == st.session_state.get("review_text", "").strip() and picked in ORIGINAL_FILES:
-                st.session_state["review"], st.session_state["review_text"] = saved_review(picked)
-                st.session_state["showing"] = "claude"
-                components.html("<script>setTimeout(()=>{const e=window.parent.document.getElementById('sec-result');"
-                                "if(e)e.scrollIntoView({behavior:'smooth'})},600)</script>", height=0)
-                return
             with st.spinner("Running..."):
                 client = Anthropic(api_key=typed_key) if typed_key else None
                 st.session_state["review"] = SpecAgent(catalog(), client=client).run(spec_text)
