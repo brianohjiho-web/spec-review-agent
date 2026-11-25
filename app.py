@@ -764,9 +764,8 @@ def load_example(name: str) -> None:
     try:
         folder = sample_folder(name)
         st.session_state["pasted-spec"] = read_pdf((folder / f"{name}.pdf").read_bytes())
-        review, text = saved_review(name)
-        st.session_state["review"], st.session_state["review_text"] = review, text
-        st.session_state["showing"] = "claude"
+        st.session_state["example_text"] = st.session_state["pasted-spec"].strip()
+        st.session_state["showing"] = "sample"
     except SpecFileError:
         st.session_state["pasted-spec"] = ""
 
@@ -834,7 +833,7 @@ def claude_panel() -> None:
                               placeholder="Paste the spec text here, or upload a PDF or click an example above.").strip()
     if pasted and st.button("Run review", type="primary", key="run-review"):
         picked = st.session_state.get("example")
-        if picked in ORIGINAL_FILES and pasted == st.session_state.get("review_text", "").strip():
+        if picked in ORIGINAL_FILES and pasted == st.session_state.get("example_text"):
             st.session_state["review"], st.session_state["review_text"] = saved_review(picked)
             st.session_state["showing"] = "claude"
             components.html("<script>setTimeout(()=>{const e=window.parent.document.getElementById('sec-result');"
