@@ -882,13 +882,13 @@ with st.container(key="band-demo"):
                    "with blanks, so these copies fill in the values. For testing only.")
     sample_review, sample_text = saved_review(sample)
     type_box(sample_review.equipment_type)
+    st.caption("These examples are mainly separate for each section.")
     st.download_button(
         "Download the original PDF" if sample in ORIGINAL_FILES else "Download this sample PDF",
         file_bytes(download_file(sample)),
         file_name=download_file(sample).name,
         mime="application/pdf",
     )
-    st.caption("These examples are mainly separate for each section, like transformer and cable bus.")
     claude_panel()
 
 if st.session_state.get("showing") == "claude" and "review" in st.session_state:
