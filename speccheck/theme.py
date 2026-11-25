@@ -530,6 +530,9 @@ CSS += """<style>
 .sc-cmp td.best,.sc-cmp th.best{box-shadow:none;background:#f3f8f8!important}
 .sc-cmp td.best.c-FAIL{background:#fbeeec!important}
 .sc-cmp tbody tr:hover td,.sc-cmp tbody tr:hover th{background-color:#faf7f1!important}
+.sc-cmp{font-family:Arial,Helvetica,sans-serif!important}
+.sc-cmp-maker{text-transform:none!important;letter-spacing:0!important;font-size:.72rem}
+.sc-cmp-tag{border:0;padding:0;font-size:.72rem;font-weight:400;font-style:italic}
 .sc-reveal-guard{display:block}
 .sc-reveal{opacity:0;transform:translate3d(0,40px,0) scale(.94);transition:opacity .45s ease-out,transform .65s cubic-bezier(.34,1.3,.64,1);will-change:opacity,transform}
 .sc-reveal.sc-in{opacity:1;transform:none;will-change:auto}

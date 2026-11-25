@@ -287,14 +287,14 @@ def compare_table(review: Review) -> str:
         head += '<th class="mine"><div class="sc-cmp-maker">Your PDF</div><div class="sc-cmp-name">Uploaded file</div></th>'
     for n, c in enumerate(products):
         if c.mandatory_fails:
-            summary, tone = f"{c.mandatory_fails} fail · {c.reviews} to check", "bad"
+            summary, tone = f"{c.mandatory_fails} fail, {c.reviews} to verify", "bad"
         elif c.reviews:
-            summary, tone = f"No fails · {c.reviews} to check", "warn"
+            summary, tone = f"0 fails, {c.reviews} to verify", "warn"
         else:
-            summary, tone = "Meets all", "ok"
+            summary, tone = "All requirements met", "ok"
         maker = makers.get(c.product_id, "")
         name = c.product_name.replace(maker, "").strip() if maker else c.product_name
-        tag = '<div class="sc-cmp-tag">Best match</div>' if n == 0 else ""
+        tag = '<div class="sc-cmp-tag">Closest match</div>' if n == 0 else ""
         head += (f'<th class="{"best" if n == 0 else ""}"><div class="sc-cmp-maker">{escape(maker)}</div>'
                  f'<div class="sc-cmp-name">{escape(name or c.product_name)}</div>'
                  f'<div class="sc-cmp-sum {tone}">{summary}</div>{tag}</th>')
@@ -670,7 +670,7 @@ def show_review(review: Review, spec_text: str, show_type: bool = True) -> None:
         html('<span class="sc-anchor" id="sec-compare"></span>')
         label("Compare")
         html(section_head("compare", "Compare products", 2) +
-             '<p class="sc-desc">All products of this type, best fit first.</p>')
+             '<p class="sc-desc">Every product of this type, from closest match to furthest.</p>')
         html(compare_table(review))
 
     with st.container(key="band-products"):
