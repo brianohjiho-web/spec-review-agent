@@ -314,8 +314,8 @@ def compare_table(review: Review) -> str:
         pdf = f'<td class="mine">{escape(usd(first.required.replace("at least ", "").replace("at most ", "")))}</td>' if mine else ""
         rows += f'<tr><th><div class="sc-ci-name">{escape(item_name(first))}</div>{need}</th>{pdf}{cells}</tr>'
     return (
-        '<p class="sc-small"><span class="sc-mk PASS">✓</span> meets &nbsp; <span class="sc-mk FAIL">✗</span> doesn\'t meet &nbsp; '
-        '<span class="sc-mk REVIEW">?</span> needs a look &nbsp; <span class="sc-na">—</span> not listed</p>'
+        '<p class="sc-small">Key: <span class="sc-mk PASS">✓</span> meets &nbsp; <span class="sc-mk FAIL">✗</span> does not meet &nbsp; '
+        '<span class="sc-mk REVIEW">?</span> verify by hand &nbsp; <span class="sc-na">—</span> no data</p>'
         f'<div class="sc-scroll"><table class="sc-cmp"><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
     )
 
@@ -906,7 +906,7 @@ with st.container(key="band-demo"):
                    "with blanks, so these copies fill in the values. For testing only.")
     sample_review, sample_text = saved_review(sample)
     type_box(sample_review.equipment_type)
-    st.caption("These examples are mainly separate for each section.")
+    st.caption("These examples are mainly separate for each section. They are samples too.")
     st.download_button(
         "Download the original PDF" if sample in ORIGINAL_FILES else "Download this sample PDF",
         file_bytes(download_file(sample)),
