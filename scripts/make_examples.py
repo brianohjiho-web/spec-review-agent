@@ -42,10 +42,10 @@ EXAMPLES = {
             ]),
         ],
         "schedule": [
-            ["Rated maximum voltage", "15 kV"], ["Basic impulse level (BIL)", "95 kV"],
-            ["Main bus continuous current", "2000 A"], ["Short-circuit rating", "40 kA symmetrical"],
+            ["Rated maximum voltage", "15 kV"], ["Basic impulse level (BIL)", "110 kV"],
+            ["Main bus continuous current", "2000 A"], ["Short-circuit rating", "80 kA symmetrical"],
             ["Frequency", "60 Hz"], ["Phases", "3 phase, 3 wire"], ["Enclosure", "NEMA 1, indoor"],
-            ["Control power", "125 VDC"], ["Maximum lineup height", "100 in."],
+            ["Control power", "125 VDC"], ["Maximum lineup height", "88 in."],
         ],
     },
     "example_va_lv_switchgear": {
@@ -62,7 +62,7 @@ EXAMPLES = {
                     "Switchgear shall be a complete, grounded, continuous-duty, integral assembly, metal clad, "
                     "dead-front, dead-rear, self-supporting, indoor type switchgear assembly.",
                     "Switchgear shall comply with IEEE C37.20.1 and shall be listed to UL 1558.",
-                    "Short circuit ratings shall not be less than 100 kA.",
+                    "Short circuit ratings shall not be less than 250 kA.",
                 ]),
                 ("2.2 Circuit breakers", [
                     "Circuit breakers shall be air type, 3 pole, 600 volts AC and below, 60 Hz, with solid state trip devices.",
@@ -77,7 +77,7 @@ EXAMPLES = {
         ],
         "schedule": [
             ["System voltage", "480 V, 3 phase, 4 wire"], ["Frequency", "60 Hz"],
-            ["Main bus continuous current", "4000 A, copper"], ["Short-circuit rating", "100 kA"],
+            ["Main bus continuous current", "12000 A, copper"], ["Short-circuit rating", "250 kA"],
             ["Enclosure", "NEMA 1, indoor"], ["Cable entry", "bottom"],
         ],
     },
@@ -96,7 +96,7 @@ EXAMPLES = {
                 ("2.2 Ratings", [
                     "Nominal system voltage 480/277 V, 4 wire, 60 Hz.",
                     "Main bus continuous: 3200 A.",
-                    "Short-time and short-circuit current: 65 kA.",
+                    "Short-time and short-circuit current: 250 kA.",
                 ]),
                 ("2.3 Fabrication", [
                     "Factory assembled and tested and complying with IEEE C37.20.1 and UL 1558.",
@@ -110,8 +110,8 @@ EXAMPLES = {
         ],
         "schedule": [
             ["System voltage", "480/277 V, 3 phase, 4 wire"], ["Frequency", "60 Hz"],
-            ["Main bus continuous current", "3200 A"], ["Short-circuit rating", "65 kA"],
-            ["Enclosure", "NEMA 1, indoor, steel"], ["Maximum section height", "96 in."],
+            ["Main bus continuous current", "3200 A"], ["Short-circuit rating", "250 kA"],
+            ["Enclosure", "NEMA 1, indoor, steel"], ["Maximum section height", "80 in."],
         ],
     },
     "example_va_ups": {
@@ -132,7 +132,7 @@ EXAMPLES = {
                 ("2.3 System", [
                     "The UPS shall be listed to UL 1778.",
                     "The UPS shall be rated not less than 500 kVA and 500 kW.",
-                    "Double-conversion efficiency shall be at least 96 percent at full load.",
+                    "Double-conversion efficiency shall be at least 99 percent at full load.",
                     "Batteries shall be VRLA and shall support full load for 10 minutes.",
                     "A maintenance bypass shall be provided.",
                     "The UPS shall be provided in a NEMA 1 enclosure.",
@@ -145,7 +145,7 @@ EXAMPLES = {
         "schedule": [
             ["Rating", "500 kVA / 500 kW"], ["Input and output voltage", "480 V, 3 phase"],
             ["Frequency", "60 Hz"], ["Battery", "VRLA, 10 minutes at full load"],
-            ["Efficiency", "96 percent minimum"], ["Enclosure", "NEMA 1, indoor"],
+            ["Efficiency", "99 percent minimum"], ["Enclosure", "NEMA 1, indoor"],
         ],
     },
     "example_university_ups": {
@@ -162,7 +162,7 @@ EXAMPLES = {
             ("Part 2: Products", [
                 ("2.1 Manufacturers", ["Pre-approved manufacturers: Eaton, Square D (Schneider Electric), General Electric."]),
                 ("2.2 Ratings", [
-                    "The UPS shall be rated 100 kVA at 480 V, 3 phase, 60 Hz.",
+                    "The UPS shall be rated 100 kVA at 600 V, 3 phase, 60 Hz.",
                     "Battery runtime shall be at least 15 minutes at full load.",
                     "The UPS shall be listed to UL 1778.",
                 ]),
@@ -173,7 +173,7 @@ EXAMPLES = {
             ]),
         ],
         "schedule": [
-            ["Rating", "100 kVA"], ["Voltage", "480 V, 3 phase"], ["Frequency", "60 Hz"],
+            ["Rating", "100 kVA"], ["Voltage", "600 V, 3 phase"], ["Frequency", "60 Hz"],
             ["Battery runtime", "15 minutes at full load"],
         ],
     },
@@ -193,8 +193,8 @@ S = "Schedule"
 # The requirements a reader would pull out of each example, so the app can show them without calling Claude.
 LABELS = {
     "example_va_mv_switchgear": numbered("mv_switchgear", [
-        (S, "voltage_kv", "15 kV", 15, "kV"), (S, "bil_kv", "95 kV", 95, "kV"),
-        (S, "bus_current_a", "2000 A", 2000, "A"), (S, "short_circuit_ka", "40 kA symmetrical", 40, "kA"),
+        (S, "voltage_kv", "15 kV", 15, "kV"), (S, "bil_kv", "110 kV", 110, "kV"),
+        (S, "bus_current_a", "2000 A", 2000, "A"), (S, "short_circuit_ka", "80 kA symmetrical", 80, "kA"),
         (S, "frequency_hz", "60 Hz", 60, "Hz"), (S, "phases", "3 phase, 3 wire", 3),
         (S, "control_voltage_vdc", "125 VDC", 125, "VDC"), (S, "enclosure", "NEMA 1, indoor", None, "", "NEMA 1"),
         ("2.1", "location", "indoor type switchgear assembly", None, "", "indoor"),
@@ -202,13 +202,13 @@ LABELS = {
         ("2.2", "breaker_type", "vacuum type", None, "", "vacuum"),
         ("2.2", "features", "drawout", None, "", "drawout breakers"),
         ("2.3", "features", "seismic certified", None, "", "seismic certified"),
-        (S, "height_in", "100 in.", 100, "in"), ("3.1", "lead_time_weeks", "within 40 weeks", 40, "weeks"),
+        (S, "height_in", "88 in.", 88, "in"), ("3.1", "lead_time_weeks", "within 40 weeks", 40, "weeks"),
     ]),
     "example_va_lv_switchgear": numbered("lv_switchgear", [
         (S, "voltage_kv", "480 V, 3 phase, 4 wire", 480, "V"), (S, "frequency_hz", "60 Hz", 60, "Hz"),
-        (S, "phases", "3 phase", 3), (S, "bus_current_a", "4000 A", 4000, "A"),
+        (S, "phases", "3 phase", 3), (S, "bus_current_a", "12000 A", 12000, "A"),
         (S, "bus_material", "copper", None, "", "copper"),
-        ("2.1", "short_circuit_ka", "not be less than 100 kA", 100, "kA"),
+        ("2.1", "short_circuit_ka", "not be less than 250 kA", 250, "kA"),
         ("2.1", "standards", "comply with IEEE C37.20.1", None, "", "IEEE C37.20.1"),
         ("2.1", "standards", "listed to UL 1558", None, "", "UL 1558"),
         ("2.1", "location", "indoor type switchgear assembly", None, "", "indoor"),
@@ -222,19 +222,19 @@ LABELS = {
     "example_university_lv_switchgear": numbered("lv_switchgear", [
         ("2.2", "voltage_kv", "480/277 V", 480, "V"), ("2.2", "frequency_hz", "60 Hz", 60, "Hz"),
         (S, "phases", "3 phase, 4 wire", 3), ("2.2", "bus_current_a", "Main bus continuous: 3200 A", 3200, "A"),
-        ("2.2", "short_circuit_ka", "short-circuit current: 65 kA", 65, "kA"),
+        ("2.2", "short_circuit_ka", "short-circuit current: 250 kA", 250, "kA"),
         ("1.2", "standards", "Comply with UL 1558", None, "", "UL 1558"),
         ("2.3", "standards", "complying with IEEE C37.20.1", None, "", "IEEE C37.20.1"),
         ("2.3", "enclosure_material", "enclosure material: steel", None, "", "steel"),
         ("2.3", "location", "Indoor", None, "", "indoor"),
         ("2.4", "features", "drawout breakers", None, "", "drawout breakers"),
         ("2.4", "features", "arc flash maintenance mode", None, "", "arc flash maintenance mode"),
-        (S, "enclosure", "NEMA 1, indoor, steel", None, "", "NEMA 1"), (S, "height_in", "96 in.", 96, "in"),
+        (S, "enclosure", "NEMA 1, indoor, steel", None, "", "NEMA 1"), (S, "height_in", "80 in.", 80, "in"),
     ]),
     "example_va_ups": numbered("ups", [
         ("2.3", "power_kva", "not less than 500 kVA", 500, "kVA"), ("2.3", "power_kw", "500 kW", 500, "kW"),
         ("2.1", "voltage_kv", "Voltage 480 volts line-to-line", 480, "V"), ("2.1", "frequency_hz", "60 Hz", 60, "Hz"),
-        ("2.1", "phases", "3-phase, 3-wire", 3), ("2.3", "efficiency_pct", "at least 96 percent", 96, "%"),
+        ("2.1", "phases", "3-phase, 3-wire", 3), ("2.3", "efficiency_pct", "at least 99 percent", 99, "%"),
         ("2.3", "runtime_min", "full load for 10 minutes", 10, "minutes"),
         ("2.3", "battery_type", "Batteries shall be VRLA", None, "", "VRLA"),
         ("2.3", "standards", "listed to UL 1778", None, "", "UL 1778"),
@@ -243,7 +243,7 @@ LABELS = {
         ("3.1", "lead_time_weeks", "within 20 weeks", 20, "weeks"),
     ]),
     "example_university_ups": numbered("ups", [
-        ("2.2", "power_kva", "rated 100 kVA", 100, "kVA"), ("2.2", "voltage_kv", "480 V", 480, "V"),
+        ("2.2", "power_kva", "rated 100 kVA", 100, "kVA"), ("2.2", "voltage_kv", "600 V", 600, "V"),
         ("2.2", "phases", "3 phase", 3), ("2.2", "frequency_hz", "60 Hz", 60, "Hz"),
         ("2.2", "runtime_min", "at least 15 minutes", 15, "minutes"),
         ("2.2", "standards", "listed to UL 1778", None, "", "UL 1778"),
@@ -251,6 +251,17 @@ LABELS = {
         ("2.3", "battery_type", "Lithium-ion batteries are preferred", None, "", "lithium-ion", False),
     ]),
 }
+
+# Items the public catalog has no data for are left out so every row can be checked as pass or fail.
+DROP = {
+    "example_va_mv_switchgear": {"R5", "R6", "R7", "R8", "R12", "R15"},
+    "example_va_lv_switchgear": {"R2", "R3", "R5", "R12", "R14", "R15", "R16"},
+    "example_university_lv_switchgear": {"R2", "R3", "R8", "R11"},
+    "example_va_ups": {"R1", "R7", "R10", "R11", "R12"},
+    "example_university_ups": {"R1", "R5", "R7"},
+}
+for _name, _data in LABELS.items():
+    _data["requirements"] = [r for r in _data["requirements"] if r["id"] not in DROP[_name]]
 
 
 def build(name: str, spec: dict) -> Path:

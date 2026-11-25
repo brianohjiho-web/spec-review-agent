@@ -15,8 +15,8 @@
       "id": "R4",
       "section": "Schedule",
       "parameter": "bus_current_a",
-      "source_quote": "4000 A",
-      "value_number": 4000,
+      "source_quote": "12000 A",
+      "value_number": 12000,
       "unit": "A",
       "value_text": null,
       "mandatory": true
@@ -25,8 +25,8 @@
       "id": "R6",
       "section": "2.1",
       "parameter": "short_circuit_ka",
-      "source_quote": "not be less than 100 kA",
-      "value_number": 100,
+      "source_quote": "not be less than 250 kA",
+      "value_number": 250,
       "unit": "kA",
       "value_text": null,
       "mandatory": true

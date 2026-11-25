@@ -5,8 +5,8 @@
       "id": "R2",
       "section": "2.2",
       "parameter": "voltage_kv",
-      "source_quote": "480 V",
-      "value_number": 480,
+      "source_quote": "600 V",
+      "value_number": 600,
       "unit": "V",
       "value_text": null,
       "mandatory": true

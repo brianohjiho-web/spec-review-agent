@@ -15,8 +15,8 @@
       "id": "R2",
       "section": "Schedule",
       "parameter": "bil_kv",
-      "source_quote": "95 kV",
-      "value_number": 95,
+      "source_quote": "110 kV",
+      "value_number": 110,
       "unit": "kV",
       "value_text": null,
       "mandatory": true
@@ -35,8 +35,8 @@
       "id": "R4",
       "section": "Schedule",
       "parameter": "short_circuit_ka",
-      "source_quote": "40 kA symmetrical",
-      "value_number": 40,
+      "source_quote": "80 kA symmetrical",
+      "value_number": 80,
       "unit": "kA",
       "value_text": null,
       "mandatory": true
@@ -85,8 +85,8 @@
       "id": "R14",
       "section": "Schedule",
       "parameter": "height_in",
-      "source_quote": "100 in.",
-      "value_number": 100,
+      "source_quote": "88 in.",
+      "value_number": 88,
       "unit": "in",
       "value_text": null,
       "mandatory": true

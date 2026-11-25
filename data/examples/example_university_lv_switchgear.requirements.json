@@ -25,8 +25,8 @@
       "id": "R5",
       "section": "2.2",
       "parameter": "short_circuit_ka",
-      "source_quote": "short-circuit current: 65 kA",
-      "value_number": 65,
+      "source_quote": "short-circuit current: 250 kA",
+      "value_number": 250,
       "unit": "kA",
       "value_text": null,
       "mandatory": true
@@ -85,8 +85,8 @@
       "id": "R13",
       "section": "Schedule",
       "parameter": "height_in",
-      "source_quote": "96 in.",
-      "value_number": 96,
+      "source_quote": "80 in.",
+      "value_number": 80,
       "unit": "in",
       "value_text": null,
       "mandatory": true

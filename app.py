@@ -186,7 +186,14 @@ def saved_spec(sample: str) -> tuple[dict, str]:
 
 def saved_review(sample: str) -> tuple[Review, str]:
     data, text = saved_spec(sample)
-    return build_review(SpecRequirements(**data), catalog(), text), text
+    spec, products = SpecRequirements(**data), catalog()
+    review = build_review(spec, products, text)
+    if sample in ORIGINAL_FILES:
+        # Examples show only products the catalog can fully check, so the result is pass or fail, not "review".
+        complete = {p.product_id for p in review.ranked if p.reviews == 0}
+        if complete:
+            review = build_review(spec, [p for p in products if p["id"] in complete], text)
+    return review, text
 
 
 def html(content: str) -> None:
@@ -757,7 +764,11 @@ def equipment_panel() -> dict[str, str]:
 def load_example(name: str) -> None:
     st.session_state["example"] = name
     try:
-        st.session_state["pasted-spec"] = read_pdfs([(download_file(name).name, file_bytes(download_file(name)))])
+        folder = sample_folder(name)
+        st.session_state["pasted-spec"] = read_pdf((folder / f"{name}.pdf").read_bytes())
+        review, text = saved_review(name)
+        st.session_state["review"], st.session_state["review_text"] = review, text
+        st.session_state["showing"] = "claude"
     except SpecFileError:
         st.session_state["pasted-spec"] = ""
 

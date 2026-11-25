@@ -45,8 +45,8 @@
       "id": "R6",
       "section": "2.3",
       "parameter": "efficiency_pct",
-      "source_quote": "at least 96 percent",
-      "value_number": 96,
+      "source_quote": "at least 99 percent",
+      "value_number": 99,
       "unit": "%",
       "value_text": null,
       "mandatory": true
