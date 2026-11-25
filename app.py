@@ -906,7 +906,7 @@ with st.container(key="band-demo"):
                    "with blanks, so these copies fill in the values. For testing only.")
     sample_review, sample_text = saved_review(sample)
     type_box(sample_review.equipment_type)
-    st.caption("These examples are mainly separate for each section. They are samples too.")
+    st.caption("These are sample examples, mainly separate for each section.")
     st.download_button(
         "Download the original PDF" if sample in ORIGINAL_FILES else "Download this sample PDF",
         file_bytes(download_file(sample)),
