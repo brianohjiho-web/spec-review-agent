@@ -4,28 +4,31 @@
   </defs>
   <rect width="860" height="400" fill="#ffffff"/>
   <g font-size="15" text-anchor="middle" fill="#0f172a">
-    <rect x="30" y="150" width="140" height="80" rx="8" fill="#f1f5f9" stroke="#64748b"/>
-    <text x="100" y="186" font-weight="700">Spec PDF</text>
-    <text x="100" y="208" font-size="13">Text is pulled out</text>
+    <rect x="20" y="150" width="120" height="80" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="80" y="186" font-weight="700">Spec PDF</text>
+    <text x="80" y="208" font-size="12">Text is pulled out</text>
 
-    <rect x="240" y="130" width="170" height="120" rx="8" fill="#dbeafe" stroke="#2563eb"/>
-    <text x="325" y="175" font-weight="700">Claude agent</text>
-    <text x="325" y="198" font-size="13">Reads the spec</text>
-    <text x="325" y="218" font-size="13">Calls the tools</text>
+    <rect x="175" y="140" width="140" height="100" rx="8" fill="#dbeafe" stroke="#2563eb"/>
+    <text x="245" y="180" font-weight="700">Claude agent</text>
+    <text x="245" y="202" font-size="12">Reads the spec</text>
+    <text x="245" y="220" font-size="12">Calls the tools</text>
 
-    <rect x="490" y="140" width="170" height="100" rx="8" fill="#dcfce7" stroke="#16a34a"/>
-    <text x="575" y="174" font-weight="700">Python checks</text>
-    <text x="575" y="196" font-size="13">Compare to the catalog</text>
-    <text x="575" y="216" font-size="13">Decide pass or fail</text>
+    <rect x="350" y="150" width="140" height="80" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="420" y="196" font-weight="700">Product catalog</text>
 
-    <rect x="710" y="150" width="125" height="80" rx="8" fill="#fef3c7" stroke="#d97706"/>
-    <text x="772" y="186" font-weight="700">Engineer</text>
-    <text x="772" y="208" font-size="13">Makes the call</text>
+    <rect x="525" y="150" width="140" height="80" rx="8" fill="#dcfce7" stroke="#16a34a"/>
+    <text x="595" y="186" font-weight="700">Python checks</text>
+    <text x="595" y="208" font-size="12">Decide pass or fail</text>
+
+    <rect x="700" y="150" width="140" height="80" rx="8" fill="#fef3c7" stroke="#d97706"/>
+    <text x="770" y="186" font-weight="700">Engineer</text>
+    <text x="770" y="208" font-size="12">Makes the call</text>
   </g>
   <g fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)">
-    <path d="M170 190 H238"/>
-    <path d="M410 190 H488"/>
-    <path d="M660 190 H708"/>
+    <path d="M140 190 H173"/>
+    <path d="M315 190 H348"/>
+    <path d="M490 190 H523"/>
+    <path d="M665 190 H698"/>
   </g>
   <text x="430" y="32" font-size="19" font-weight="700" text-anchor="middle" fill="#0f172a">How SpecCheck AI works</text>
 </svg>
