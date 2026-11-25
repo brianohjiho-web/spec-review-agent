@@ -840,6 +840,11 @@ def claude_panel() -> None:
             return
         try:
             spec_text = pasted
+            picked = st.session_state.get("example")
+            if picked and spec_text == st.session_state.get("review_text", "").strip() and picked in ORIGINAL_FILES:
+                st.session_state["review"], st.session_state["review_text"] = saved_review(picked)
+                st.session_state["showing"] = "claude"
+                return
             with st.spinner("Running..."):
                 client = Anthropic(api_key=typed_key) if typed_key else None
                 st.session_state["review"] = SpecAgent(catalog(), client=client).run(spec_text)
