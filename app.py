@@ -189,10 +189,8 @@ def saved_review(sample: str) -> tuple[Review, str]:
     spec, products = SpecRequirements(**data), catalog()
     review = build_review(spec, products, text)
     if sample in ORIGINAL_FILES:
-        # Examples show only products the catalog can fully check, so the result is pass or fail, not "review".
-        complete = {p.product_id for p in review.ranked if p.reviews == 0}
-        if complete:
-            review = build_review(spec, [p for p in products if p["id"] in complete], text)
+        # Products the catalog can fully check come first; the rest stay listed for comparison.
+        review.ranked = sorted(review.ranked, key=lambda p: p.reviews > 0)
     return review, text
 
 
