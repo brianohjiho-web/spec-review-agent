@@ -765,7 +765,7 @@ def load_example(name: str) -> None:
         st.session_state["example"] = None
         st.session_state["pasted-spec"] = ""
         st.session_state["example_text"] = None
-        st.session_state["showing"] = "sample"
+        st.session_state["showing"] = "none"
         return
     st.session_state["example"] = name
     try:
