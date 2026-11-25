@@ -888,6 +888,7 @@ with st.container(key="band-demo"):
         file_name=download_file(sample).name,
         mime="application/pdf",
     )
+    st.caption("These examples are mainly for these products only: MV switchgear, LV switchgear and UPS.")
     claude_panel()
 
 if st.session_state.get("showing") == "claude" and "review" in st.session_state:
