@@ -42,46 +42,6 @@
       "mandatory": true
     },
     {
-      "id": "R5",
-      "section": "Schedule",
-      "parameter": "frequency_hz",
-      "source_quote": "60 Hz",
-      "value_number": 60,
-      "unit": "Hz",
-      "value_text": null,
-      "mandatory": true
-    },
-    {
-      "id": "R6",
-      "section": "Schedule",
-      "parameter": "phases",
-      "source_quote": "3 phase, 3 wire",
-      "value_number": 3,
-      "unit": "",
-      "value_text": null,
-      "mandatory": true
-    },
-    {
-      "id": "R7",
-      "section": "Schedule",
-      "parameter": "control_voltage_vdc",
-      "source_quote": "125 VDC",
-      "value_number": 125,
-      "unit": "VDC",
-      "value_text": null,
-      "mandatory": true
-    },
-    {
-      "id": "R8",
-      "section": "Schedule",
-      "parameter": "enclosure",
-      "source_quote": "NEMA 1, indoor",
-      "value_number": null,
-      "unit": "",
-      "value_text": "NEMA 1",
-      "mandatory": true
-    },
-    {
       "id": "R9",
       "section": "2.1",
       "parameter": "location",
@@ -112,16 +72,6 @@
       "mandatory": true
     },
     {
-      "id": "R12",
-      "section": "2.2",
-      "parameter": "features",
-      "source_quote": "drawout",
-      "value_number": null,
-      "unit": "",
-      "value_text": "drawout breakers",
-      "mandatory": true
-    },
-    {
       "id": "R13",
       "section": "2.3",
       "parameter": "features",
@@ -138,16 +88,6 @@
       "source_quote": "100 in.",
       "value_number": 100,
       "unit": "in",
-      "value_text": null,
-      "mandatory": true
-    },
-    {
-      "id": "R15",
-      "section": "3.1",
-      "parameter": "lead_time_weeks",
-      "source_quote": "within 40 weeks",
-      "value_number": 40,
-      "unit": "weeks",
       "value_text": null,
       "mandatory": true
     }

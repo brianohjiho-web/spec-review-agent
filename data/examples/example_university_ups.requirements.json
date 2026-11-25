@@ -2,16 +2,6 @@
   "equipment_type": "ups",
   "requirements": [
     {
-      "id": "R1",
-      "section": "2.2",
-      "parameter": "power_kva",
-      "source_quote": "rated 100 kVA",
-      "value_number": 100,
-      "unit": "kVA",
-      "value_text": null,
-      "mandatory": true
-    },
-    {
       "id": "R2",
       "section": "2.2",
       "parameter": "voltage_kv",
@@ -42,16 +32,6 @@
       "mandatory": true
     },
     {
-      "id": "R5",
-      "section": "2.2",
-      "parameter": "runtime_min",
-      "source_quote": "at least 15 minutes",
-      "value_number": 15,
-      "unit": "minutes",
-      "value_text": null,
-      "mandatory": true
-    },
-    {
       "id": "R6",
       "section": "2.2",
       "parameter": "standards",
@@ -59,16 +39,6 @@
       "value_number": null,
       "unit": "",
       "value_text": "UL 1778",
-      "mandatory": true
-    },
-    {
-      "id": "R7",
-      "section": "2.3",
-      "parameter": "features",
-      "source_quote": "maintenance bypass shall be provided",
-      "value_number": null,
-      "unit": "",
-      "value_text": "maintenance bypass",
       "mandatory": true
     },
     {

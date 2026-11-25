@@ -12,26 +12,6 @@
       "mandatory": true
     },
     {
-      "id": "R2",
-      "section": "Schedule",
-      "parameter": "frequency_hz",
-      "source_quote": "60 Hz",
-      "value_number": 60,
-      "unit": "Hz",
-      "value_text": null,
-      "mandatory": true
-    },
-    {
-      "id": "R3",
-      "section": "Schedule",
-      "parameter": "phases",
-      "source_quote": "3 phase",
-      "value_number": 3,
-      "unit": "",
-      "value_text": null,
-      "mandatory": true
-    },
-    {
       "id": "R4",
       "section": "Schedule",
       "parameter": "bus_current_a",
@@ -39,16 +19,6 @@
       "value_number": 4000,
       "unit": "A",
       "value_text": null,
-      "mandatory": true
-    },
-    {
-      "id": "R5",
-      "section": "Schedule",
-      "parameter": "bus_material",
-      "source_quote": "copper",
-      "value_number": null,
-      "unit": "",
-      "value_text": "copper",
       "mandatory": true
     },
     {
@@ -112,16 +82,6 @@
       "mandatory": true
     },
     {
-      "id": "R12",
-      "section": "2.2",
-      "parameter": "features",
-      "source_quote": "arc flash maintenance mode",
-      "value_number": null,
-      "unit": "",
-      "value_text": "arc flash maintenance mode",
-      "mandatory": true
-    },
-    {
       "id": "R13",
       "section": "Schedule",
       "parameter": "enclosure",
@@ -129,36 +89,6 @@
       "value_number": null,
       "unit": "",
       "value_text": "NEMA 1",
-      "mandatory": true
-    },
-    {
-      "id": "R14",
-      "section": "Schedule",
-      "parameter": "cable_entry",
-      "source_quote": "bottom",
-      "value_number": null,
-      "unit": "",
-      "value_text": "bottom",
-      "mandatory": true
-    },
-    {
-      "id": "R15",
-      "section": "2.3",
-      "parameter": "max_ambient_c",
-      "source_quote": "ambient temperature of 40 C",
-      "value_number": 40,
-      "unit": "C",
-      "value_text": null,
-      "mandatory": true
-    },
-    {
-      "id": "R16",
-      "section": "3.1",
-      "parameter": "lead_time_weeks",
-      "source_quote": "within 30 weeks",
-      "value_number": 30,
-      "unit": "weeks",
-      "value_text": null,
       "mandatory": true
     }
   ]
