@@ -7,7 +7,6 @@ A customer spec can run many pages, and someone has to check every requirement a
 | | |
 |---|---|
 | **Try it now** (nothing to install) | [Run SpecCheck AI online](https://spec-review-agent-5megvoy4huyip7c2tmz7fg.streamlit.app/) |
-| **Run it on your computer** | [Test it](#test-it) |
 
 ![SpecCheck AI screenshot](docs/speccheck-screenshot.png)
 
