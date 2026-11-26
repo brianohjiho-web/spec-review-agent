@@ -49,6 +49,8 @@ This project is not affiliated with or endorsed by any manufacturer. Check the s
 
 SpecCheck can check specs against a company's real product list instead of public datasheets. It is off until you turn it on.
 
+**If you plug in a company's full product data, SpecCheck gives its most accurate results.** Nothing is left blank, so every item is a clear Pass or Fail instead of Review.
+
 1. Open `speccheck/api_catalog.py` and edit `FIELD_MAP` and `TYPE_MAP` so their field and category names match SpecCheck's.
 2. Add these settings to `.env` on your computer, or to Streamlit Secrets online.
    ```
