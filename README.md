@@ -122,7 +122,12 @@ The sample specs are short and clean. Real specs are harder, so these results do
 
 ## Built with
 
-Python, Claude API, MCP, Streamlit, pandas, pypdf, Pydantic, and pytest.
+- **Languages and formats:** Python, JavaScript, HTML, CSS, JSON, TOML, SVG
+- **AI:** Claude API, Anthropic SDK, tool use, agent loop, MCP (Model Context Protocol)
+- **App and data:** Streamlit, pandas, pypdf, ReportLab, Pydantic, python-dotenv, REST API
+- **Website:** pdf.js, jsPDF
+- **Testing and tools:** pytest, Playwright, Git, GitHub
+- **Hosting:** Streamlit Community Cloud
 
 ## License
 
