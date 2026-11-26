@@ -122,11 +122,11 @@ The sample specs are short and clean. Real specs are harder, so these results do
 
 ## Built with
 
-- **Languages and formats:** Python, JavaScript, HTML, CSS, JSON, TOML, SVG
-- **AI:** Claude API, Anthropic SDK, tool use, agent loop, MCP (Model Context Protocol)
-- **App and data:** Streamlit, pandas, pypdf, ReportLab, Pydantic, python-dotenv, REST API
-- **Website:** pdf.js, jsPDF
-- **Testing and tools:** pytest, Playwright, Git, GitHub
+- **Core:** Python, Claude API, Anthropic SDK, tool use, agent loop, MCP (Model Context Protocol), Streamlit
+- **Data and PDFs:** pandas, pypdf, ReportLab, Pydantic, python-dotenv, REST API
+- **Testing:** pytest, Playwright
+- **Website:** HTML, CSS, JavaScript, pdf.js, jsPDF, SVG
+- **Config and tools:** JSON, TOML, Git, GitHub
 - **Hosting:** Streamlit Community Cloud
 
 ## License
