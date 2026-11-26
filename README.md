@@ -19,7 +19,7 @@ A customer spec can run many pages, and someone has to check every requirement a
 2. [Product catalog](#product-catalog)
 3. [Use a company's own product data](#use-a-companys-own-product-data)
 4. [How it works](#how-it-works)
-5. [Website and public demo](#website)
+5. [Public demo](#public-demo)
 6. [Test it](#test-it)
 7. [Use it with MCP](#use-it-with-mcp)
 8. [Project layout](#project-layout)
@@ -83,12 +83,6 @@ I split the work so each part does what it is best at:
 - **Unknown items are not guessed.** Unknown units, unknown values, and items outside the rules go to Review.
 - **Spec text is treated as data.** The prompt tells Claude not to follow instructions found inside a spec.
 - **Must-have items come first.** A product with a failed must-have item is never recommended.
-
-## Website
-
-`docs/index.html` is a product page with the sample results built in. It works with GitHub Pages and needs no Python or API key. It shows sample results only. Live Claude reviews use the Python app.
-
-To publish it, go to **Settings > Pages** in GitHub, choose **Deploy from a branch**, then select **main** and **/docs**.
 
 ## Public demo
 
