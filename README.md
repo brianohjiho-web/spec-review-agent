@@ -19,11 +19,10 @@ A customer spec can run many pages, and someone has to check every requirement a
 2. [Product catalog](#product-catalog)
 3. [Use a company's own product data](#use-a-companys-own-product-data)
 4. [How it works](#how-it-works)
-5. [Public demo](#public-demo)
-6. [Test it](#test-it)
-7. [Use it with MCP](#use-it-with-mcp)
-8. [Project layout](#project-layout)
-9. [Limits and next steps](#limits)
+5. [Test it](#test-it)
+6. [Use it with MCP](#use-it-with-mcp)
+7. [Project layout](#project-layout)
+8. [Limits and next steps](#limits)
 
 ## What it does
 
@@ -83,10 +82,6 @@ I split the work so each part does what it is best at:
 - **Unknown items are not guessed.** Unknown units, unknown values, and items outside the rules go to Review.
 - **Spec text is treated as data.** The prompt tells Claude not to follow instructions found inside a spec.
 - **Must-have items come first.** A product with a failed must-have item is never recommended.
-
-## Public demo
-
-The app can run on Streamlit Community Cloud. Add `ANTHROPIC_API_KEY` under **Settings > Secrets** there. The app reads Streamlit secrets directly. Visitors would use your API credits, so set a spending limit and add `APP_PASSWORD` and `DAILY_REVIEW_LIMIT` as secrets too. Without a secret, visitors can paste their own key for one visit instead.
 
 ## Test it
 
