@@ -1,4 +1,4 @@
-# SpecCheck AI: Spec Review Agent
+﻿# SpecCheck AI: Spec Review Agent
 
 **SpecCheck AI reads a customer's equipment spec, checks every item against real products, and shows which ones fit and what is missing.**
 
@@ -21,8 +21,7 @@ A customer spec can run many pages, and someone has to check every requirement a
 4. [How it works](#how-it-works)
 5. [Test it](#test-it)
 6. [Use it with MCP](#use-it-with-mcp)
-7. [Project layout](#project-layout)
-8. [Limits and next steps](#limits)
+7. [Limits and next steps](#limits)
 
 ## What it does
 
@@ -113,30 +112,6 @@ The sample specs are short and clean. Real specs are harder, so these results do
     }
   }
 }
-```
-
-## Project layout
-
-```text
-app.py                  Web app
-run_windows.bat         One-click start for Windows
-upload_to_github.bat    One-click GitHub upload for Windows
-mcp_server.py           MCP server
-speccheck/agent.py      Claude agent and tools
-speccheck/checks.py     Pass or fail rules and quote checks
-speccheck/review.py     Ranking and PDF export
-speccheck/api_catalog.py  Optional: load products from a company product API
-speccheck/settings.py   API key check and demo limits
-speccheck/metals.py     Material prices and price history
-speccheck/theme.py      Page design
-speccheck/pdf.py        PDF reading
-docs/index.html         GitHub Pages site
-data/catalog.json       Made-up catalog used only by the tests
-data/catalog_public.json  Ratings from public manufacturer pages, with a source link for each product
-data/samples/           Made-up specs and labels
-data/test_specs/        Harder made-up specs to try with Claude
-scripts/evaluate.py     Scoring
-tests/                  Automated tests
 ```
 
 ## Limits
