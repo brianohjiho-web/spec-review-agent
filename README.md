@@ -13,16 +13,6 @@ A customer spec can run many pages, and someone has to check every requirement a
 > [!NOTE]
 > The sample specs and the catalog used by the tests are made up. The online catalog uses ratings copied from public manufacturer pages. This project is not connected to or endorsed by any company.
 
-## Contents
-
-1. [What it does](#what-it-does)
-2. [Product catalog](#product-catalog)
-3. [Use a company's own product data](#use-a-companys-own-product-data)
-4. [How it works](#how-it-works)
-5. [Test it](#test-it)
-6. [Use it with MCP](#use-it-with-mcp)
-7. [Limits and next steps](#limits)
-
 ## What it does
 
 1. Reads one or more spec PDFs, like a spec and its addenda. Later documents override earlier ones.
