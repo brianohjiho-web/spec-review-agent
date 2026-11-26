@@ -1,14 +1,30 @@
 # SpecCheck AI: Spec Review Agent
 
-**[Run SpecCheck AI online](https://spec-review-agent-5megvoy4huyip7c2tmz7fg.streamlit.app/)**
-
 **SpecCheck AI reads a customer's equipment spec, checks every item against real products, and shows which ones fit and what is missing.**
 
 A customer spec can run many pages, and someone has to check every requirement against the product line. I built SpecCheck AI to do that first pass. It pulls out each requirement, checks it against a catalog, ranks the products, and flags what an engineer needs to look at.
 
+| | |
+|---|---|
+| **Try it now** (nothing to install) | [Run SpecCheck AI online](https://spec-review-agent-5megvoy4huyip7c2tmz7fg.streamlit.app/) |
+| **Run it on your computer** | [Test it](#test-it) |
+
 ![SpecCheck AI screenshot](docs/speccheck-screenshot.png)
 
-> All specs, products, and prices in this repo are made up for this demo. They are not real ratings or prices from any manufacturer, and this project is not connected to any company.
+> [!NOTE]
+> The sample specs and the catalog used by the tests are made up. The online catalog uses ratings copied from public manufacturer pages. This project is not connected to or endorsed by any company.
+
+## Contents
+
+1. [What it does](#what-it-does)
+2. [Product catalog](#product-catalog)
+3. [Use a company's own product data](#use-a-companys-own-product-data)
+4. [How it works](#how-it-works)
+5. [Website and public demo](#website)
+6. [Test it](#test-it)
+7. [Use it with MCP](#use-it-with-mcp)
+8. [Project layout](#project-layout)
+9. [Limits and next steps](#limits)
 
 ## What it does
 
