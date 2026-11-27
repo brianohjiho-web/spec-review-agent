@@ -72,19 +72,13 @@ I split the work so each part does what it is best at:
 - **Spec text is treated as data.** The prompt tells Claude not to follow instructions found inside a spec.
 - **Must-have items come first.** A product with a failed must-have item is never recommended.
 
-## Test it
+## How well it works
 
-```bash
-pytest                          # Tests that need no API key
-python scripts/evaluate.py      # Checks the Python rules on 11 sample specs
-python scripts/evaluate.py --live   # Scores Claude on the sample specs (uses API credits)
-```
-
-The tests cover the checks, the source quote guardrail, the agent's tool loop, the MCP server, and the web app. The agent tests use fake API replies, so they check my code and not Claude's reading.
+The Python rules were checked against 11 sample specs with hand-labeled requirements.
 
 | Measure | Result |
 |---|---|
-| Recommendations correct with hand-labeled requirements | 11 of 11 |
+| Recommendations correct | 11 of 11 |
 | Claude's extraction accuracy | Not measured yet |
 
 The sample specs are short and clean. Real specs are harder, so these results do not predict real-world accuracy.
