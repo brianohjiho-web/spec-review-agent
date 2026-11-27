@@ -1,4 +1,4 @@
-﻿# SpecCheck AI: Spec Review Agent
+# SpecCheck AI: Spec Review Agent
 
 **SpecCheck AI reads a customer's equipment spec, checks every item against real products, and shows which ones fit and what is missing.**
 
@@ -88,21 +88,6 @@ The tests cover the checks, the source quote guardrail, the agent's tool loop, t
 | Claude's extraction accuracy | Not measured yet |
 
 The sample specs are short and clean. Real specs are harder, so these results do not predict real-world accuracy.
-
-## Use it with MCP
-
-`mcp_server.py` shares the catalog search and compliance checks as MCP tools, so other AI apps can use them.
-
-```json
-{
-  "mcpServers": {
-    "speccheck": {
-      "command": "/full/path/to/spec-review-agent/.venv/bin/python",
-      "args": ["/full/path/to/spec-review-agent/mcp_server.py"]
-    }
-  }
-}
-```
 
 ## Limits
 
