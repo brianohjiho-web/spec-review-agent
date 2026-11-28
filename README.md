@@ -92,13 +92,6 @@ The sample specs are short and clean. Real specs are harder, so these results do
 - It does not apply altitude or temperature derating. It only compares values to the catalog limits.
 - When two products tie, it picks the one listed first in the catalog.
 
-## Next steps
-
-- Run live scoring on more realistic public specs.
-- Add OCR for scanned PDFs.
-- Let an engineer edit results in the app.
-- Add more equipment types, such as generators and segregated bus.
-
 ## Built with
 
 - **Core:** Python, Claude API, Anthropic SDK, tool use, agent loop, MCP (Model Context Protocol), Streamlit
